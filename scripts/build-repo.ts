@@ -69,8 +69,9 @@ for (const entry of [...new Glob("extensions/*/*/src/index.ts").scanSync(ROOT)].
   console.log(`  ${ext.pkg} ${ext.version}  ${(code.length / 1024).toFixed(1)} KB  ${ext.sources.map((s) => s.id).join(", ")}`);
 }
 
-// Old bundles nobody lists any more are removed.
-const keep = new Set(entries.map((e) => e.file.split("/")[1]));
+// Bundles the previous index listed stay for one more publish: GitHub's CDN can
+// serve that index for a few minutes after this one replaces it.
+const keep = new Set([...entries, ...(previous?.extensions ?? [])].map((e) => e.file.split("/")[1]));
 for (const f of existsSync(join(OUT, "extensions")) ? readdirSync(join(OUT, "extensions")) : []) {
   if (!keep.has(f)) rmSync(join(OUT, "extensions", f));
 }

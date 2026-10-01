@@ -72,23 +72,29 @@ export async function syncRepo({ indexUrl, publicKey, dir, fetch: f = fetch }: S
   const index = JSON.parse(indexText) as RepoIndex;
 
   const files: Record<string, string> = {};
+  const failed: Record<string, string> = {};
   for (const e of index.extensions) {
-    const local = join(dir, e.file);
-    let bytes: Uint8Array | null = null;
     try {
-      bytes = new Uint8Array(await readFile(local));
-      if ((await sha256(bytes)) !== e.sha256) bytes = null;
-    } catch {
-      bytes = null;
+      const local = join(dir, e.file);
+      let bytes: Uint8Array | null = null;
+      try {
+        bytes = new Uint8Array(await readFile(local));
+        if ((await sha256(bytes)) !== e.sha256) bytes = null;
+      } catch {
+        bytes = null;
+      }
+      if (!bytes) {
+        bytes = await get(new URL(e.file, indexUrl).toString());
+        if ((await sha256(bytes)) !== e.sha256) throw new Error(`${e.pkg} ${e.version}: download does not match its hash`);
+        await mkdir(dirname(local), { recursive: true });
+        await writeFile(local, bytes);
+      }
+      files[e.pkg] = local;
+    } catch (err) {
+      // one unreachable bundle shouldn't keep the other sources from updating
+      failed[e.pkg] = err instanceof Error ? err.message : String(err);
     }
-    if (!bytes) {
-      bytes = await get(new URL(e.file, indexUrl).toString());
-      if ((await sha256(bytes)) !== e.sha256) throw new Error(`${e.pkg} ${e.version}: download does not match its hash`);
-      await mkdir(dirname(local), { recursive: true });
-      await writeFile(local, bytes);
-    }
-    files[e.pkg] = local;
   }
   await writeFile(join(dir, "index.json"), indexText);
-  return { index, files };
+  return { index, files, failed };
 }
