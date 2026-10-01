@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 1,
-  "generatedAt": "2026-10-01T15:26:44.976Z",
+  "generatedAt": "2026-10-01T15:40:56.144Z",
   "extensions": [
     {
       "pkg": "storm.mangasto.azora",
@@ -40,11 +40,11 @@
     {
       "pkg": "storm.mangasto.lekmanga",
       "name": "LekManga",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.lekmanga-1.1.0.js",
-      "sha256": "322fa21b3ef41cf79e8297daf98776b9ed57c506fc889f82d0d1bbee5171cb32",
-      "size": 12822,
+      "file": "extensions/storm.mangasto.lekmanga-1.2.0.js",
+      "sha256": "77f4e3cf12403008e748db717d2e0e2ae31e6d0a3340c5691661eac98ae42e5a",
+      "size": 15792,
       "sources": [
         {
           "id": "lekmanga",
@@ -52,7 +52,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Most viewed, latest, recently added and A–Z lists, and search with covers.\n- Series and chapter pages sit behind a Cloudflare bot check, so series open on LekManga.\n- Three addresses to choose from in the admin."
+      "changelog": "- Series, chapters and pages are read on storm: they're fetched from LekManga's origin servers, past its Cloudflare check.\n- Series show their status, type, other names, author, artist and year; chapters show their dates."
     },
     {
       "pkg": "storm.mangasto.mangadex",
