@@ -1,16 +1,66 @@
 {
   "format": 1,
   "sdk": 1,
-  "generatedAt": "2026-10-01T00:32:01.235Z",
+  "generatedAt": "2026-10-01T01:07:11.916Z",
   "extensions": [
+    {
+      "pkg": "storm.mangasto.azora",
+      "name": "Azora",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.azora-1.0.0.js",
+      "sha256": "fe8f1689b5b4b4ef9177466c29dfa06ee6799d80df76a19cb66498de333e9bc9",
+      "size": 11841,
+      "sources": [
+        {
+          "id": "azora",
+          "name": "Azora",
+          "lang": "ar",
+          "icon": "https://azorafly.com/apple-touch-icon.png"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.dilar",
+      "name": "Dilar",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.dilar-1.0.0.js",
+      "sha256": "ead1323962f14e7c59d993a45132f50531c9b6fa9f5935dc7c14bee1ca8f5607",
+      "size": 12630,
+      "sources": [
+        {
+          "id": "dilar",
+          "name": "Dilar",
+          "lang": "ar",
+          "icon": "https://dilar.tube/logo512.png"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.lekmanga",
+      "name": "LekManga",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.lekmanga-1.0.0.js",
+      "sha256": "6320a33766d72e6856ba93a5695aafb66974c66f0571d00d8613f30cb1a6131c",
+      "size": 7291,
+      "sources": [
+        {
+          "id": "lekmanga",
+          "name": "LekManga",
+          "lang": "ar"
+        }
+      ]
+    },
     {
       "pkg": "storm.mangasto.mangadex",
       "name": "MangaDex",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.mangadex-1.0.0.js",
-      "sha256": "50448831973f111929cb92d7fc1f9d44861a6beae5980958a4af06d6bad0e0b0",
-      "size": 11232,
+      "file": "extensions/storm.mangasto.mangadex-1.0.1.js",
+      "sha256": "1380beeaf3e4cf772876a2346b059fc3cec48a94f457bcbff2227adc67e6adef",
+      "size": 12531,
       "sources": [
         {
           "id": "mangadex-en",
@@ -25,6 +75,41 @@
           "lang": "ar",
           "icon": "https://mangadex.org/favicon.svg",
           "rating": "suggestive"
+        }
+      ],
+      "changelog": "- English and Arabic sources: popular, latest, new and top rated lists, every MangaDex filter, full details, chapters and pages."
+    },
+    {
+      "pkg": "storm.mangasto.mangatime",
+      "name": "MangaTime",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.mangatime-1.0.0.js",
+      "sha256": "6eca3c9adfd29c88915f61c298218d35aaaf2282b9a912abb1f7c63e1dbec8ce",
+      "size": 12957,
+      "sources": [
+        {
+          "id": "mangatime",
+          "name": "MangaTime",
+          "lang": "ar",
+          "icon": "https://mangatime.org/images/logo-64.png"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.teamx",
+      "name": "Team X",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.teamx-1.0.0.js",
+      "sha256": "50f1d9e67ac64d719d6f5b413f633ec1886f7130ec1fcfa2facd62d7a1d4b299",
+      "size": 15829,
+      "sources": [
+        {
+          "id": "teamx",
+          "name": "Team X",
+          "lang": "ar",
+          "icon": "https://olympustaff.com/assets/images/favicon.png"
         }
       ]
     }
