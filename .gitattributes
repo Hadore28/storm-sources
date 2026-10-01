@@ -1,0 +1,3 @@
+* text=auto eol=lf
+*.json -diff linguist-generated=false
+extensions/**/fixtures/** -diff linguist-generated=true

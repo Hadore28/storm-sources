@@ -1,0 +1,23 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run typecheck
+      # replays recorded answers, so it never depends on the sites being up
+      - run: bun test
+      # also refuses a changed extension that kept its version number
+      - name: Compare with the published repo
+        run: |
+          git fetch origin repo:repo || exit 0
+          mkdir -p dist && git worktree add dist/repo repo
+      - run: bun run build

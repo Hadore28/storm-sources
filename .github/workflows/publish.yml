@@ -1,0 +1,49 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: publish
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun test
+
+      - name: Check out the published repo
+        run: |
+          if git fetch origin repo:repo; then
+            git worktree add dist/repo repo
+          else
+            git worktree add --orphan -b repo dist/repo
+          fi
+
+      - name: Build and sign
+        run: bun run build
+        env:
+          STORM_SIGNING_KEY: ${{ secrets.STORM_SIGNING_KEY }}
+
+      - name: Refuse to publish unsigned
+        run: test -s dist/repo/index.json.sig
+
+      - name: Push the repo branch
+        working-directory: dist/repo
+        run: |
+          git config user.name "storm-sources"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed"
+          else
+            git commit -m "Publish ${GITHUB_SHA::7}"
+            git push origin repo
+          fi

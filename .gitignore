@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+.env
+# the private signing key never enters the repo
+*.key
+signing-key*

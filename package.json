@@ -1,0 +1,25 @@
+{
+  "name": "storm-sources",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "bun test",
+    "test:live": "STORM_LIVE=1 bun test",
+    "record": "STORM_LIVE=1 STORM_RECORD=1 bun test",
+    "typecheck": "tsc --noEmit -p .",
+    "build": "bun scripts/build-repo.ts",
+    "keys": "bun scripts/keys.ts"
+  },
+  "dependencies": {
+    "@storm-sources/host": "workspace:*",
+    "@storm-sources/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.1.0",
+    "typescript": "^5.7.0"
+  },
+  "packageManager": "bun@1.3.14"
+}
