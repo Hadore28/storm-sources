@@ -87,6 +87,7 @@ const filterKey = (f: FilterValues) => JSON.stringify(Object.keys(f).sort().map(
 
 export class SourceHost {
   private entries = new Map<string, Entry>();
+  private inflight = new Map<string, Promise<unknown>>();
   readonly cache: Cache;
   private fetch: FetchLike;
 
@@ -165,9 +166,18 @@ export class SourceHost {
     };
   }
 
-  private async run<T>(id: string, op: Operation, key: string, work: (s: MangaSource, ctx: Context) => Promise<T>): Promise<T> {
-    const { source } = this.entry(id);
+  // Identical calls made at the same moment share one trip to the site.
+  private run<T>(id: string, op: Operation, key: string, work: (s: MangaSource, ctx: Context) => Promise<T>): Promise<T> {
     const cacheKey = `res:${id}:${op}:${key}`;
+    const pending = this.inflight.get(cacheKey);
+    if (pending) return pending as Promise<T>;
+    const p = this.runOnce(id, op, cacheKey, work).finally(() => this.inflight.delete(cacheKey));
+    this.inflight.set(cacheKey, p);
+    return p;
+  }
+
+  private async runOnce<T>(id: string, op: Operation, cacheKey: string, work: (s: MangaSource, ctx: Context) => Promise<T>): Promise<T> {
+    const { source } = this.entry(id);
     const started = performance.now();
     const hit = await this.cache.get<T>(cacheKey);
     if (hit !== undefined) {
