@@ -10,11 +10,13 @@ import {
   defineSource,
   demographic,
   genreKey,
+  genreOptions,
   mangaType,
   parseDate,
   status,
   type Chapter,
   type Context,
+  type FilterValues,
   type MangaSummary,
   type Paged,
   type Text,
@@ -52,7 +54,8 @@ function ajax(ctx: Context, form: Record<string, string>) {
   });
 }
 
-async function listing(ctx: Context, order: Record<string, string>, page: number): Promise<Paged<MangaSummary>> {
+async function listing(ctx: Context, order: Record<string, string>, page: number, filters: FilterValues): Promise<Paged<MangaSummary>> {
+  const genre = typeof filters.genre === "string" ? filters.genre : "";
   const html = await ajax(ctx, {
     action: "madara_load_more",
     page: String(page - 1),
@@ -62,6 +65,8 @@ async function listing(ctx: Context, order: Record<string, string>, page: number
     "vars[post_status]": "publish",
     "vars[posts_per_page]": String(PER_PAGE),
     ...order,
+    // comma-separated slugs match any of them
+    ...(genre ? { "vars[wp-manga-genre]": genre } : {}),
   });
   const doc = ctx.html(html, base(ctx));
   const items = doc.all(".page-item-detail").flatMap((card): MangaSummary[] => {
@@ -93,12 +98,26 @@ const lekmanga = defineSource({
   rateLimit: { requests: 2, perMs: 1000 },
   images: { proxy: true, resolve: ORIGIN },
   listings: [
-    { id: "popular", label: L("Most viewed", "الأكثر مشاهدة") },
-    { id: "latest", label: L("Latest updates", "آخر التحديثات") },
-    { id: "new", label: L("Recently added", "أُضيفت حديثاً") },
-    { id: "az", label: L("A–Z", "أبجدياً") },
+    { id: "popular", label: L("Most viewed", "الأكثر مشاهدة"), filters: true },
+    { id: "latest", label: L("Latest updates", "آخر التحديثات"), filters: true },
+    { id: "new", label: L("Recently added", "أُضيفت حديثاً"), filters: true },
+    { id: "az", label: L("A–Z", "أبجدياً"), filters: true },
   ],
-  filters: [],
+  async filters(ctx) {
+    const doc = await ctx.http.doc(`${SITE}/?s=&post_type=wp-manga`, { resolve: ORIGIN });
+    const genres = doc.all("input[name='genre[]']").flatMap((input) => {
+      const slug = input.attr("value");
+      const name = clean(doc.one(`label[for='${input.attr("id")}']`)?.text());
+      if (!slug || !name) return [];
+      try {
+        return [{ id: decodeURIComponent(slug), name }];
+      } catch {
+        return [{ id: slug, name }];
+      }
+    });
+    return [{ id: "genre", type: "select", label: L("Genre", "التصنيف"), options: genreOptions(genres) }];
+  },
+  searchFilters: true,
   settings: [
     {
       id: "mirror",
@@ -110,10 +129,10 @@ const lekmanga = defineSource({
     },
   ],
 
-  list: (ctx, { listing: id, page }) => listing(ctx, ORDER[id] ?? ORDER.popular, page),
+  list: (ctx, { listing: id, page, filters }) => listing(ctx, ORDER[id] ?? ORDER.popular, page, filters),
 
   // the list endpoint takes a search word and answers with the same cards, covers included
-  search: (ctx, { query, page }) => listing(ctx, { ...ORDER.popular, "vars[s]": query }, page),
+  search: (ctx, { query, page, filters }) => listing(ctx, { ...ORDER.popular, "vars[s]": query }, page, filters),
 
   async manga(ctx, id) {
     const doc = await series(ctx, id);
@@ -180,7 +199,7 @@ const lekmanga = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.lekmanga",
   name: "LekManga",
-  version: "1.1.0",
+  version: "1.2.0",
   app: "mangasto",
   sources: [lekmanga],
 });

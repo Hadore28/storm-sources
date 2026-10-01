@@ -1,3 +1,7 @@
+## 1.2.0
+
+- A genre filter on every list and on search.
+
 ## 1.1.0
 
 - Series, chapters and pages are read on storm: they're fetched from LekManga's origin servers, past its Cloudflare check.
