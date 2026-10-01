@@ -44,7 +44,7 @@ for (const candidate of mangaArg ? [mangaArg] : first.map((m) => m.id)) {
   if (!readable) continue;
   const pages = await host.pages(sourceId, candidate, readable.id);
   console.log(`  chapter ${readable.number} has ${pages.length} pages, first: ${pages[0].url}`);
-  const img = await fetch(pages[0].url, { headers: info.images.headers });
+  const img = await host.image(sourceId, pages[0].url);
   console.log(`  first page: ${img.status} ${img.headers.get("content-type")} ${(await img.arrayBuffer()).byteLength} bytes`);
   break;
 }

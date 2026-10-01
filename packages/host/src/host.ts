@@ -20,6 +20,7 @@ import { MemoryCache, scoped } from "./cache";
 import { parseHtml } from "./html";
 import { createHttp, type FetchLike } from "./http";
 import { RateLimiter } from "./rate-limit";
+import { fetchVia } from "./resolve";
 import { checkChapters, checkDetails, checkFilters, checkPaged, checkPages } from "./validate";
 
 export const DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
@@ -95,7 +96,7 @@ export class SourceHost {
 
   constructor(private opts: HostOptions = {}) {
     this.cache = opts.cache ?? new MemoryCache();
-    this.fetch = opts.fetch ?? ((url, init) => fetch(url, init));
+    this.fetch = opts.fetch ?? ((url, { resolve, ...init }) => (resolve ? fetchVia(resolve, url, init) : fetch(url, init)));
   }
 
   /** Adds an extension's sources, replacing an older version of the same package. */
@@ -240,6 +241,18 @@ export class SourceHost {
     return this.run(id, "pages", `${mangaId}:${chapterId}`, async (s, ctx) => {
       this.readable(s);
       return checkPages(await s.pages(ctx, mangaId, chapterId), `${id} pages of ${chapterId}`);
+    });
+  }
+
+  /** Fetches a cover or page for the image proxy, the way the source needs it fetched. */
+  image(id: string, url: string, timeoutMs = 20_000): Promise<Response> {
+    const { source } = this.entry(id);
+    const proxy = this.opts.proxy?.(id);
+    return this.fetch(url, {
+      headers: { "User-Agent": DEFAULT_USER_AGENT, Referer: `${source.baseUrl}/`, ...source.images?.headers },
+      signal: AbortSignal.timeout(timeoutMs),
+      ...(proxy ? { proxy } : {}),
+      ...(source.images?.resolve?.length ? { resolve: source.images.resolve } : {}),
     });
   }
 

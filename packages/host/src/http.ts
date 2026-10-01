@@ -2,7 +2,7 @@ import { SourceError, type Cache, type Doc, type Http, type HttpResponse, type Q
 import { parseHtml } from "./html";
 import type { RateLimiter } from "./rate-limit";
 
-export type FetchLike = (input: string, init: RequestInit & { proxy?: string }) => Promise<Response>;
+export type FetchLike = (input: string, init: RequestInit & { proxy?: string; resolve?: string[] }) => Promise<Response>;
 
 export interface HttpDeps {
   sourceId: string;
@@ -85,6 +85,7 @@ export function createHttp(deps: HttpDeps): Http {
         redirect: "follow",
         signal: AbortSignal.timeout(opts.timeoutMs ?? DEFAULT_TIMEOUT),
         ...(deps.proxy ? { proxy: deps.proxy } : {}),
+        ...(opts.resolve?.length ? { resolve: opts.resolve } : {}),
       });
     } catch (e) {
       const timeout = e instanceof Error && (e.name === "TimeoutError" || e.name === "AbortError");

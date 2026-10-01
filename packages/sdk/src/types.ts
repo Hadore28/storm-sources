@@ -180,6 +180,8 @@ export interface MangaSource {
     noReferrer?: boolean;
     /** must be fetched by the storm server rather than the visitor's browser */
     proxy?: boolean;
+    /** proxied images are fetched through these addresses, as in RequestOptions.resolve */
+    resolve?: string[];
   };
   /** how long answers stay fresh (ms), when the host's defaults don't fit, e.g. expiring page links */
   cache?: Partial<Record<"filters" | "list" | "search" | "manga" | "chapters" | "pages", number>>;
@@ -228,6 +230,8 @@ export interface RequestOptions {
   retries?: number;
   /** keep the response this long (ms); repeated calls are served from cache */
   cacheMs?: number;
+  /** connect to these IPs instead of the host's DNS answer, like curl --resolve */
+  resolve?: string[];
 }
 
 export interface HttpResponse {

@@ -9,6 +9,7 @@ import { join } from "node:path";
 import type { Extension } from "@storm-sources/sdk";
 import { SourceHost } from "./host";
 import type { FetchLike } from "./http";
+import { fetchVia } from "./resolve";
 
 const LIVE = process.env.STORM_LIVE === "1";
 const RECORD = process.env.STORM_RECORD === "1";
@@ -33,8 +34,8 @@ function recorder(dir: string): FetchLike {
       const r = JSON.parse(readFileSync(file, "utf8")) as Recording;
       return new Response(r.body, { status: r.status, headers: r.headers });
     }
-    const { proxy: _proxy, ...rest } = init;
-    const res = await fetch(url, rest);
+    const { proxy: _proxy, resolve, ...rest } = init;
+    const res = resolve ? await fetchVia(resolve, url, rest) : await fetch(url, rest);
     const body = await res.text();
     if (RECORD) {
       mkdirSync(dir, { recursive: true });
@@ -135,7 +136,9 @@ export function contractTests(ext: Extension, plans: ContractPlan[], fixtures: s
           expect(pages.length).toBeGreaterThan(0);
 
           if (LIVE) {
-            const res = await fetch(pages[0].url, { headers: info?.images.headers });
+            const direct = new SourceHost();
+            direct.register(ext);
+            const res = await direct.image(id, pages[0].url);
             expect(res.status).toBe(200);
             expect(res.headers.get("content-type") ?? "").toStartWith("image/");
           }

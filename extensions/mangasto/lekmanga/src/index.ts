@@ -1,12 +1,19 @@
-// LekManga — an Arabic Madara (WordPress) site. Its series and chapter pages sit
-// behind a Cloudflare bot check, so storm lists and searches it through the
-// endpoints its own pages use, and series open on LekManga to be read.
+// LekManga — an Arabic Madara (WordPress) site. Lists and search go through its
+// ajax endpoint; series, chapters and images sit behind Cloudflare, so those
+// are fetched straight from the origin servers, the way its app does.
 
 import {
+  SourceError,
   chapterNumber,
   clean,
   defineExtension,
   defineSource,
+  demographic,
+  genreKey,
+  mangaType,
+  parseDate,
+  status,
+  type Chapter,
   type Context,
   type MangaSummary,
   type Paged,
@@ -14,14 +21,20 @@ import {
 } from "@storm-sources/sdk";
 
 const MIRRORS = ["https://lekmanga.site", "https://mangalik.net", "https://like-manga.net"];
+const SITE = MIRRORS[0];
+// .218 serves the pages, some image shards only answer on .217
+const ORIGIN = ["5.187.35.218", "5.187.35.217"];
 const PER_PAGE = 20;
+// real pages sit in a /data<N>/ folder, or the old manga_<hash>/<chapter>/<n>.jpg layout
+const PAGE = /^https?:\/\/[^/]+\.lekmanga\.site\/(?:.*\/data\d*\/|.*\/manga_[a-z0-9]+\/\d+\/\d+\.\w+$)/i;
 
 const L = (en: string, ar: string): Text => ({ en, ar });
 
-const base = (ctx: Context) => (MIRRORS.includes(String(ctx.settings.mirror)) ? String(ctx.settings.mirror) : MIRRORS[0]);
+const base = (ctx: Context) => (MIRRORS.includes(String(ctx.settings.mirror)) ? String(ctx.settings.mirror) : SITE);
 const slugOf = (url: string | null) => url?.match(/\/manga\/([^/?#]+)/)?.[1];
 // WordPress keeps the original next to its "-110x150" thumbnails
 const fullSize = (src: string | null) => src?.replace(/\?.*$/, "").replace(/-\d+x\d+(\.\w+)$/, "$1") ?? undefined;
+const known = (v?: string) => (v && !/^updating$/i.test(v) ? v.split(/[,،]/).map(clean).filter(Boolean) : []);
 
 const ORDER: Record<string, Record<string, string>> = {
   popular: { "vars[orderby]": "meta_value_num", "vars[meta_key]": "_wp_manga_views", "vars[order]": "desc" },
@@ -61,7 +74,7 @@ async function listing(ctx: Context, order: Record<string, string>, page: number
         id,
         title: clean(link.text()),
         cover: fullSize(img?.href("data-src") ?? img?.href("src") ?? null),
-        url: `${base(ctx)}/manga/${id}/`,
+        url: `${SITE}/manga/${id}/`,
         latestChapter: chapterNumber(card.one(".chapter a")?.text()),
       },
     ];
@@ -69,13 +82,16 @@ async function listing(ctx: Context, order: Record<string, string>, page: number
   return { items, hasNext: items.length === PER_PAGE };
 }
 
+// manga() and chapters() read the same page, so it's kept briefly
+const series = (ctx: Context, id: string) => ctx.http.doc(`${SITE}/manga/${encodeURIComponent(id)}/`, { resolve: ORIGIN, cacheMs: 5 * 60_000 });
+
 const lekmanga = defineSource({
   id: "lekmanga",
   name: "LekManga",
   lang: "ar",
-  baseUrl: MIRRORS[0],
-  readOn: "site",
+  baseUrl: SITE,
   rateLimit: { requests: 2, perMs: 1000 },
+  images: { proxy: true, resolve: ORIGIN },
   listings: [
     { id: "popular", label: L("Most viewed", "الأكثر مشاهدة") },
     { id: "latest", label: L("Latest updates", "آخر التحديثات") },
@@ -90,7 +106,7 @@ const lekmanga = defineSource({
       label: L("Address", "العنوان"),
       description: L("LekManga answers on several addresses; switch if one stops.", "يعمل مانجا ليك على عدة عناوين؛ بدّل إن توقف أحدها."),
       options: MIRRORS.map((m) => ({ value: m, label: new URL(m).host })),
-      default: MIRRORS[0],
+      default: SITE,
     },
   ],
 
@@ -99,20 +115,72 @@ const lekmanga = defineSource({
   // the list endpoint takes a search word and answers with the same cards, covers included
   search: (ctx, { query, page }) => listing(ctx, { ...ORDER.popular, "vars[s]": query }, page),
 
-  manga: () => Promise.reject(new Error("read on LekManga")),
-  chapters: () => Promise.reject(new Error("read on LekManga")),
-  pages: () => Promise.reject(new Error("read on LekManga")),
+  async manga(ctx, id) {
+    const doc = await series(ctx, id);
+    const title = clean(doc.one(".post-title h1")?.text());
+    if (!title) throw new SourceError("changed", "LekManga series page has no title");
+    const info = Object.fromEntries(
+      doc.all(".post-content_item").map((row) => [clean(row.one(".summary-heading")?.text()), clean(row.one(".summary-content")?.text())]),
+    );
+    const tags = doc.all(".genres-content a").map((a) => a.text()).filter(Boolean);
+    const year = Number(info["سنة الانتاج"]);
+    return {
+      id,
+      title,
+      url: `${SITE}/manga/${id}/`,
+      cover: fullSize(doc.one(".summary_image img")?.href() ?? null),
+      type: [info["النوع"], ...tags].map(mangaType).find((t) => t && t !== "other"),
+      status: status(info["الحالة"]),
+      altTitles: known(info["اسماء اخرى"]),
+      description: clean((doc.one(".description-summary .summary__content") ?? doc.one(".description-summary"))?.text()) || undefined,
+      authors: known(info["المؤلف"]),
+      artists: known(info["الرسام"]),
+      genres: tags.filter((g) => !demographic(g) && mangaType(g) === "other").map((name) => ({ name, key: genreKey(name) })),
+      demographic: tags.map(demographic).find(Boolean),
+      year: Number.isInteger(year) && year > 1900 ? year : undefined,
+    };
+  },
+
+  async chapters(ctx, id) {
+    const doc = await series(ctx, id);
+    return doc.all("li.wp-manga-chapter").flatMap((li): Chapter[] => {
+      const a = li.one("a");
+      const href = a?.href();
+      const chapter = href?.match(/\/manga\/[^/]+\/([^?#]+?)\/?$/)?.[1];
+      if (!a || !href || !chapter) return [];
+      return [
+        {
+          id: decodeURIComponent(chapter),
+          number: chapterNumber(a.text()) ?? chapterNumber(chapter.replace("-", ".")),
+          lang: "ar",
+          date: parseDate(li.one(".chapter-release-date")?.text()),
+          url: href,
+        },
+      ];
+    });
+  },
+
+  async pages(ctx, id, chapter) {
+    const path = [id, ...chapter.split("/")].map(encodeURIComponent).join("/");
+    const doc = await ctx.http.doc(`${SITE}/manga/${path}/`, { resolve: ORIGIN });
+    const urls = doc
+      .all("img.wp-manga-chapter-img")
+      .map((img) => img.href())
+      .filter((u): u is string => !!u && PAGE.test(u));
+    return [...new Set(urls)].map((url) => ({ url }));
+  },
 
   resolveUrl(url) {
-    const id = slugOf(url);
-    return id ? { mangaId: id } : null;
+    const m = url.match(/\/manga\/([^/?#]+)(?:\/([^?#]+?))?\/?(?:[?#]|$)/);
+    if (!m) return null;
+    return m[2] ? { mangaId: m[1], chapterId: decodeURIComponent(m[2]) } : { mangaId: m[1] };
   },
 });
 
 export default defineExtension({
   pkg: "storm.mangasto.lekmanga",
   name: "LekManga",
-  version: "1.0.0",
+  version: "1.1.0",
   app: "mangasto",
   sources: [lekmanga],
 });
