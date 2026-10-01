@@ -1,0 +1,32 @@
+{
+  "format": 1,
+  "sdk": 1,
+  "generatedAt": "2026-10-01T00:30:07.406Z",
+  "extensions": [
+    {
+      "pkg": "storm.mangasto.mangadex",
+      "name": "MangaDex",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.mangadex-1.0.0.js",
+      "sha256": "50448831973f111929cb92d7fc1f9d44861a6beae5980958a4af06d6bad0e0b0",
+      "size": 11232,
+      "sources": [
+        {
+          "id": "mangadex-en",
+          "name": "MangaDex",
+          "lang": "en",
+          "icon": "https://mangadex.org/favicon.svg",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangadex-ar",
+          "name": "MangaDex عربي",
+          "lang": "ar",
+          "icon": "https://mangadex.org/favicon.svg",
+          "rating": "suggestive"
+        }
+      ]
+    }
+  ]
+}
