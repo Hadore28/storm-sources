@@ -1,7 +1,7 @@
 // Pure helpers extensions bundle with them. Each one understands English and
 // Arabic, since most storm sources publish in one or the other.
 
-import type { GenreKey, MangaType, Status } from "./types";
+import type { Demographic, GenreKey, MangaType, Status } from "./types";
 
 /** "١٢٫٥" → "12.5" (Arabic-Indic and Persian digits) */
 export function asciiDigits(text: string) {
@@ -141,67 +141,100 @@ export function mangaType(text: string | null | undefined): MangaType | undefine
   return "other";
 }
 
-const GENRE_ALIASES: [GenreKey, RegExp][] = [
-  ["action", /^(action|أكشن|اكشن|حركة|قتال)$/],
-  ["adventure", /^(adventure|مغامرة|مغامرات)$/],
-  ["comedy", /^(comedy|كوميدي|كوميديا|كوميدى)$/],
-  ["drama", /^(drama|دراما)$/],
-  ["fantasy", /^(fantasy|فانتازيا|فنتازيا|خيال|خيالي)$/],
-  ["horror", /^(horror|رعب)$/],
-  ["mystery", /^(mystery|غموض)$/],
-  ["romance", /^(romance|رومانسي|رومانسية|رومنسي|رومانس)$/],
-  ["scifi", /^(sci-?fi|science fiction|خيال علمي)$/],
-  ["sliceOfLife", /^(slice of life|شريحة من الحياة|حياة يومية|الحياة اليومية)$/],
-  ["sports", /^(sports?|رياضة|رياضي|رياضية)$/],
-  ["supernatural", /^(supernatural|خارق للطبيعة|خوارق|ما وراء الطبيعة|قوى خارقة)$/],
-  ["thriller", /^(thriller|إثارة|اثارة|تشويق)$/],
-  ["tragedy", /^(tragedy|مأساة|مأساوي|تراجيدي|تراجيديا)$/],
-  ["psychological", /^(psychological|نفسي|نفسية)$/],
-  ["historical", /^(historical|تاريخي|تاريخية)$/],
-  ["isekai", /^(isekai|إيسيكاي|ايسيكاي|عالم آخر|عالم اخر)$/],
-  ["darkFantasy", /^(dark fantasy|فانتازيا مظلمة)$/],
-  ["martialArts", /^(martial arts|فنون قتالية|فنون القتال)$/],
-  ["murim", /^(murim|موريم)$/],
-  ["cultivation", /^(cultivation|زراعة|تنمية الطاقة|تدريب الطاقة|wuxia|xianxia|ووشيا|شيانشيا)$/],
-  ["school", /^(school( life)?|مدرسي|مدرسية|حياة مدرسية)$/],
-  ["mecha", /^(mecha|ميكا|روبوتات)$/],
-  ["music", /^(music|موسيقى|موسيقي)$/],
-  ["cooking", /^(cooking|طبخ|طهي)$/],
-  ["medical", /^(medical|طبي|طبية)$/],
-  ["military", /^(military|عسكري|عسكرية)$/],
-  ["crime", /^(crime|جريمة|جرائم)$/],
-  ["magic", /^(magic|سحر)$/],
-  ["reincarnation", /^(reincarnation|تناسخ|إعادة تجسد|اعادة تجسد|عودة|رجوع بالزمن|regression|returner)$/],
-  ["timeTravel", /^(time travel|سفر عبر الزمن|السفر عبر الزمن)$/],
-  ["villainess", /^(villainess|الشريرة)$/],
-  ["gameWorld", /^(game|video games|games|ألعاب|العاب|لعبة|نظام|system)$/],
-  ["superhero", /^(superhero|أبطال خارقين|ابطال خارقين|بطل خارق)$/],
-  ["survival", /^(survival|نجاة|بقاء)$/],
-  ["apocalypse", /^(post-?apocalyptic|apocalypse|نهاية العالم|ما بعد الكارثة)$/],
-  ["monsters", /^(monsters?|وحوش)$/],
-  ["vampires", /^(vampires?|مصاصي دماء|مصاصين دماء)$/],
-  ["demons", /^(demons?|شياطين)$/],
-  ["zombies", /^(zombies?|زومبي)$/],
-  ["harem", /^(harem|حريم)$/],
-  ["reverseHarem", /^(reverse harem|حريم عكسي)$/],
-  ["boysLove", /^(boys'? love|yaoi|bl|shounen ai|ياوي)$/],
-  ["girlsLove", /^(girls'? love|yuri|gl|shoujo ai|يوري)$/],
-  ["gender", /^(gender bender|genderswap|تحول جنسي)$/],
-  ["office", /^(office|office workers|مكتب|موظفين)$/],
-  ["family", /^(family|عائلي|عائلة)$/],
-  ["revenge", /^(revenge|انتقام)$/],
-  ["workplace", /^(workplace|work life|عمل)$/],
-  ["ecchi", /^(ecchi|إيتشي|ايتشي)$/],
-  ["mature", /^(mature|adult|smut|ناضج|للبالغين|بالغين)$/],
-  ["gore", /^(gore|دموي)$/],
-];
+/**
+ * Folds the spellings Arabic sites mix freely: hamza forms, alef maqsura, taa
+ * marbuta, tatweel, diacritics and the definite article. "الأكشن" and "اكشن"
+ * both become "اكشن".
+ */
+export function foldArabic(text: string) {
+  return clean(text)
+    .toLowerCase()
+    .replace(/[ً-ٰٟـ]/g, "")
+    .replace(/[أإآٱ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ة/g, "ه")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .split(" ")
+    .map((w) => (w.length > 4 && w.startsWith("ال") ? w.slice(2) : w))
+    .join(" ");
+}
+
+// Each storm genre with the names sites give it, in English and Arabic.
+const GENRE_NAMES: Record<GenreKey, string[]> = {
+  action: ["action", "أكشن", "اكشن", "حركة", "قتال", "خيال اكشن"],
+  adventure: ["adventure", "مغامرة", "مغامرات"],
+  comedy: ["comedy", "كوميدي", "كوميديا", "كوميدا"],
+  drama: ["drama", "دراما", "درما", "دراما شوجو", "دراما اجتماعية", "دراما حضرية"],
+  fantasy: ["fantasy", "فانتازيا", "فنتازيا", "خيال", "خيالي", "خيال شرقي", "فانتزيا", "خيال حضري"],
+  horror: ["horror", "رعب", "كوابيس"],
+  mystery: ["mystery", "غموض", "تحقيق", "تحقيقات", "بوليسي", "لغز", "غامض", "أسرار"],
+  romance: ["romance", "رومانسي", "رومانسية", "رومنسي", "رومانس", "عاطفي", "حب", "علاقة عاطفية"],
+  scifi: ["sci-fi", "scifi", "science fiction", "خيال علمي", "كائنات فضائية", "كواكب"],
+  sliceOfLife: ["slice of life", "شريحة من الحياة", "حياة يومية", "الحياة اليومية"],
+  sports: ["sports", "sport", "رياضة", "رياضي", "رياضية"],
+  supernatural: ["supernatural", "خارق للطبيعة", "خوارق", "ما وراء الطبيعة", "قوى خارقة", "قوة خارقة", "خارق", "أشباح", "الأرواح", "خيال خارق"],
+  thriller: ["thriller", "إثارة", "تشويق", "suspense"],
+  tragedy: ["tragedy", "مأساة", "مأساوي", "تراجيدي", "تراجيديا", "بؤس"],
+  psychological: ["psychological", "نفسي", "نفسية", "فلسفي", "هوس", "تشويق نفسي", "دراما نفسية", "غموض نفسي", "أكشن نفسي"],
+  historical: ["historical", "history", "تاريخي", "تاريخية", "تارخي", "عصور وسطى", "فيكتوري", "عصر فيكتوري", "عصر جوسون", "نبلاء"],
+  isekai: ["isekai", "إيسيكاي", "ايسكاي", "ايسياكي", "عالم آخر", "عالم مختلف", "داخل اللعبة", "السفر عبر الأبعاد"],
+  darkFantasy: ["dark fantasy", "فانتازيا مظلمة", "عالم مظلم", "سوداوي"],
+  martialArts: ["martial arts", "فنون قتالية", "فنون قتال", "فنون القتال", "ساموراي", "نينجا"],
+  murim: ["murim", "موريم"],
+  cultivation: ["cultivation", "wuxia", "xianxia", "ووشيا", "شيانشيا", "صقل", "زراعة"],
+  school: ["school life", "school", "مدرسي", "مدرسية", "حياة مدرسية", "الحياة المدرسية", "أكاديمي", "أكاديمية", "حياة جامعية", "مدرسة ثانوية", "خيال مدرسي", "طالب"],
+  mecha: ["mecha", "ميكا", "روبوتات", "آليات"],
+  music: ["music", "موسيقى", "موسيقي", "ايدول"],
+  cooking: ["cooking", "طبخ", "طهي"],
+  medical: ["medical", "طبي", "طبية"],
+  military: ["military", "عسكري", "عسكرية", "حربي", "حرب", "حروب"],
+  crime: ["crime", "جريمة", "جرائم", "مافيا"],
+  magic: ["magic", "سحر", "مستحضر أرواح"],
+  reincarnation: ["reincarnation", "regression", "returner", "تناسخ", "تناسخ الأرواح", "تجسد", "تجسيد", "إعادة تجسد", "إعادة إحياء", "عودة بالزمن", "تراجع بالزمن", "تراجع", "رجوع بالزمن", "العودة", "إحياء"],
+  timeTravel: ["time travel", "السفر عبر الزمن", "سفر عبر الزمن", "تلاعب زمني", "زمكاني", "زمنكاني"],
+  villainess: ["villainess", "الشريرة"],
+  gameWorld: ["game", "games", "video games", "system", "ألعاب", "لعبة", "نظام", "زنزانات", "dungeons", "ألعاب فيديو", "نظام ألعاب", "عالم لعبة", "واقع افتراضي"],
+  superhero: ["superhero", "أبطال خارقين", "بطل خارق"],
+  survival: ["survival", "نجاة", "بقاء"],
+  apocalypse: ["post-apocalyptic", "apocalypse", "نهاية العالم", "ما بعد الكارثة", "بعد الكارثة"],
+  monsters: ["monsters", "monster", "وحوش", "تنانين"],
+  vampires: ["vampires", "vampire", "مصاص دماء", "مصاصي دماء", "مصاصو دماء", "مصاصي الدماء"],
+  demons: ["demons", "demon", "شياطين", "ملائكة", "آلهة", "اساطير"],
+  zombies: ["zombies", "zombie", "زومبي"],
+  harem: ["harem", "حريم"],
+  reverseHarem: ["reverse harem", "حريم عكسي"],
+  boysLove: ["boys' love", "boys love", "yaoi", "bl", "shounen ai", "ياوي"],
+  girlsLove: ["girls' love", "girls love", "yuri", "gl", "shoujo ai", "يوري"],
+  gender: ["gender bender", "genderswap", "جندر بندر", "تحول جنسي", "تبادل أجساد"],
+  office: ["office workers", "office", "مكتب", "مكتبي", "موظفين"],
+  family: ["family", "عائلي", "عائلة", "رعاية أطفال"],
+  revenge: ["revenge", "انتقام", "ثأر"],
+  workplace: ["workplace", "work life", "عمل"],
+  ecchi: ["ecchi", "إيتشي", "اتشي", "ايشي"],
+  mature: ["mature", "adult", "smut", "ناضج", "للبالغين", "بالغين", "راشد"],
+  gore: ["gore", "دموي", "دماء", "عنف"],
+};
+
+const GENRE_LOOKUP = new Map<string, GenreKey>();
+for (const [key, names] of Object.entries(GENRE_NAMES) as [GenreKey, string[]][]) {
+  for (const n of names) GENRE_LOOKUP.set(foldArabic(n), key);
+}
 
 /** Maps a site's genre name to a storm genre, when one matches. */
 export function genreKey(name: string): GenreKey | undefined {
-  const s = clean(name).toLowerCase();
-  return GENRE_ALIASES.find(([, re]) => re.test(s))?.[0];
+  return GENRE_LOOKUP.get(foldArabic(name));
 }
 
+/** Reads a demographic label such as "Shounen" or "شونين". */
+export function demographic(text: string | null | undefined): Demographic | undefined {
+  const s = foldArabic(text ?? "");
+  if (/(shounen|shonen|شونين)/.test(s)) return "shounen";
+  if (/(shoujo|shojo|شوجو)/.test(s)) return "shoujo";
+  if (/(seinen|سينين|شينين|سنين)/.test(s)) return "seinen";
+  if (/(josei|جوسي|جوسين)/.test(s)) return "josei";
+  return undefined;
+}
 export function uniqueBy<T>(items: T[], key: (item: T) => string) {
   const seen = new Set<string>();
   return items.filter((item) => {

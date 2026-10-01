@@ -70,6 +70,8 @@ export interface SourceInfo {
   listings: MangaSource["listings"];
   search: boolean;
   searchFilters: boolean;
+  /** series open on the source's own site */
+  readOn: "storm" | "site";
   settings: NonNullable<MangaSource["settings"]>;
   images: { proxy: boolean; noReferrer: boolean; headers: Record<string, string> };
 }
@@ -129,6 +131,7 @@ export class SourceHost {
       version: ext.version,
       listings: s.listings,
       search: typeof s.search === "function",
+      readOn: s.readOn === "site" ? "site" : "storm",
       searchFilters: !!s.searchFilters,
       settings: s.settings ?? [],
       images: { proxy: !!s.images?.proxy, noReferrer: !!s.images?.noReferrer, headers: s.images?.headers ?? {} },
@@ -215,16 +218,29 @@ export class SourceHost {
     });
   }
 
+  private readable(s: MangaSource) {
+    if (s.readOn === "site") throw new SourceError("unsupported", `${s.name} is read on its own site`);
+  }
+
   manga(id: string, mangaId: string): Promise<MangaDetails> {
-    return this.run(id, "manga", mangaId, async (s, ctx) => checkDetails(await s.manga(ctx, mangaId), `${id} manga ${mangaId}`));
+    return this.run(id, "manga", mangaId, async (s, ctx) => {
+      this.readable(s);
+      return checkDetails(await s.manga(ctx, mangaId), `${id} manga ${mangaId}`);
+    });
   }
 
   chapters(id: string, mangaId: string): Promise<Chapter[]> {
-    return this.run(id, "chapters", mangaId, async (s, ctx) => checkChapters(await s.chapters(ctx, mangaId), `${id} chapters of ${mangaId}`));
+    return this.run(id, "chapters", mangaId, async (s, ctx) => {
+      this.readable(s);
+      return checkChapters(await s.chapters(ctx, mangaId), `${id} chapters of ${mangaId}`);
+    });
   }
 
   pages(id: string, mangaId: string, chapterId: string): Promise<PageRef[]> {
-    return this.run(id, "pages", `${mangaId}:${chapterId}`, async (s, ctx) => checkPages(await s.pages(ctx, mangaId, chapterId), `${id} pages of ${chapterId}`));
+    return this.run(id, "pages", `${mangaId}:${chapterId}`, async (s, ctx) => {
+      this.readable(s);
+      return checkPages(await s.pages(ctx, mangaId, chapterId), `${id} pages of ${chapterId}`);
+    });
   }
 
   /** Drops cached answers for one source, e.g. after an admin changes its settings. */

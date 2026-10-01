@@ -13,5 +13,5 @@
     "verbatimModuleSyntax": false,
     "isolatedModules": true
   },
-  "include": ["packages/*/src/**/*.ts", "extensions/**/*.ts", "scripts/**/*.ts"]
+  "include": ["packages/*/src/**/*.ts", "packages/*/test/**/*.ts", "extensions/**/*.ts", "scripts/**/*.ts"]
 }

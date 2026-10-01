@@ -183,6 +183,8 @@ export interface MangaSource {
   };
   /** how long answers stay fresh (ms), when the host's defaults don't fit, e.g. expiring page links */
   cache?: Partial<Record<"filters" | "list" | "search" | "manga" | "chapters" | "pages", number>>;
+  /** series are read on the source's own site; storm lists them and links out */
+  readOn?: "site";
   listings: Listing[];
   /** static, or loaded once from the site (the host caches the result) */
   filters: FilterDef[] | ((ctx: Context) => Promise<FilterDef[]>);

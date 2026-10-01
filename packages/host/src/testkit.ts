@@ -48,8 +48,8 @@ function recorder(dir: string): FetchLike {
 
 export interface ContractPlan {
   source: string;
-  /** a series that should stay on the source for a long time */
-  manga: string;
+  /** a series that should stay on the source for a long time (not needed for sources read on their own site) */
+  manga?: string;
   search?: { query: string; expect: string };
   /** minimum items on the first page of each listing */
   minItems?: number;
@@ -84,6 +84,8 @@ export function contractTests(ext: Extension, plans: ContractPlan[], fixtures: s
             expect(page.items.length).toBeGreaterThanOrEqual(plan.minItems ?? 10);
             const withCover = page.items.filter((m) => m.cover).length;
             expect(withCover / page.items.length).toBeGreaterThanOrEqual(0.8);
+            // series read on the source's site need a link to open
+            if (info?.readOn === "site") expect(page.items.every((m) => m.url)).toBe(true);
           },
           TIMEOUT,
         );
@@ -101,10 +103,13 @@ export function contractTests(ext: Extension, plans: ContractPlan[], fixtures: s
         );
       }
 
+      if (!plan.manga) return;
+      const manga = plan.manga;
+
       test(
         "series details",
         async () => {
-          const m = await host.manga(id, plan.manga);
+          const m = await host.manga(id, manga);
           expect(m.title.length).toBeGreaterThan(0);
           expect(m.cover).toBeDefined();
           expect(m.genres.length).toBeGreaterThan(0);
@@ -117,12 +122,16 @@ export function contractTests(ext: Extension, plans: ContractPlan[], fixtures: s
       test(
         "chapters and pages",
         async () => {
-          const chapters = await host.chapters(id, plan.manga);
+          const chapters = await host.chapters(id, manga);
           expect(chapters.length).toBeGreaterThanOrEqual(plan.minChapters ?? 1);
           expect(chapters.filter((c) => c.number !== undefined).length / chapters.length).toBeGreaterThanOrEqual(0.9);
           const readable = chapters.find((c) => !c.external);
-          expect(readable).toBeDefined();
-          const pages = await host.pages(id, plan.manga, readable!.id);
+          // a source whose chapters all open on its own site must link every one
+          if (!readable) {
+            expect(chapters.every((c) => c.url)).toBe(true);
+            return;
+          }
+          const pages = await host.pages(id, manga, readable.id);
           expect(pages.length).toBeGreaterThan(0);
 
           if (LIVE) {
