@@ -1,8 +1,25 @@
 {
   "format": 1,
   "sdk": 1,
-  "generatedAt": "2026-10-03T01:34:51.416Z",
+  "generatedAt": "2026-10-03T01:46:18.584Z",
   "extensions": [
+    {
+      "pkg": "storm.mangasto.ares",
+      "name": "Ares Manga",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.ares-1.0.0.js",
+      "sha256": "3a135ea3f443e0209beab7c3adf22e190034e5b672c586bcd4d3bd1e1ee5f905",
+      "size": 12527,
+      "sources": [
+        {
+          "id": "ares",
+          "name": "Ares Manga",
+          "lang": "ar",
+          "icon": "https://fl-ares.com/apple-icon.png"
+        }
+      ]
+    },
     {
       "pkg": "storm.mangasto.azora",
       "name": "Azora",
