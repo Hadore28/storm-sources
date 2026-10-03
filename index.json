@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 1,
-  "generatedAt": "2026-10-01T15:40:56.144Z",
+  "generatedAt": "2026-10-03T01:34:51.416Z",
   "extensions": [
     {
       "pkg": "storm.mangasto.azora",
@@ -17,23 +17,6 @@
           "name": "Azora",
           "lang": "ar",
           "icon": "https://azorafly.com/apple-touch-icon.png"
-        }
-      ]
-    },
-    {
-      "pkg": "storm.mangasto.dilar",
-      "name": "Dilar",
-      "version": "1.0.0",
-      "app": "mangasto",
-      "file": "extensions/storm.mangasto.dilar-1.0.0.js",
-      "sha256": "ead1323962f14e7c59d993a45132f50531c9b6fa9f5935dc7c14bee1ca8f5607",
-      "size": 12630,
-      "sources": [
-        {
-          "id": "dilar",
-          "name": "Dilar",
-          "lang": "ar",
-          "icon": "https://dilar.tube/logo512.png"
         }
       ]
     },
