@@ -32,6 +32,7 @@ for (const entry of [...new Glob("extensions/*/*/src/index.ts").scanSync(ROOT)].
   const where = entry.replace(/\\/g, "/");
 
   if (ext.sdk !== SDK_VERSION) throw new Error(`${where}: built for sdk ${ext.sdk}, this repo is on ${SDK_VERSION}`);
+  if (where.split("/")[1] !== ext.app) throw new Error(`${where}: a ${ext.app} extension must live in extensions/${ext.app}/`);
   if (!VERSION.test(ext.version)) throw new Error(`${where}: version "${ext.version}" must look like 1.2.3`);
   if (pkgs.has(ext.pkg)) throw new Error(`${where}: package ${ext.pkg} is defined twice`);
   pkgs.add(ext.pkg);

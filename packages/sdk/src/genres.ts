@@ -55,6 +55,19 @@ export const GENRE_LABELS: Record<GenreKey, { en: string; ar: string }> = {
   ecchi: { en: "Ecchi", ar: "إيتشي" },
   mature: { en: "Mature", ar: "للبالغين" },
   gore: { en: "Gore", ar: "دموي" },
+  documentary: { en: "Documentary", ar: "وثائقي" },
+  animation: { en: "Animation", ar: "رسوم متحركة" },
+  biography: { en: "Biography", ar: "سيرة ذاتية" },
+  western: { en: "Western", ar: "غرب أمريكي" },
+  kids: { en: "Kids", ar: "أطفال" },
+  poetry: { en: "Poetry", ar: "شعر" },
+  philosophy: { en: "Philosophy", ar: "فلسفة" },
+  religion: { en: "Religion", ar: "دين" },
+  science: { en: "Science", ar: "علوم" },
+  selfHelp: { en: "Self-help", ar: "تطوير الذات" },
+  politics: { en: "Politics", ar: "سياسة" },
+  economics: { en: "Business and economics", ar: "اقتصاد وأعمال" },
+  literature: { en: "Literature", ar: "أدب" },
 };
 
 /**

@@ -1,7 +1,7 @@
 // Pure helpers extensions bundle with them. Each one understands English and
 // Arabic, since most storm sources publish in one or the other.
 
-import type { Demographic, GenreKey, MangaType, Status } from "./types";
+import type { AnimeType, Demographic, GenreKey, MangaType, Status } from "./types";
 
 /** "١٢٫٥" → "12.5" (Arabic-Indic and Persian digits) */
 export function asciiDigits(text: string) {
@@ -168,27 +168,27 @@ const GENRE_NAMES: Record<GenreKey, string[]> = {
   drama: ["drama", "دراما", "درما", "دراما شوجو", "دراما اجتماعية", "دراما حضرية"],
   fantasy: ["fantasy", "فانتازيا", "فنتازيا", "خيال", "خيالي", "خيال شرقي", "فانتزيا", "خيال حضري"],
   horror: ["horror", "رعب", "كوابيس"],
-  mystery: ["mystery", "غموض", "تحقيق", "تحقيقات", "بوليسي", "لغز", "غامض", "أسرار"],
+  mystery: ["mystery", "detective", "تحري", "غموض", "تحقيق", "تحقيقات", "بوليسي", "لغز", "غامض", "أسرار"],
   romance: ["romance", "رومانسي", "رومانسية", "رومنسي", "رومانس", "عاطفي", "حب", "علاقة عاطفية"],
-  scifi: ["sci-fi", "scifi", "science fiction", "خيال علمي", "كائنات فضائية", "كواكب"],
-  sliceOfLife: ["slice of life", "شريحة من الحياة", "حياة يومية", "الحياة اليومية"],
-  sports: ["sports", "sport", "رياضة", "رياضي", "رياضية"],
-  supernatural: ["supernatural", "خارق للطبيعة", "خوارق", "ما وراء الطبيعة", "قوى خارقة", "قوة خارقة", "خارق", "أشباح", "الأرواح", "خيال خارق"],
+  scifi: ["sci-fi", "scifi", "كتب الخيال العلمي", "كتب الخيال العلم", "science fiction", "خيال علمي", "كائنات فضائية", "كواكب"],
+  sliceOfLife: ["slice of life", "شريحة حياة", "شريحة من الحياة", "حياة يومية", "الحياة اليومية"],
+  sports: ["sports", "sport", "رياضة وتسالي", "رياضة", "رياضي", "رياضية"],
+  supernatural: ["supernatural", "خارق للطبيعة", "خارق لطبيعية", "خارق للطبيعية", "خوارق", "ما وراء الطبيعة", "قوى خارقة", "قوة خارقة", "خارق", "أشباح", "الأرواح", "خيال خارق"],
   thriller: ["thriller", "إثارة", "تشويق", "suspense"],
-  tragedy: ["tragedy", "مأساة", "مأساوي", "تراجيدي", "تراجيديا", "بؤس"],
+  tragedy: ["tragedy", "تراجدي", "مأساة", "مأساوي", "تراجيدي", "تراجيديا", "بؤس"],
   psychological: ["psychological", "نفسي", "نفسية", "فلسفي", "هوس", "تشويق نفسي", "دراما نفسية", "غموض نفسي", "أكشن نفسي"],
-  historical: ["historical", "history", "تاريخي", "تاريخية", "تارخي", "عصور وسطى", "فيكتوري", "عصر فيكتوري", "عصر جوسون", "نبلاء"],
+  historical: ["historical", "تاريخ وجغرافيا", "تاريخ", "history", "تاريخي", "تاريخية", "تارخي", "عصور وسطى", "فيكتوري", "عصر فيكتوري", "عصر جوسون", "نبلاء"],
   isekai: ["isekai", "إيسيكاي", "ايسكاي", "ايسياكي", "عالم آخر", "عالم مختلف", "داخل اللعبة", "السفر عبر الأبعاد"],
-  darkFantasy: ["dark fantasy", "فانتازيا مظلمة", "عالم مظلم", "سوداوي"],
+  darkFantasy: ["dark fantasy", "مظلمة", "مظلم", "فانتازيا مظلمة", "عالم مظلم", "سوداوي"],
   martialArts: ["martial arts", "فنون قتالية", "فنون قتال", "فنون القتال", "ساموراي", "نينجا"],
   murim: ["murim", "موريم"],
-  cultivation: ["cultivation", "wuxia", "xianxia", "ووشيا", "شيانشيا", "صقل", "زراعة"],
+  cultivation: ["cultivation", "wuxia", "xianxia", "xuanhuan", "شوانهوان", "زيانشيا", "ووشيا", "شيانشيا", "صقل", "زراعة"],
   school: ["school life", "school", "مدرسي", "مدرسية", "حياة مدرسية", "الحياة المدرسية", "أكاديمي", "أكاديمية", "حياة جامعية", "مدرسة ثانوية", "خيال مدرسي", "طالب"],
   mecha: ["mecha", "ميكا", "روبوتات", "آليات"],
-  music: ["music", "موسيقى", "موسيقي", "ايدول"],
-  cooking: ["cooking", "طبخ", "طهي"],
-  medical: ["medical", "طبي", "طبية"],
-  military: ["military", "عسكري", "عسكرية", "حربي", "حرب", "حروب"],
+  music: ["music", "musical", "موسيقى", "موسيقي", "ايدول"],
+  cooking: ["cooking", "طبخ وطعام", "طبخ", "طهي"],
+  medical: ["medical", "صحة وطب", "طب", "طبي", "طبية"],
+  military: ["military", "war", "علوم عسكرية", "عسكري", "عسكرية", "حربي", "حرب", "حروب"],
   crime: ["crime", "جريمة", "جرائم", "مافيا"],
   magic: ["magic", "سحر", "مستحضر أرواح"],
   reincarnation: ["reincarnation", "regression", "returner", "تناسخ", "تناسخ الأرواح", "تجسد", "تجسيد", "إعادة تجسد", "إعادة إحياء", "عودة بالزمن", "تراجع بالزمن", "تراجع", "رجوع بالزمن", "العودة", "إحياء"],
@@ -212,8 +212,21 @@ const GENRE_NAMES: Record<GenreKey, string[]> = {
   revenge: ["revenge", "انتقام", "ثأر"],
   workplace: ["workplace", "work life", "عمل"],
   ecchi: ["ecchi", "إيتشي", "اتشي", "ايشي"],
-  mature: ["mature", "adult", "smut", "ناضج", "للبالغين", "بالغين", "راشد"],
+  mature: ["mature", "adult", "smut", "للكبار", "ناضج", "للبالغين", "بالغ", "بالغين", "راشد"],
   gore: ["gore", "دموي", "دماء", "عنف"],
+  documentary: ["documentary", "وثائقي", "وثائقية", "افلام وثائقية"],
+  animation: ["animation", "animated", "أنيميشن", "انميشن", "رسوم متحركة", "كرتون", "كارتون"],
+  biography: ["biography", "بيوغرافيا ومذكرات", "biographies", "memoir", "سيرة ذاتية", "سيرة", "سير وتراجم", "تراجم", "مذكرات", "السيرة النبوية"],
+  western: ["western", "ويسترن", "الغرب الأمريكي", "غرب امريكي"],
+  kids: ["kids", "children", "كتب أطفال", "أطفال", "للأطفال", "كتب الأطفال", "قصص أطفال"],
+  poetry: ["poetry", "poems", "شعر", "الشعر", "دواوين", "دواوين شعرية", "ديوان"],
+  philosophy: ["philosophy", "كتب الفلسفة", "فلسفة", "الفلسفة", "فكر", "الفكر"],
+  religion: ["religion", "religious", "كتب دينية", "علوم إسلامية", "islam", "islamic", "دين", "ديني", "دينية", "إسلامي", "إسلامية", "كتب إسلامية", "الأديان", "العقيدة", "الفقه", "التفسير", "الحديث"],
+  science: ["science", "sciences", "العلوم والطبيعة", "علوم", "العلوم", "كتب علمية", "علم"],
+  selfHelp: ["self-help", "self help", "كتب التنمية البشرية", "personal development", "تنمية بشرية", "التنمية البشرية", "تطوير الذات", "تنمية ذاتية", "علم النفس"],
+  politics: ["politics", "political", "كتب سياسية", "سياسة", "سياسي", "السياسة", "كتب سياسية"],
+  economics: ["economics", "business", "إقتصاد وأعمال", "اقتصاد وأعمال", "اقتصاد", "الاقتصاد", "إدارة أعمال", "ادارة", "المال والأعمال"],
+  literature: ["literature", "fiction", "أدب مترجم", "novels", "أدب", "الأدب", "روايات", "رواية", "قصص", "أدب عربي", "الأدب العربي", "الأدب العالمي", "قصص قصيرة"],
 };
 
 const GENRE_LOOKUP = new Map<string, GenreKey>();
@@ -243,4 +256,53 @@ export function uniqueBy<T>(items: T[], key: (item: T) => string) {
     seen.add(k);
     return true;
   });
+}
+
+/** Reads an anime type such as "TV", "Movie", "OVA" or "فيلم". */
+export function animeType(text: string | null | undefined): AnimeType | undefined {
+  const s = foldArabic(text ?? "");
+  if (!s) return undefined;
+  if (/(ova|اوفا|او في اي)/.test(s)) return "ova";
+  if (/(ona|اونا)/.test(s)) return "ona";
+  if (/(special|خاصه|خاص|سبيشل)/.test(s)) return "special";
+  if (/(movie|film|فيلم|افلام)/.test(s)) return "movie";
+  if (/(\btv\b|series|مسلسل|تلفزيوني|تي في)/.test(s)) return "tv";
+  return "other";
+}
+
+const ORDINALS: [RegExp, number][] = [
+  [/حادي عشر|الحادي عشر/, 11], [/ثاني عشر|الثاني عشر|ثانى عشر/, 12], [/ثالث عشر/, 13], [/رابع عشر/, 14], [/خامس عشر/, 15],
+  [/سادس عشر/, 16], [/سابع عشر/, 17], [/ثامن عشر/, 18], [/تاسع عشر/, 19], [/عشرون|العشرين/, 20],
+  [/(?:^|\s)(?:ال)?[اأ]ول(?:ى)?(?:\s|$)/, 1], [/(?:^|\s)(?:ال)?ثان[يى](?:ة)?(?:\s|$)/, 2], [/(?:^|\s)(?:ال)?ثالث/, 3], [/(?:^|\s)(?:ال)?رابع/, 4],
+  [/(?:^|\s)(?:ال)?خامس/, 5], [/(?:^|\s)(?:ال)?سادس/, 6], [/(?:^|\s)(?:ال)?سابع/, 7], [/(?:^|\s)(?:ال)?ثامن/, 8], [/(?:^|\s)(?:ال)?تاسع/, 9], [/(?:^|\s)(?:ال)?عاشر/, 10],
+];
+
+/** A season's number from "S02", "Season 2", "الموسم 25" or "الموسم الثاني". */
+export function seasonNumber(text: string | null | undefined): number | undefined {
+  const s = asciiDigits(clean(text));
+  if (!s) return undefined;
+  const latin = s.match(/(?:\bs|season\s*)(\d{1,3})\b/i);
+  if (latin) return Number(latin[1]);
+  const arabic = s.match(/(?:الموسم|موسم)\s+(.{1,20})/);
+  if (!arabic) return undefined;
+  const digits = arabic[1].match(/^(\d{1,3})/);
+  if (digits) return Number(digits[1]);
+  return ORDINALS.find(([re]) => re.test(` ${arabic[1]} `))?.[1];
+}
+
+/** The first plausible year in a text: "2024", "(2019)", "٢٠٢٣". */
+export function year(text: string | null | undefined): number | undefined {
+  const m = asciiDigits(text ?? "").match(/\b(19[0-9]{2}|20[0-9]{2})\b/);
+  return m ? Number(m[1]) : undefined;
+}
+
+/** A running time in minutes: "2h 46m", "166 min", "120 دقيقة", "ساعة و 30 دقيقة". */
+export function minutes(text: string | null | undefined): number | undefined {
+  const s = asciiDigits(clean(text)).toLowerCase();
+  if (!s) return undefined;
+  const h = s.match(/(\d+)\s*(?:hours?|hrs?|h(?![a-z])|ساعات|ساعة|س(?![؀-ۿ]))/) ?? (/(^|\s)ساعة/.test(s) ? ["", "1"] : null);
+  const m = s.match(/(\d+)\s*(?:minutes?|mins?|m(?![a-z])|دقائق|دقيقة|د(?![؀-ۿ]))/);
+  if (h || m) return (h ? Number(h[1]) * 60 : 0) + (m ? Number(m[1]) : 0) || undefined;
+  const bare = s.match(/^(\d{2,3})$/);
+  return bare ? Number(bare[1]) : undefined;
 }

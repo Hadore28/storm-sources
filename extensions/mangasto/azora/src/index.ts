@@ -217,7 +217,7 @@ const azora = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.azora",
   name: "Azora",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "mangasto",
   sources: [azora],
 });

@@ -7,7 +7,7 @@ installs extensions.
 ```
 packages/sdk     the contract an extension is written against (types and helpers)
 packages/host    what runs extensions: requests, parsing, caching, checks, loading
-extensions/      one folder per site, grouped by app (mangasto, …)
+extensions/      one folder per site, grouped by app
 scripts/         build-repo, keys, try
 ```
 
@@ -16,19 +16,31 @@ scripts/         build-repo, keys, try
 An extension exports `defineExtension({ pkg, name, version, app, sources })`. Each
 source declares what it can do — its **listings** (popular, latest…), its own
 **filters** (genres, status, type, sort…), **settings** an admin can change, and how
-its images must be loaded — then implements `list`, `search`, `manga`,
-`chapters` and `pages`.
+its images must be loaded — then implements what its app needs:
+
+| app | source | implements |
+| --- | --- | --- |
+| `mangasto` | `defineSource` | `list`, `search`, `manga`, `chapters`, `pages` |
+| `anisto` | `defineAnimeSource` | `list`, `search`, `details`, `episodes`, `servers` |
+| `movisto` | `defineFilmSource` | `list`, `search`, `details` (with a series' seasons), `episodes`, `servers` |
+| `novelsto` | `defineNovelSource` | `list`, `search`, `details`, `chapters`, `content` |
+| `booksto` | `defineBookSource` | `list`, `search`, `details` (with its files), and `sections` + `content` when the text can be read on storm |
+
+`servers` answers where something plays: a page to frame, an HLS playlist or a
+video file, and which are downloads. `content` answers text as blocks (paragraphs,
+headings, quotes, images), never HTML; `htmlToBlocks` turns a site's markup into them.
 
 Extensions never fetch or parse on their own. The host hands them `ctx`:
 
-| `ctx.http`  | requests with timeouts, retries, the source's rate limit, Cloudflare detection and caching |
-| `ctx.html`  | an HTML parser (`one`, `all`, `text`, `attr`, `href`) |
+| `ctx.http`  | requests with timeouts, retries, the source's rate limit, Cloudflare detection and caching; `session()` keeps a site's cookies across requests |
+| `ctx.html`  | an HTML parser (`one`, `all`, `text`, `attr`, `href`, `without`) |
 | `ctx.cache` | a per-source cache |
 | `ctx.settings` | the admin's settings for this source |
 
 The SDK's helpers read what sites print in English and Arabic: `chapterNumber`,
-`parseDate` ("منذ يومين", "3 days ago", "15 سبتمبر 2026"), `status`, `mangaType`
-and `genreKey`, which maps a site's genre names onto storm's own list.
+`seasonNumber` ("الموسم التاسع", "S09"), `parseDate` ("منذ يومين", "3 days ago",
+"15 سبتمبر 2026"), `minutes` ("2h 46m", "120 دقيقة"), `year`, `status`, `mangaType`,
+`animeType` and `genreKey`, which maps a site's genre names onto storm's own list.
 
 Everything an extension returns is checked by the host. A missing title, a page
 without an address or a chapter without an id becomes a `changed` error naming
@@ -36,9 +48,9 @@ what broke, which is how storm notices a site changed its layout.
 
 ## Adding a source
 
-1. Copy `extensions/mangasto/mangadex` to a new folder and give it a new `pkg`.
+1. Copy an extension of the same app (`extensions/<app>/<site>`) to a new folder and give it a new `pkg`.
 2. Try it against the live site:
-   `bun scripts/try.ts extensions/mangasto/<name> <source id> [series id] [search]`
+   `bun scripts/try.ts extensions/<app>/<name> <source id> [item id] [search]`
 3. Write `test/<name>.test.ts` with `contractTests` and record the answers:
    `bun run record`
 4. Open a pull request. CI replays the recordings, so tests never depend on the

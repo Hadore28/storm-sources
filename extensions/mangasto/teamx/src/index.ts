@@ -204,7 +204,7 @@ const teamx = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.teamx",
   name: "Team X",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "mangasto",
   sources: [teamx],
 });

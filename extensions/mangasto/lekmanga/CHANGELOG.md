@@ -1,3 +1,8 @@
+## 1.2.1
+
+- Built for SDK 2, which adds anime, film, novel and book sources; nothing changes for readers.
+- Genre names match storm's genres in a few more Arabic spellings.
+
 ## 1.2.0
 
 - A genre filter on every list and on search.

@@ -199,7 +199,7 @@ const lekmanga = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.lekmanga",
   name: "LekManga",
-  version: "1.2.0",
+  version: "1.2.1",
   app: "mangasto",
   sources: [lekmanga],
 });

@@ -347,7 +347,7 @@ function mangadex(lang: Lang): MangaSource {
 export default defineExtension({
   pkg: "storm.mangasto.mangadex",
   name: "MangaDex",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "mangasto",
   sources: [mangadex("en"), mangadex("ar")],
 });

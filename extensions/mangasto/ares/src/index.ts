@@ -276,7 +276,7 @@ const ares = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.ares",
   name: "Ares Manga",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "mangasto",
   sources: [ares],
 });

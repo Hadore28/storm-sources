@@ -23,6 +23,11 @@ function wrap($: CheerioAPI, sel: Cheerio<AnyNode>, url: string): El {
       return v?.trim() ? absUrl(url, v.trim()) : null;
     },
     html: () => sel.html() ?? "",
+    without(...selectors) {
+      const copy = sel.clone();
+      if (selectors.length) copy.find(selectors.join(",")).remove();
+      return wrap($, copy, url);
+    },
   };
 }
 

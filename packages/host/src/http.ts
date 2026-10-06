@@ -11,6 +11,8 @@ export interface HttpDeps {
   cache: Cache;
   fetch: FetchLike;
   proxy?: string;
+  /** cookies kept between requests made through one session() */
+  jar?: Map<string, string>;
 }
 
 interface Stored {
@@ -62,11 +64,25 @@ export function statusError(s: Stored): SourceError {
   return new SourceError("network", `${where} answered ${s.status}`);
 }
 
+function keepCookies(jar: Map<string, string>, headers: Headers) {
+  for (const line of headers.getSetCookie?.() ?? []) {
+    const [pair, ...attrs] = line.split(";");
+    const at = pair.indexOf("=");
+    if (at <= 0) continue;
+    const name = pair.slice(0, at).trim();
+    const value = pair.slice(at + 1).trim();
+    const expired = attrs.some((a) => /^\s*max-age\s*=\s*0\s*$/i.test(a));
+    if (!value || expired) jar.delete(name);
+    else jar.set(name, value);
+  }
+}
+
 const shouldRetry = (status: number) => status === 429 || status === 408 || (status >= 500 && status <= 504);
 
 export function createHttp(deps: HttpDeps): Http {
   async function attempt(method: string, url: string, opts: RequestOptions): Promise<Stored> {
     const headers: Record<string, string> = { ...deps.headers, ...opts.headers };
+    if (deps.jar?.size) headers.Cookie = [headers.Cookie, ...[...deps.jar].map(([k, v]) => `${k}=${v}`)].filter(Boolean).join("; ");
     let body: string | undefined = opts.body;
     if (opts.json !== undefined) {
       body = JSON.stringify(opts.json);
@@ -82,7 +98,7 @@ export function createHttp(deps: HttpDeps): Http {
         method,
         headers,
         body,
-        redirect: "follow",
+        redirect: opts.redirect ?? "follow",
         signal: AbortSignal.timeout(opts.timeoutMs ?? DEFAULT_TIMEOUT),
         ...(deps.proxy ? { proxy: deps.proxy } : {}),
         ...(opts.resolve?.length ? { resolve: opts.resolve } : {}),
@@ -91,6 +107,7 @@ export function createHttp(deps: HttpDeps): Http {
       const timeout = e instanceof Error && (e.name === "TimeoutError" || e.name === "AbortError");
       throw new SourceError(timeout ? "timeout" : "network", `${new URL(url).host} ${timeout ? "took too long" : "could not be reached"}`, String(e));
     }
+    if (deps.jar) keepCookies(deps.jar, res.headers);
     return { status: res.status, url: res.url || url, headers: Object.fromEntries(res.headers), body: await res.text() };
   }
 
@@ -131,6 +148,7 @@ export function createHttp(deps: HttpDeps): Http {
   }
 
   return {
+    session: () => createHttp({ ...deps, jar: new Map() }),
     request,
     text: async (url, opts) => (await ok(url, opts)).text(),
     json: async (url, opts) => (await ok(url, opts)).json(),

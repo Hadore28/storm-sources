@@ -236,7 +236,7 @@ const mangatime = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.mangatime",
   name: "MangaTime",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "mangasto",
   sources: [mangatime],
 });
