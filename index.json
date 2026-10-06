@@ -1,16 +1,101 @@
 {
   "format": 1,
-  "sdk": 1,
-  "generatedAt": "2026-10-03T01:46:18.584Z",
+  "sdk": 2,
+  "generatedAt": "2026-10-06T21:28:29.354Z",
   "extensions": [
+    {
+      "pkg": "storm.anisto.anime4up",
+      "name": "Anime4up",
+      "version": "1.0.0",
+      "app": "anisto",
+      "file": "extensions/storm.anisto.anime4up-1.0.0.js",
+      "sha256": "f9dc09d66fd3817cf598957be06ea421844f917838da354261b126266537e3bb",
+      "size": 17682,
+      "sources": [
+        {
+          "id": "anime4up",
+          "name": "Anime4up",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.anisto.anitaku",
+      "name": "AniTaku",
+      "version": "1.0.0",
+      "app": "anisto",
+      "file": "extensions/storm.anisto.anitaku-1.0.0.js",
+      "sha256": "ad5b81d3a1f49242b7b05811603b7295793553e9893561fc45eaee5f36708846",
+      "size": 11063,
+      "sources": [
+        {
+          "id": "anitaku",
+          "name": "AniTaku",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.anisto.witanime",
+      "name": "WitAnime",
+      "version": "1.0.0",
+      "app": "anisto",
+      "file": "extensions/storm.anisto.witanime-1.0.0.js",
+      "sha256": "0babea8990bb373a6c80338f4738c2985d2eca51ae5acc3a4c2d9d6a88e9ed2d",
+      "size": 17876,
+      "sources": [
+        {
+          "id": "witanime",
+          "name": "WitAnime",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.booksto.foulabook",
+      "name": "Foulabook",
+      "version": "1.0.0",
+      "app": "booksto",
+      "file": "extensions/storm.booksto.foulabook-1.0.0.js",
+      "sha256": "2ad74817c930a62923616faf82353ec00f8b49379f1f8119c22dbc73e1fc6a1f",
+      "size": 10196,
+      "sources": [
+        {
+          "id": "foulabook",
+          "name": "Foulabook",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.booksto.wikisource",
+      "name": "Wikisource",
+      "version": "1.0.0",
+      "app": "booksto",
+      "file": "extensions/storm.booksto.wikisource-1.0.0.js",
+      "sha256": "3f7d0db2659a44c1e7d1a5d838e9885b95463beaa639910de1b85e4bc6c6fc07",
+      "size": 17057,
+      "sources": [
+        {
+          "id": "wikisource-ar",
+          "name": "Wikisource (Arabic)",
+          "lang": "ar"
+        },
+        {
+          "id": "wikisource-en",
+          "name": "Wikisource (English)",
+          "lang": "en"
+        }
+      ]
+    },
     {
       "pkg": "storm.mangasto.ares",
       "name": "Ares Manga",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.ares-1.0.0.js",
-      "sha256": "3a135ea3f443e0209beab7c3adf22e190034e5b672c586bcd4d3bd1e1ee5f905",
-      "size": 12527,
+      "file": "extensions/storm.mangasto.ares-1.0.1.js",
+      "sha256": "b70dae56590f36fcf6a652a1564c8f8d33b6cd70d30a9cd68c0929dc0c21309e",
+      "size": 14649,
       "sources": [
         {
           "id": "ares",
@@ -18,16 +103,17 @@
           "lang": "ar",
           "icon": "https://fl-ares.com/apple-icon.png"
         }
-      ]
+      ],
+      "changelog": "- Latest updates, most voted, top rated and most chapters; genres you can include or exclude, type and status filters; details, chapters and pages.\n- Every genre on Ares can be filtered, including Shounen, Shoujo, Seinen, Josei and Doujinshi.\n- Novels are left out; early-access and paid chapters open on Ares.\n- Ares' search only matches Latin titles, so other words find nothing rather than everything."
     },
     {
       "pkg": "storm.mangasto.azora",
       "name": "Azora",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.azora-1.0.0.js",
-      "sha256": "fe8f1689b5b4b4ef9177466c29dfa06ee6799d80df76a19cb66498de333e9bc9",
-      "size": 11841,
+      "file": "extensions/storm.mangasto.azora-1.0.1.js",
+      "sha256": "3657b858a1ded13cec159bac843a76b4dcf7c28b10e7caa44571f017e35fd377",
+      "size": 13963,
       "sources": [
         {
           "id": "azora",
@@ -35,16 +121,17 @@
           "lang": "ar",
           "icon": "https://azorafly.com/apple-touch-icon.png"
         }
-      ]
+      ],
+      "changelog": "- Latest, most viewed, recently added and A–Z lists; genre, type and status filters; details, chapters and pages.\n- Novels are left out; paid chapters open on Azora.\n- Azora's search ignores words without Latin letters, so those find nothing rather than everything."
     },
     {
       "pkg": "storm.mangasto.lekmanga",
       "name": "LekManga",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.lekmanga-1.2.0.js",
-      "sha256": "77f4e3cf12403008e748db717d2e0e2ae31e6d0a3340c5691661eac98ae42e5a",
-      "size": 15792,
+      "file": "extensions/storm.mangasto.lekmanga-1.2.1.js",
+      "sha256": "a1b4b6914699b5d547c94b8e1a88b897339858909b1a536ed6fb10f3876e358c",
+      "size": 17914,
       "sources": [
         {
           "id": "lekmanga",
@@ -52,16 +139,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Series, chapters and pages are read on storm: they're fetched from LekManga's origin servers, past its Cloudflare check.\n- Series show their status, type, other names, author, artist and year; chapters show their dates."
+      "changelog": "- A genre filter on every list and on search."
     },
     {
       "pkg": "storm.mangasto.mangadex",
       "name": "MangaDex",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.mangadex-1.0.1.js",
-      "sha256": "1380beeaf3e4cf772876a2346b059fc3cec48a94f457bcbff2227adc67e6adef",
-      "size": 12531,
+      "file": "extensions/storm.mangasto.mangadex-1.0.2.js",
+      "sha256": "ff5fa441f23dc0be70c8cb8922447433f1f7fc35f8a3b2d09623c1805b90c89b",
+      "size": 14143,
       "sources": [
         {
           "id": "mangadex-en",
@@ -78,16 +165,16 @@
           "rating": "suggestive"
         }
       ],
-      "changelog": "- English and Arabic sources: popular, latest, new and top rated lists, every MangaDex filter, full details, chapters and pages."
+      "changelog": "- Genre names match storm's genres more often, including Arabic spellings."
     },
     {
       "pkg": "storm.mangasto.mangatime",
       "name": "MangaTime",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.mangatime-1.0.0.js",
-      "sha256": "6eca3c9adfd29c88915f61c298218d35aaaf2282b9a912abb1f7c63e1dbec8ce",
-      "size": 12957,
+      "file": "extensions/storm.mangasto.mangatime-1.0.1.js",
+      "sha256": "5ea415bfab0da2cb3d05807be4b98388a0d60f4d966421fb0e11dae3babf9673",
+      "size": 15079,
       "sources": [
         {
           "id": "mangatime",
@@ -95,22 +182,136 @@
           "lang": "ar",
           "icon": "https://mangatime.org/images/logo-64.png"
         }
-      ]
+      ],
+      "changelog": "- Popular, latest, trending, top rated and A–Z lists; genre, type and status filters; details with authors, chapters and pages.\n- Novels are left out; premium chapters open on MangaTime."
     },
     {
       "pkg": "storm.mangasto.teamx",
       "name": "Team X",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.teamx-1.0.0.js",
-      "sha256": "50f1d9e67ac64d719d6f5b413f633ec1886f7130ec1fcfa2facd62d7a1d4b299",
-      "size": 15829,
+      "file": "extensions/storm.mangasto.teamx-1.0.1.js",
+      "sha256": "a2bdf716e64ecdad69c0a81f2f58615d77b4f167cae90690fb9a600d0bfdfc07",
+      "size": 17951,
       "sources": [
         {
           "id": "teamx",
           "name": "Team X",
           "lang": "ar",
           "icon": "https://olympustaff.com/assets/images/favicon.png"
+        }
+      ],
+      "changelog": "- Latest updates and the full catalogue with genre, type and status filters; search; details, every chapter page and pages."
+    },
+    {
+      "pkg": "storm.movisto.akwam",
+      "name": "Akwam",
+      "version": "1.0.0",
+      "app": "movisto",
+      "file": "extensions/storm.movisto.akwam-1.0.0.js",
+      "sha256": "ccd75acd1fbba893c22b406670fc9020074fce1ab9b89bf8251f6a2237e5468b",
+      "size": 13084,
+      "sources": [
+        {
+          "id": "akwam",
+          "name": "Akwam",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.movisto.egybest",
+      "name": "EgyBest",
+      "version": "1.0.0",
+      "app": "movisto",
+      "file": "extensions/storm.movisto.egybest-1.0.0.js",
+      "sha256": "286a33757b94a0352bc602575b92d918510deb9d0151bc8d0fb601cf6038d56c",
+      "size": 11996,
+      "sources": [
+        {
+          "id": "egybest",
+          "name": "EgyBest",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.movisto.egydead",
+      "name": "EgyDead",
+      "version": "1.0.0",
+      "app": "movisto",
+      "file": "extensions/storm.movisto.egydead-1.0.0.js",
+      "sha256": "7c4f700e43b03486dee7750147f1659c51baca9e7fd894948af9538b9f6c438b",
+      "size": 15360,
+      "sources": [
+        {
+          "id": "egydead",
+          "name": "EgyDead",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.movisto.topcinema",
+      "name": "TopCinema",
+      "version": "1.0.0",
+      "app": "movisto",
+      "file": "extensions/storm.movisto.topcinema-1.0.0.js",
+      "sha256": "8b61a4402a3cddcfcb8fa0a0ae987275020522e6e5d5b4f54e17b6a8fb3f0ab7",
+      "size": 15526,
+      "sources": [
+        {
+          "id": "topcinema",
+          "name": "TopCinema",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.novelsto.arnovel",
+      "name": "Ar-Novel",
+      "version": "1.0.0",
+      "app": "novelsto",
+      "file": "extensions/storm.novelsto.arnovel-1.0.0.js",
+      "sha256": "77e99de9081e05dc74fa5a8b9703807361f2b463f463e29519d62b443e23f278",
+      "size": 19542,
+      "sources": [
+        {
+          "id": "arnovel",
+          "name": "Ar-Novel",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.novelsto.cenele",
+      "name": "Cenele",
+      "version": "1.0.0",
+      "app": "novelsto",
+      "file": "extensions/storm.novelsto.cenele-1.0.0.js",
+      "sha256": "bc8b031eb85ca1443bd146faedb2d318ad8e63c8e41c433c8bd7df4bc9807ee1",
+      "size": 19286,
+      "sources": [
+        {
+          "id": "cenele",
+          "name": "Cenele",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.novelsto.rewayat",
+      "name": "Rewayat Club",
+      "version": "1.0.0",
+      "app": "novelsto",
+      "file": "extensions/storm.novelsto.rewayat-1.0.0.js",
+      "sha256": "e2d332009fe2c8fac78aa5b3a8f19aab1449f93caf80e471afc4c06552a45dd3",
+      "size": 13603,
+      "sources": [
+        {
+          "id": "rewayat",
+          "name": "Rewayat Club",
+          "lang": "ar"
         }
       ]
     }
