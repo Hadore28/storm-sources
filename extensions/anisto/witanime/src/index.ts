@@ -26,6 +26,14 @@ import {
 } from "@storm-sources/sdk";
 
 const SITE = "https://witanime.site";
+// The site answers 404 to a full Chrome User-Agent that doesn't act like Chrome,
+// and lets a plainer one through.
+const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36";
+// Gates take a short burst, then about one every two seconds.
+const GATE_GAP_MS = 2000;
+const MAX_STREAMS = 3;
+const MAX_DOWNLOADS = 1;
+const sleep = (ms: number) => new Promise<void>((done) => setTimeout(done, ms));
 const L = (en: string, ar: string): Text => ({ en, ar });
 
 const GENRES: [string, string, string][] = [
@@ -127,6 +135,7 @@ const witanime = defineAnimeSource({
   name: "WitAnime",
   lang: "ar",
   baseUrl: SITE,
+  headers: { "User-Agent": AGENT },
   rateLimit: { requests: 6, perMs: 1000 },
   listings: [
     { id: "episodes", label: L("New episodes", "أحدث الحلقات") },
@@ -237,7 +246,8 @@ const witanime = defineAnimeSource({
     const open = async (s: Source & { quality: string }, kind: "stream" | "download"): Promise<VideoServer | null> => {
       try {
         await visit.request("POST", `${SITE}/watch/${kind}-source/${s.token}`, { headers: xhr });
-        const gate = await visit.request("GET", `${SITE}/watch/${kind}-gate/${s.token}`, { headers: { Referer: watch }, redirect: "manual", retries: 0 });
+        // the site loads the gate in a frame with no Referer, and refuses one that has it
+        const gate = await visit.request("GET", `${SITE}/watch/${kind}-gate/${s.token}`, { redirect: "manual", retries: 0 });
         const target = gate.headers.location ?? /http-equiv="refresh" content="0;url='([^']+)'/.exec(await gate.text())?.[1];
         if (!target || !/^https?:\/\//.test(target)) return null;
         const dub = s.version === "dub";
@@ -255,18 +265,24 @@ const witanime = defineAnimeSource({
       }
     };
 
-    const [streams, downloads] = await Promise.all([
-      Promise.all(pick(manifest.players, 10).map((s) => open(s, "stream"))),
-      Promise.all(pick(manifest.downloads, 4).map((s) => open(s, "download"))),
-    ]);
-    return [...streams, ...downloads].filter((s): s is VideoServer => !!s);
+    // one gate at a time, spaced out, so the site doesn't start refusing them
+    const wanted = [
+      ...pick(manifest.players, MAX_STREAMS).map((s) => [s, "stream"] as const),
+      ...pick(manifest.downloads, MAX_DOWNLOADS).map((s) => [s, "download"] as const),
+    ];
+    const opened: (VideoServer | null)[] = [];
+    for (const [i, [s, kind]] of wanted.entries()) {
+      if (i > 0) await sleep(GATE_GAP_MS);
+      opened.push(await open(s, kind));
+    }
+    return opened.filter((s): s is VideoServer => !!s);
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.witanime",
   name: "WitAnime",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "anisto",
   sources: [witanime],
 });
