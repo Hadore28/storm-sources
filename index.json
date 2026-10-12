@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-06T21:28:29.354Z",
+  "generatedAt": "2026-10-12T02:25:46.579Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime4up",
@@ -38,18 +38,19 @@
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.0.js",
-      "sha256": "0babea8990bb373a6c80338f4738c2985d2eca51ae5acc3a4c2d9d6a88e9ed2d",
-      "size": 17876,
+      "file": "extensions/storm.anisto.witanime-1.0.1.js",
+      "sha256": "e479a7ccbce11e3f8c3e07cdef6810ba324f48f833d8fb20d0bc634006216d61",
+      "size": 18132,
       "sources": [
         {
           "id": "witanime",
           "name": "WitAnime",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- WitAnime's new site (witanime.site): new episodes, most watched, this season, top rated, movies and A–Z.\n- Genre, type, status and year filters on lists and search.\n- Anime and film details with studio, season, episode count and length; every episode.\n- Each episode's players and downloads, opened the way the site opens them, so storm shows the real player."
     },
     {
       "pkg": "storm.booksto.foulabook",
