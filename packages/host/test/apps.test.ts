@@ -158,7 +158,7 @@ describe("registering", () => {
   });
 
   test("unknown apps and sdk versions are refused", () => {
-    expect(() => new SourceHost().register(ext("tvsto" as Extension["app"], [anime]))).toThrow(/app/);
+    expect(() => new SourceHost().register(ext("radiosto" as Extension["app"], [anime]))).toThrow(/app/);
     expect(() => new SourceHost().register(ext("anisto", [anime], 3))).toThrow(/sdk 3/);
   });
 

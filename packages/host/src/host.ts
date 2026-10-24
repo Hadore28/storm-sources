@@ -43,6 +43,7 @@ import {
   checkPaged,
   checkPages,
   checkServers,
+  checkChannel,
   checkTeacher,
 } from "./validate";
 
@@ -118,6 +119,7 @@ const REQUIRED: Record<AppKind, string[]> = {
   novelsto: ["list", "details", "chapters", "content"],
   booksto: ["list", "details"],
   studysto: ["list", "details", "lectures", "servers"],
+  tvsto: ["list", "details", "servers"],
 };
 
 // Stable key for a filter set, whatever order its keys came in.
@@ -300,6 +302,8 @@ export class SourceHost {
           return checkBook(await e.source.details(ctx, itemId), where) as T;
         case "studysto":
           return checkTeacher(await e.source.details(ctx, itemId), where) as T;
+        case "tvsto":
+          return checkChannel(await e.source.details(ctx, itemId), where) as T;
         default:
           throw new SourceError("unsupported", `${id} has no details`);
       }
@@ -350,6 +354,7 @@ export class SourceHost {
         if (!episodeId) throw new SourceError("not-found", `${where}: which lecture?`);
         return checkServers(await e.source.servers(ctx, itemId, episodeId), where);
       }
+      if (e.app === "tvsto") return checkServers(await e.source.servers(ctx, itemId), where);
       throw new SourceError("unsupported", `${id} has nothing to play`);
     });
   }

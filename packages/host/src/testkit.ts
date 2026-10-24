@@ -6,7 +6,7 @@ import { describe, expect, test } from "bun:test";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import type { AnimeDetails, BookDetails, Extension, FilmDetails, Genre, NovelDetails, TeacherDetails } from "@storm-sources/sdk";
+import type { AnimeDetails, BookDetails, Extension, FilmDetails, Genre, NovelDetails, TeacherDetails, ChannelDetails } from "@storm-sources/sdk";
 import { SourceHost } from "./host";
 import type { FetchLike } from "./http";
 import { fetchVia } from "./resolve";
@@ -129,6 +129,7 @@ export function contractTests(ext: Extension, plans: ContractPlan[], fixtures: s
         if (ext.app === "novelsto") novelTests(host, id, item, plan);
         if (ext.app === "booksto") bookTests(host, id, item, plan);
         if (ext.app === "studysto") studyTests(host, id, item, plan);
+        if (ext.app === "tvsto") tvTests(host, id, item);
       }
     });
   }
@@ -283,6 +284,19 @@ function studyTests(host: SourceHost, id: string, item: string, plan: ContractPl
       if (!open) return;
       const servers = await host.servers(id, item, open.id);
       expect(servers.filter((s) => !s.download).length).toBeGreaterThan(0);
+    },
+    TIMEOUT,
+  );
+}
+
+function tvTests(host: SourceHost, id: string, item: string) {
+  test(
+    "channel and its feeds",
+    async () => {
+      const c = await host.details<ChannelDetails>(id, item);
+      expect(c.title.length).toBeGreaterThan(0);
+      const servers = await host.servers(id, item);
+      expect(servers.length).toBeGreaterThan(0);
     },
     TIMEOUT,
   );

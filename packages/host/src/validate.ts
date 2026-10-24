@@ -11,6 +11,8 @@ import {
   type AppKind,
   type BookDetails,
   type BookSummary,
+  type ChannelDetails,
+  type ChannelSummary,
   type Chapter,
   type Episode,
   type FilmDetails,
@@ -115,6 +117,13 @@ export const summaries = {
     subjectName: clean(m.subjectName) || undefined,
     years: strings(m.years),
     lectureCount: int(m.lectureCount),
+  }),
+  tvsto: (m: ChannelSummary, where: string): ChannelSummary => ({
+    ...base(m, where),
+    country: typeof m.country === "string" && /^[A-Za-z]{2}$/.test(m.country) ? m.country.toUpperCase() : undefined,
+    categories: strings(m.categories),
+    quality: clean(m.quality) || undefined,
+    streams: int(m.streams),
   }),
 };
 
@@ -351,6 +360,15 @@ export function checkTeacher(m: TeacherDetails, where: string): TeacherDetails {
     return [{ id: c.id.trim(), title: clean(c.title) || undefined, year: clean(c.year) || undefined, lectureCount: int(c.lectureCount) }];
   });
   return { ...b, description: clean(m.description) || undefined, stage: clean(m.stage) || undefined, courses };
+}
+
+export function checkChannel(m: ChannelDetails, where: string): ChannelDetails {
+  return {
+    ...summaries.tvsto(m, where),
+    description: clean(m.description) || undefined,
+    languages: strings(m.languages),
+    website: isHttp(m.website) ? m.website : undefined,
+  };
 }
 
 /** Chapters and lectures in teaching order; an empty chapter is dropped. */

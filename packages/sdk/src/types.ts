@@ -7,7 +7,7 @@ export const SDK_VERSION = 2;
 /** SDK versions this release can still run. Version 1 extensions are manga only. */
 export const SUPPORTED_SDKS = [1, 2] as const;
 
-export const APPS = ["mangasto", "anisto", "movisto", "novelsto", "booksto", "studysto"] as const;
+export const APPS = ["mangasto", "anisto", "movisto", "novelsto", "booksto", "studysto", "tvsto"] as const;
 export type AppKind = (typeof APPS)[number];
 
 /** A label shown on the site: one string, or one per site language. */
@@ -493,6 +493,38 @@ export interface StudySource extends SourceBase<TeacherSummary> {
   servers(ctx: Context, teacherId: string, lectureId: string): Promise<VideoServer[]>;
 }
 
+// ---------- live tv ----------
+
+/** A live channel, as a list shows it. */
+export interface ChannelSummary {
+  id: string;
+  /** the channel's name */
+  title: string;
+  /** its logo */
+  cover?: string;
+  url?: string;
+  /** ISO 3166 code, e.g. "IQ" */
+  country?: string;
+  categories?: string[];
+  /** best quality on offer, e.g. "1080p" */
+  quality?: string;
+  /** how many feeds it has */
+  streams?: number;
+  rating?: ContentRating;
+}
+
+export interface ChannelDetails extends ChannelSummary {
+  description?: string;
+  languages?: string[];
+  website?: string;
+}
+
+export interface TvSource extends SourceBase<ChannelSummary> {
+  details(ctx: Context, channelId: string): Promise<ChannelDetails>;
+  /** the channel's live feeds, best first */
+  servers(ctx: Context, channelId: string): Promise<VideoServer[]>;
+}
+
 // ---------- extensions ----------
 
 export interface SourceByApp {
@@ -502,6 +534,7 @@ export interface SourceByApp {
   novelsto: NovelSource;
   booksto: BookSource;
   studysto: StudySource;
+  tvsto: TvSource;
 }
 
 export type AnySource = SourceByApp[AppKind];
