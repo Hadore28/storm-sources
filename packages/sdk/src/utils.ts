@@ -1,7 +1,7 @@
 // Pure helpers extensions bundle with them. Each one understands English and
 // Arabic, since most storm sources publish in one or the other.
 
-import type { AnimeType, Demographic, GenreKey, MangaType, Status } from "./types";
+import type { AnimeType, Demographic, GenreKey, MangaType, Status, Subject } from "./types";
 
 /** "١٢٫٥" → "12.5" (Arabic-Indic and Persian digits) */
 export function asciiDigits(text: string) {
@@ -305,4 +305,22 @@ export function minutes(text: string | null | undefined): number | undefined {
   if (h || m) return (h ? Number(h[1]) * 60 : 0) + (m ? Number(m[1]) : 0) || undefined;
   const bare = s.match(/^(\d{2,3})$/);
   return bare ? Number(bare[1]) : undefined;
+}
+
+const SUBJECT_WORDS: [Subject, RegExp][] = [
+  ["math", /رياضيات|math/i],
+  ["physics", /فيزياء|physic/i],
+  ["chemistry", /كيمياء|chemi/i],
+  ["biology", /[اأ]حياء|biolog/i],
+  ["english", /[اإ]ن[كجغ]ليز|english/i],
+  ["arabic", /عرب/],
+  ["islamic", /[اإ]سلامي/],
+  ["french", /فرنس|french/i],
+  ["computer", /حاسوب|computer/i],
+];
+
+/** storm's subject for a subject name as a site words it. */
+export function subjectKey(name: string | undefined | null): Subject | undefined {
+  if (!name) return undefined;
+  return SUBJECT_WORDS.find(([, re]) => re.test(name))?.[0];
 }

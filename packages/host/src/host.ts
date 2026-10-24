@@ -13,6 +13,7 @@ import {
   type Extension,
   type FilterDef,
   type FilterValues,
+  type LectureChapter,
   type MangaDetails,
   type MangaSource,
   type Operation,
@@ -37,10 +38,12 @@ import {
   checkEpisodes,
   checkFilm,
   checkFilters,
+  checkLectures,
   checkNovel,
   checkPaged,
   checkPages,
   checkServers,
+  checkTeacher,
 } from "./validate";
 
 export const DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
@@ -80,6 +83,7 @@ const TTL: Record<Operation, number> = {
   pages: 6 * 3_600_000,
   servers: 15 * 60_000,
   content: 6 * 3_600_000,
+  lectures: 10 * 60_000,
 };
 
 export interface SourceInfo {
@@ -113,6 +117,7 @@ const REQUIRED: Record<AppKind, string[]> = {
   movisto: ["list", "details", "episodes", "servers"],
   novelsto: ["list", "details", "chapters", "content"],
   booksto: ["list", "details"],
+  studysto: ["list", "details", "lectures", "servers"],
 };
 
 // Stable key for a filter set, whatever order its keys came in.
@@ -293,6 +298,8 @@ export class SourceHost {
           return checkNovel(await e.source.details(ctx, itemId), where) as T;
         case "booksto":
           return checkBook(await e.source.details(ctx, itemId), where) as T;
+        case "studysto":
+          return checkTeacher(await e.source.details(ctx, itemId), where) as T;
         default:
           throw new SourceError("unsupported", `${id} has no details`);
       }
@@ -339,7 +346,19 @@ export class SourceHost {
         return checkServers(await e.source.servers(ctx, itemId, episodeId), where);
       }
       if (e.app === "movisto") return checkServers(await e.source.servers(ctx, itemId, episodeId), where);
+      if (e.app === "studysto") {
+        if (!episodeId) throw new SourceError("not-found", `${where}: which lecture?`);
+        return checkServers(await e.source.servers(ctx, itemId, episodeId), where);
+      }
       throw new SourceError("unsupported", `${id} has nothing to play`);
+    });
+  }
+
+  /** A teacher's course: its chapters and lectures, in teaching order. */
+  lectures(id: string, teacherId: string, courseId: string): Promise<LectureChapter[]> {
+    return this.run(id, "lectures", `${teacherId}:${courseId}`, async (e, ctx) => {
+      if (e.app !== "studysto") throw new SourceError("unsupported", `${id} has no lectures`);
+      return checkLectures(await e.source.lectures(ctx, teacherId, courseId), `${id} lectures of ${teacherId}/${courseId}`);
     });
   }
 

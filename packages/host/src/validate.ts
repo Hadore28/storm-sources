@@ -24,6 +24,10 @@ import {
   type PageRef,
   type Paged,
   type Season,
+  SUBJECTS,
+  type LectureChapter,
+  type TeacherDetails,
+  type TeacherSummary,
   type TextBlock,
   type TextContent,
   type VideoServer,
@@ -40,6 +44,7 @@ const TYPES = new Set(["manga", "manhwa", "manhua", "comic", "other"]);
 const ANIME_TYPES = new Set(["tv", "movie", "ova", "ona", "special", "other"]);
 const RATINGS = new Set(["safe", "suggestive", "nsfw"]);
 const GENRE_SET = new Set<string>(GENRES);
+const SUBJECT_SET = new Set<string>(SUBJECTS);
 
 function fail(what: string, detail?: unknown): never {
   throw new SourceError("changed", what, detail);
@@ -103,6 +108,13 @@ export const summaries = {
     ...base(m, where),
     authors: strings(m.authors),
     year: yearOf(m.year),
+  }),
+  studysto: (m: TeacherSummary, where: string): TeacherSummary => ({
+    ...base(m, where),
+    subject: m.subject && SUBJECT_SET.has(m.subject) ? m.subject : undefined,
+    subjectName: clean(m.subjectName) || undefined,
+    years: strings(m.years),
+    lectureCount: int(m.lectureCount),
   }),
 };
 
@@ -287,6 +299,7 @@ export function checkServers(list: VideoServer[], where: string): VideoServer[] 
       audio: s.audio && AUDIO.has(s.audio) ? s.audio : undefined,
       lang: clean(s.lang) || undefined,
       download: !!s.download,
+      referer: isHttp(s.referer) ? s.referer : undefined,
     });
   }
   if (!out.some((s) => !s.download)) fail(`${where}: no playable servers`, list);
@@ -325,4 +338,36 @@ export function checkFilters(filters: FilterDef[], where: string): FilterDef[] {
     if ("options" in f && (!Array.isArray(f.options) || f.options.length === 0)) fail(`${where}: filter ${f.id} has no options`, f);
   }
   return filters;
+}
+
+export function checkTeacher(m: TeacherDetails, where: string): TeacherDetails {
+  const b = summaries.studysto(m, where);
+  if (!Array.isArray(m.courses)) fail(`${where}: no courses`, m.courses);
+  const seen = new Set<string>();
+  const courses = m.courses.flatMap((c) => {
+    if (typeof c?.id !== "string" || !c.id.trim()) fail(`${where}: a course has no id`, c);
+    if (seen.has(c.id)) return [];
+    seen.add(c.id);
+    return [{ id: c.id.trim(), title: clean(c.title) || undefined, year: clean(c.year) || undefined, lectureCount: int(c.lectureCount) }];
+  });
+  return { ...b, description: clean(m.description) || undefined, stage: clean(m.stage) || undefined, courses };
+}
+
+/** Chapters and lectures in teaching order; an empty chapter is dropped. */
+export function checkLectures(list: LectureChapter[], where: string): LectureChapter[] {
+  if (!Array.isArray(list)) fail(`${where}: no chapters returned`, list);
+  const seenChapters = new Set<string>();
+  const seenLectures = new Set<string>();
+  return list.flatMap((ch) => {
+    if (typeof ch?.id !== "string" || !ch.id.trim()) fail(`${where}: a chapter has no id`, ch);
+    if (seenChapters.has(ch.id) || !Array.isArray(ch.lectures)) return [];
+    seenChapters.add(ch.id);
+    const lectures = ch.lectures.flatMap((l) => {
+      if (typeof l?.id !== "string" || !l.id.trim()) fail(`${where}: a lecture has no id`, l);
+      if (seenLectures.has(l.id)) return [];
+      seenLectures.add(l.id);
+      return [{ id: l.id.trim(), number: num(l.number), title: clean(l.title) || undefined, locked: !!l.locked, duration: int(l.duration, 1, 600) }];
+    });
+    return lectures.length ? [{ id: ch.id.trim(), title: clean(ch.title) || ch.id.trim(), lectures }] : [];
+  });
 }

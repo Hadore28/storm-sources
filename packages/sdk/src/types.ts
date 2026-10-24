@@ -7,7 +7,7 @@ export const SDK_VERSION = 2;
 /** SDK versions this release can still run. Version 1 extensions are manga only. */
 export const SUPPORTED_SDKS = [1, 2] as const;
 
-export const APPS = ["mangasto", "anisto", "movisto", "novelsto", "booksto"] as const;
+export const APPS = ["mangasto", "anisto", "movisto", "novelsto", "booksto", "studysto"] as const;
 export type AppKind = (typeof APPS)[number];
 
 /** A label shown on the site: one string, or one per site language. */
@@ -165,6 +165,8 @@ export interface VideoServer {
   lang?: string;
   /** a download link rather than a player */
   download?: boolean;
+  /** only plays when storm's server fetches it, sending this Referer */
+  referer?: string;
 }
 
 /** Readable text for a novel chapter or a book section. Never HTML. */
@@ -219,7 +221,7 @@ export interface SourceBase<S> {
   search?(ctx: Context, req: SearchRequest): Promise<Paged<S>>;
 }
 
-export type Operation = "filters" | "list" | "search" | "manga" | "details" | "chapters" | "pages" | "episodes" | "servers" | "content";
+export type Operation = "filters" | "list" | "search" | "manga" | "details" | "chapters" | "pages" | "episodes" | "servers" | "content" | "lectures";
 
 // ---------- manga ----------
 
@@ -431,6 +433,66 @@ export interface BookSource extends SourceBase<BookSummary> {
   content?(ctx: Context, bookId: string, sectionId: string): Promise<TextContent>;
 }
 
+// ---------- lectures ----------
+
+export const SUBJECTS = ["math", "physics", "chemistry", "biology", "arabic", "english", "islamic", "french", "computer", "other"] as const;
+export type Subject = (typeof SUBJECTS)[number];
+
+/** A teacher, as a list shows them. */
+export interface TeacherSummary {
+  id: string;
+  /** the teacher's name */
+  title: string;
+  /** their photo */
+  cover?: string;
+  url?: string;
+  subject?: Subject;
+  /** the subject as the site names it */
+  subjectName?: string;
+  /** class years they teach, e.g. "2026" */
+  years?: string[];
+  lectureCount?: number;
+  rating?: ContentRating;
+}
+
+/** One run of a teacher's lectures, usually one class year. */
+export interface Course {
+  id: string;
+  title?: string;
+  year?: string;
+  lectureCount?: number;
+}
+
+export interface TeacherDetails extends TeacherSummary {
+  description?: string;
+  /** e.g. "السادس الإعدادي" */
+  stage?: string;
+  courses: Course[];
+}
+
+export interface Lecture {
+  id: string;
+  number?: number;
+  title?: string;
+  /** paid on the site; listed but not playable */
+  locked?: boolean;
+  /** minutes */
+  duration?: number;
+}
+
+export interface LectureChapter {
+  id: string;
+  title: string;
+  lectures: Lecture[];
+}
+
+export interface StudySource extends SourceBase<TeacherSummary> {
+  details(ctx: Context, teacherId: string): Promise<TeacherDetails>;
+  /** a course's chapters and their lectures, in teaching order */
+  lectures(ctx: Context, teacherId: string, courseId: string): Promise<LectureChapter[]>;
+  servers(ctx: Context, teacherId: string, lectureId: string): Promise<VideoServer[]>;
+}
+
 // ---------- extensions ----------
 
 export interface SourceByApp {
@@ -439,6 +501,7 @@ export interface SourceByApp {
   movisto: FilmSource;
   novelsto: NovelSource;
   booksto: BookSource;
+  studysto: StudySource;
 }
 
 export type AnySource = SourceByApp[AppKind];

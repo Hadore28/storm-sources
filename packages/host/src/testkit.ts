@@ -6,7 +6,7 @@ import { describe, expect, test } from "bun:test";
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import type { AnimeDetails, BookDetails, Extension, FilmDetails, Genre, NovelDetails } from "@storm-sources/sdk";
+import type { AnimeDetails, BookDetails, Extension, FilmDetails, Genre, NovelDetails, TeacherDetails } from "@storm-sources/sdk";
 import { SourceHost } from "./host";
 import type { FetchLike } from "./http";
 import { fetchVia } from "./resolve";
@@ -128,6 +128,7 @@ export function contractTests(ext: Extension, plans: ContractPlan[], fixtures: s
         if (ext.app === "movisto") filmTests(host, id, item, plan);
         if (ext.app === "novelsto") novelTests(host, id, item, plan);
         if (ext.app === "booksto") bookTests(host, id, item, plan);
+        if (ext.app === "studysto") studyTests(host, id, item, plan);
       }
     });
   }
@@ -263,6 +264,25 @@ function bookTests(host: SourceHost, id: string, item: string, plan: ContractPla
       expect(sections.length).toBeGreaterThanOrEqual(plan.minChapters ?? 1);
       const text = await host.content(id, item, sections[0].id);
       expect(text.blocks.length).toBeGreaterThan(0);
+    },
+    TIMEOUT,
+  );
+}
+
+function studyTests(host: SourceHost, id: string, item: string, plan: ContractPlan) {
+  test(
+    "teacher, lectures and servers",
+    async () => {
+      const t = await host.details<TeacherDetails>(id, item);
+      expect(t.title.length).toBeGreaterThan(0);
+      expect(t.courses.length).toBeGreaterThan(0);
+      const chapters = await host.lectures(id, item, t.courses[0].id);
+      const lectures = chapters.flatMap((c) => c.lectures);
+      expect(lectures.length).toBeGreaterThanOrEqual(plan.minChapters ?? 1);
+      const open = lectures.find((l) => !l.locked);
+      if (!open) return;
+      const servers = await host.servers(id, item, open.id);
+      expect(servers.filter((s) => !s.download).length).toBeGreaterThan(0);
     },
     TIMEOUT,
   );

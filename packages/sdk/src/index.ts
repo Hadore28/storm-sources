@@ -1,4 +1,4 @@
-import { SDK_VERSION, type AnimeSource, type BookSource, type Extension, type FilmSource, type MangaSource, type NovelSource } from "./types";
+import { SDK_VERSION, type AnimeSource, type BookSource, type Extension, type FilmSource, type MangaSource, type NovelSource, type StudySource } from "./types";
 
 export * from "./types";
 export * from "./errors";
@@ -20,3 +20,4 @@ export const defineAnimeSource = (source: AnimeSource): AnimeSource => source;
 export const defineFilmSource = (source: FilmSource): FilmSource => source;
 export const defineNovelSource = (source: NovelSource): NovelSource => source;
 export const defineBookSource = (source: BookSource): BookSource => source;
+export const defineStudySource = (source: StudySource): StudySource => source;
