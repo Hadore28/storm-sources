@@ -1,3 +1,8 @@
+## 1.1.0
+
+- Adds okalharbi's hand-picked Arabic list: Alkass, Roya, Majid and more, merged with the channels already here.
+- Restream hosts are left out.
+
 ## 1.0.0
 
 - Arabic-language channels from IPTV-org's Arabic playlist, by country and category.

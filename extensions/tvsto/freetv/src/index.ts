@@ -6,7 +6,7 @@ import { m3uSource } from "../../m3u";
 export default defineExtension({
   pkg: "storm.tvsto.freetv",
   name: "Free-TV",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "tvsto",
   sources: [
     m3uSource({
@@ -14,7 +14,7 @@ export default defineExtension({
       name: "Free-TV",
       lang: "all",
       baseUrl: "https://github.com/Free-TV/IPTV",
-      playlist: "https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8",
+      playlists: ["https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8"],
       groupsAreCountries: true,
     }),
   ],

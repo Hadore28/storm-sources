@@ -1,4 +1,4 @@
-// A live-TV source from one hosted M3U playlist. Feeds sharing a channel id become one channel.
+// A live-TV source from hosted M3U playlists. Feeds sharing a channel id become one channel, across playlists.
 
 import { SourceError, defineTvSource, type ChannelSummary, type Text, type TvSource } from "@storm-sources/sdk";
 import { CATEGORIES, L, categoryKey, channelFilters, countryOfId, feedServers, filterChannels, memo, paged, shortId, splitTitle, parseM3u, type Feed } from "./shared";
@@ -8,9 +8,11 @@ interface Options {
   name: string;
   lang: string;
   baseUrl: string;
-  playlist: string;
+  playlists: string[];
   /** groups that are countries in this playlist, not categories */
   groupsAreCountries?: boolean;
+  /** restream hosts whose feeds are left out */
+  skipHosts?: RegExp;
 }
 
 interface Rec extends ChannelSummary {
@@ -21,15 +23,19 @@ export function m3uSource(o: Options): TvSource {
   const groupNames = new Map<string, string>();
 
   const catalog = memo(3 * 3_600_000, async (ctx) => {
-    const text = await ctx.http.text(o.playlist, { timeoutMs: 45_000 });
+    // a playlist that doesn't answer leaves the others
+    const texts = await Promise.all(o.playlists.map((url) => ctx.http.text(url, { timeoutMs: 45_000 }).catch(() => "")));
+    if (texts.every((t) => !t)) throw new SourceError("network", `${o.name}: no playlist answered`);
     const recs = new Map<string, Rec>();
-    for (const e of parseM3u(text)) {
-      if (!e.url) continue;
+    const seen = new Set<string>();
+    for (const e of texts.flatMap(parseM3u)) {
+      if (!e.url || seen.has(e.url) || o.skipHosts?.test(e.url)) continue;
+      seen.add(e.url);
       const { name, quality } = splitTitle(e.title);
       if (!name) continue;
       const tvg = e.tvgId?.split("@")[0];
-      const id = tvg ? tvg.replace(/[^\w.-]/g, "") : `u-${shortId(e.url)}`;
-      const groups = o.groupsAreCountries ? [] : (e.group ?? "").split(";").map((g) => g.trim()).filter(Boolean);
+      const id = tvg?.replace(/[^\w.-]/g, "") || `u-${shortId(tvg || e.url)}`;
+      const groups = o.groupsAreCountries ? [] : (e.group ?? "").split(";").map((g) => g.trim()).filter((g) => g && !/^undefined$/i.test(g));
       for (const g of groups) groupNames.set(categoryKey(g), g);
       let rec = recs.get(id);
       if (!rec) {
@@ -37,6 +43,7 @@ export function m3uSource(o: Options): TvSource {
         recs.set(id, rec);
       }
       if (!rec.cover && e.logo) rec.cover = e.logo;
+      for (const g of groups.map(categoryKey)) if (!rec.categories!.includes(g)) rec.categories!.push(g);
       rec.feeds.push({ url: e.url, quality, referrer: e.referrer, userAgent: e.userAgent });
     }
     const list = [...recs.values()]
