@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-24T14:03:39.071Z",
+  "generatedAt": "2026-10-24T16:00:45.079Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime4up",
@@ -361,6 +361,54 @@
           "id": "manara-st",
           "name": "منارة ST",
           "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.tvsto.arabic",
+      "name": "قنوات عربية",
+      "version": "1.0.0",
+      "app": "tvsto",
+      "file": "extensions/storm.tvsto.arabic-1.0.0.js",
+      "sha256": "90923b4899d699590d7e5b1c19e033607020830a4df9b46c27170ef4d0180c02",
+      "size": 13146,
+      "sources": [
+        {
+          "id": "arabic-tv",
+          "name": "قنوات عربية",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.tvsto.freetv",
+      "name": "Free-TV",
+      "version": "1.0.0",
+      "app": "tvsto",
+      "file": "extensions/storm.tvsto.freetv-1.0.0.js",
+      "sha256": "499973d8b7478238e0b64c6b47c925e19e029f59c173fed1d631511a184d32c8",
+      "size": 13181,
+      "sources": [
+        {
+          "id": "freetv",
+          "name": "Free-TV",
+          "lang": "all"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.tvsto.iptvorg",
+      "name": "IPTV-org",
+      "version": "1.0.0",
+      "app": "tvsto",
+      "file": "extensions/storm.tvsto.iptvorg-1.0.0.js",
+      "sha256": "50c5de6c9aa199791c3f2188bb03741b0060947079ecb70d11275a0cbad28344",
+      "size": 12108,
+      "sources": [
+        {
+          "id": "iptvorg",
+          "name": "IPTV-org",
+          "lang": "all"
         }
       ]
     }
