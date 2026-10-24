@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-12T02:25:46.579Z",
+  "generatedAt": "2026-10-24T13:47:08.800Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime4up",
@@ -312,6 +312,54 @@
         {
           "id": "rewayat",
           "name": "Rewayat Club",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.studysto.edson",
+      "name": "Edson",
+      "version": "1.0.0",
+      "app": "studysto",
+      "file": "extensions/storm.studysto.edson-1.0.0.js",
+      "sha256": "96280decdc184235ebc94beca5332b50f3d27a953ce2cd1f907e372160dbdda9",
+      "size": 11010,
+      "sources": [
+        {
+          "id": "edson",
+          "name": "Edson",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.studysto.eduiraq",
+      "name": "EduIraq",
+      "version": "1.0.0",
+      "app": "studysto",
+      "file": "extensions/storm.studysto.eduiraq-1.0.0.js",
+      "sha256": "1006a8ac269598d08193525cdbb043fac98616b7e6973bf7e60c6475b175e7f2",
+      "size": 81001,
+      "sources": [
+        {
+          "id": "eduiraq",
+          "name": "EduIraq",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.studysto.manarast",
+      "name": "منارة ST",
+      "version": "1.0.0",
+      "app": "studysto",
+      "file": "extensions/storm.studysto.manarast-1.0.0.js",
+      "sha256": "c5f453e498815e1cbf92085051a03479c87f23325665520c58cdc69a38990303",
+      "size": 12186,
+      "sources": [
+        {
+          "id": "manara-st",
+          "name": "منارة ST",
           "lang": "ar"
         }
       ]
