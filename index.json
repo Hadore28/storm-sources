@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-24T16:00:45.079Z",
+  "generatedAt": "2026-10-24T17:01:45.595Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime4up",
@@ -367,34 +367,36 @@
     {
       "pkg": "storm.tvsto.arabic",
       "name": "قنوات عربية",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "app": "tvsto",
-      "file": "extensions/storm.tvsto.arabic-1.0.0.js",
-      "sha256": "90923b4899d699590d7e5b1c19e033607020830a4df9b46c27170ef4d0180c02",
-      "size": 13146,
+      "file": "extensions/storm.tvsto.arabic-1.1.0.js",
+      "sha256": "28b0d1c9bf748a5c2d46a4d97d3ba06c64e9c18c44d0bee2fd9eb62e4174734c",
+      "size": 13630,
       "sources": [
         {
           "id": "arabic-tv",
           "name": "قنوات عربية",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- Arabic-language channels from IPTV-org's Arabic playlist, by country and category.\n- Feeds that need a Referer or plain http stream through storm."
     },
     {
       "pkg": "storm.tvsto.freetv",
       "name": "Free-TV",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "tvsto",
-      "file": "extensions/storm.tvsto.freetv-1.0.0.js",
-      "sha256": "499973d8b7478238e0b64c6b47c925e19e029f59c173fed1d631511a184d32c8",
-      "size": 13181,
+      "file": "extensions/storm.tvsto.freetv-1.0.1.js",
+      "sha256": "67d9a0d80d9382b7ace685f77167e02f474e76be07d29ccf78ce62300867e5f8",
+      "size": 13523,
       "sources": [
         {
           "id": "freetv",
           "name": "Free-TV",
           "lang": "all"
         }
-      ]
+      ],
+      "changelog": "- Free-TV's hand-checked playlist of free channels, filtered by country.\n- Feeds of one channel are grouped together, best quality first."
     },
     {
       "pkg": "storm.tvsto.iptvorg",
