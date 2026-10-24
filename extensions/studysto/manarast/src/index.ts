@@ -14,6 +14,7 @@ import {
   type Text,
 } from "@storm-sources/sdk";
 import { displayName, teacherKey, videoKind } from "../../feed";
+import { withDirect } from "../../hosts";
 
 const SITE = "https://v.sea-novels.com";
 const L = (en: string, ar: string): Text => ({ en, ar });
@@ -204,14 +205,14 @@ const manara = defineStudySource({
     const page = (await pages(ctx)).find((p) => p.id === chapterPage);
     const ep = page && episodesOf(page.body).find((e) => String(e.num) === num);
     if (!ep) throw new SourceError("not-found", `منارة ST has no lecture ${lectureId}`);
-    return ep.servers.filter((s) => /^https?:\/\//.test(s.url)).map((s) => ({ name: s.name, url: s.url, kind: videoKind(s.url) }));
+    return withDirect(ctx, ep.servers.filter((s) => /^https?:\/\//.test(s.url)).map((s) => ({ name: s.name, url: s.url, kind: videoKind(s.url) })));
   },
 });
 
 export default defineExtension({
   pkg: "storm.studysto.manarast",
   name: "منارة ST",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "studysto",
   sources: [manara],
 });

@@ -15,6 +15,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "./hosts";
 
 export interface FeedLecture {
   title?: string;
@@ -166,7 +167,7 @@ export function feedSource(o: FeedSourceOptions): StudySource {
       const url = (await teacher(ctx, id)).byYear.get(year)?.classes?.[Number(ci)]?.lectures?.[Number(li)]?.url?.trim();
       if (!url) throw new SourceError("not-found", `${o.name} has no lecture ${lectureId}`);
       if (o.locked(url)) throw new SourceError("unsupported", "This lecture is paid on the site");
-      return o.servers(ctx, url);
+      return withDirect(ctx, await o.servers(ctx, url));
     },
   });
 }
