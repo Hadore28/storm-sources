@@ -1,3 +1,7 @@
+## 1.2.1
+
+- A stream listed under two channel names now plays on both (MBC 3 had lost its working feed to MBC 3 USA).
+
 ## 1.2.0
 
 - Adds LiveTVCollector's Egypt list: Shahid's free channels, Rotana, On E, Al Mamlaka, Al Araby and more.

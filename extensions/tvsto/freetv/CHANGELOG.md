@@ -1,3 +1,7 @@
+## 1.0.3
+
+- A stream listed under two channel names now plays on both.
+
 ## 1.0.2
 
 - Leaves out restreams and paid channels.

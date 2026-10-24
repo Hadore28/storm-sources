@@ -25,11 +25,9 @@ export function m3uSource(o: Options): TvSource {
     const texts = await Promise.all(o.playlists.map((url) => ctx.http.text(url, { timeoutMs: 45_000 }).catch(() => "")));
     if (texts.every((t) => !t)) throw new SourceError("network", `${o.name}: no playlist answered`);
     const recs = new Map<string, Rec>();
-    const seen = new Set<string>();
     const byName = new Map<string, string>();
     for (const e of texts.flatMap(parseM3u)) {
-      if (!e.url || seen.has(e.url) || unwanted(e.url, e.title)) continue;
-      seen.add(e.url);
+      if (!e.url || unwanted(e.url, e.title)) continue;
       const { name, quality } = splitTitle(e.title);
       if (!name) continue;
       // a feed without a channel id joins the channel of the same name
@@ -46,7 +44,8 @@ export function m3uSource(o: Options): TvSource {
       }
       if (!rec.cover && e.logo) rec.cover = e.logo;
       for (const g of groups.map(categoryKey)) if (!rec.categories!.includes(g)) rec.categories!.push(g);
-      rec.feeds.push({ url: e.url, quality, referrer: e.referrer, userAgent: e.userAgent });
+      // one stream can carry two channels' names, e.g. MBC 3 and MBC 3 USA
+      if (!rec.feeds.some((f) => f.url === e.url)) rec.feeds.push({ url: e.url, quality, referrer: e.referrer, userAgent: e.userAgent });
     }
     const list = [...recs.values()]
       .map((r) => ({ ...r, streams: r.feeds.length, quality: r.feeds.find((f) => f.quality)?.quality }))

@@ -6,7 +6,7 @@ import { m3uSource } from "../../m3u";
 export default defineExtension({
   pkg: "storm.tvsto.arabic",
   name: "قنوات عربية",
-  version: "1.2.0",
+  version: "1.2.1",
   app: "tvsto",
   sources: [
     m3uSource({
