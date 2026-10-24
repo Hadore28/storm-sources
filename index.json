@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-24T17:15:30.783Z",
+  "generatedAt": "2026-10-24T17:30:35.198Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime4up",
@@ -367,11 +367,11 @@
     {
       "pkg": "storm.tvsto.arabic",
       "name": "قنوات عربية",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "app": "tvsto",
-      "file": "extensions/storm.tvsto.arabic-1.2.0.js",
-      "sha256": "e12057d387bca51d861e0cb4d003b4010e938f9f0e43df1ce0cbcc9c7a08caec",
-      "size": 13920,
+      "file": "extensions/storm.tvsto.arabic-1.2.1.js",
+      "sha256": "63796736f9f3a5618fd48692ad376ceb1e67885bfc7cfc05821a690ccb3dcbf3",
+      "size": 13913,
       "sources": [
         {
           "id": "arabic-tv",
@@ -379,16 +379,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Adds okalharbi's hand-picked Arabic list: Alkass, Roya, Majid and more, merged with the channels already here.\n- Restream hosts are left out."
+      "changelog": "- Adds LiveTVCollector's Egypt list: Shahid's free channels, Rotana, On E, Al Mamlaka, Al Araby and more.\n- Paid sports channels and restreams of them are left out."
     },
     {
       "pkg": "storm.tvsto.freetv",
       "name": "Free-TV",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "tvsto",
-      "file": "extensions/storm.tvsto.freetv-1.0.2.js",
-      "sha256": "a694aaffc85e299afc37ce2c591c00afc0371259693e3c6b725843d636b65827",
-      "size": 13783,
+      "file": "extensions/storm.tvsto.freetv-1.0.3.js",
+      "sha256": "6c464ef65ae18ce1787110c0d93307b0f47cd81298bc40ada37e4e4522a31b5b",
+      "size": 13776,
       "sources": [
         {
           "id": "freetv",
@@ -396,7 +396,7 @@
           "lang": "all"
         }
       ],
-      "changelog": "- Rebuilt with the shared live-TV code."
+      "changelog": "- Leaves out restreams and paid channels."
     },
     {
       "pkg": "storm.tvsto.iptvorg",
