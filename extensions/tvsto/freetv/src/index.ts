@@ -6,7 +6,7 @@ import { m3uSource } from "../../m3u";
 export default defineExtension({
   pkg: "storm.tvsto.freetv",
   name: "Free-TV",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "tvsto",
   sources: [
     m3uSource({

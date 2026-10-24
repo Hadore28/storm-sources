@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Leaves out restreams and paid channels.
+
 ## 1.0.1
 
 - Rebuilt with the shared live-TV code.

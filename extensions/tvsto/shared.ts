@@ -142,6 +142,13 @@ export interface Feed {
 
 const qRank = (q?: string) => parseInt(q ?? "", 10) || 0;
 
+// third-party hosts that restream other broadcasters, and paid channels no free feed carries
+const RESTREAMS = /^https?:\/\/([^/]*\.)?(primetv\.cc\.cd|bozztv\.com|magictvbox\.com)[:/]/i;
+const PAID = /\b(bein|ssc|osn)\b/i;
+
+/** A feed storm leaves out: a restream, or a paid channel. */
+export const unwanted = (url: string, name = "") => RESTREAMS.test(url) || PAID.test(name);
+
 /**
  * A channel's feeds as servers, best quality first. Plain-http feeds and feeds that need
  * a Referer can't play straight from an https page, so storm streams those.

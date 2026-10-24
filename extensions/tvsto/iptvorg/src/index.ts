@@ -2,7 +2,7 @@
 // streams.json holds the feeds, channels.json the names, countries and categories, logos.json the logos.
 
 import { SourceError, clean, defineExtension, defineTvSource, type ChannelSummary, type Context } from "@storm-sources/sdk";
-import { L, channelFilters, feedServers, filterChannels, memo, paged, shortId, type Feed } from "../../shared";
+import { L, unwanted, channelFilters, feedServers, filterChannels, memo, paged, shortId, type Feed } from "../../shared";
 
 const API = "https://iptv-org.github.io/api";
 
@@ -47,6 +47,7 @@ const catalog = memo(6 * 3_600_000, async (ctx: Context) => {
   for (const s of streams) {
     if (!s.url) continue;
     const ch = s.channel ? byChannel.get(s.channel) : undefined;
+    if (unwanted(s.url, ch?.name ?? s.title)) continue;
     if (ch?.is_nsfw || ch?.categories?.includes("xxx") || ch?.closed) continue;
     const id = ch?.id ?? `u-${shortId(s.url)}`;
     let rec = recs.get(id);
@@ -108,7 +109,7 @@ const iptvorg = defineTvSource({
 export default defineExtension({
   pkg: "storm.tvsto.iptvorg",
   name: "IPTV-org",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "tvsto",
   sources: [iptvorg],
 });

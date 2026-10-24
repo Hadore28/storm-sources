@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Leaves out restreams of paid channels (beIN, SSC, OSN) that slipped into the catalog.
+
 ## 1.0.0
 
 - Free-to-air channels from around the world, from IPTV-org's public catalog.
