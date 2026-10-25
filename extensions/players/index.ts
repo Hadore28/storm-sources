@@ -167,10 +167,15 @@ function joinPieces(expr: string): string | undefined {
 const streamtape: Extractor = async (ctx, url) => {
   const id = /streamtape\.[a-z.]+\/[ev]\/([\w-]+)/i.exec(url)?.[1];
   if (!id) return [];
-  // its own domain: .com is blocked in some places where .to isn't
-  const site = new URL(url).origin;
+  // .com is blocked in some places where .to isn't
+  let site = new URL(url).origin;
+  let res = await page(ctx, `${site}/e/${id}/`, `${site}/`).catch(() => undefined);
+  if (!res || res.status !== 200) {
+    site = "https://streamtape.to";
+    res = await page(ctx, `${site}/e/${id}/`, `${site}/`);
+  }
   const embed = `${site}/e/${id}/`;
-  const html = await (await page(ctx, embed, `${site}/`)).text();
+  const html = await res.text();
   let path: string | undefined;
   for (const m of html.matchAll(/getElementById\(['"](\w+)['"]\)\.innerHTML\s*=\s*([^;]+);/g)) {
     const v = joinPieces(m[2]);

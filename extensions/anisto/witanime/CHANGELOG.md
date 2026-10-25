@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Streamtape plays from streamtape.to when streamtape.com is blocked.
+
 ## 1.0.3
 
 - Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded.
