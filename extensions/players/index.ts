@@ -6,6 +6,8 @@ import type { Context, VideoServer } from "@storm-sources/sdk";
 import { unpackAll } from "./unpack";
 
 type Found = Omit<VideoServer, "name"> & { name?: string };
+/** an extractor's way of saying the host plainly reports the video gone */
+class Gone extends Error {}
 type Extractor = (ctx: Context, url: string) => Promise<Found[]>;
 
 // the same agent storm's video proxy sends, for links tied to it
@@ -24,6 +26,7 @@ const okru: Extractor = async (ctx, url) => {
   const id = /videoembed\/(\d+)|video\/(\d+)/.exec(url);
   if (!id) return [];
   const html = await ctx.http.text(`https://ok.ru/videoembed/${id[1] ?? id[2]}`, { headers: { "User-Agent": AGENT } });
+  if (/vp_video_stub/.test(html)) throw new Gone();
   const raw = /data-options="([^"]+)"/.exec(html)?.[1];
   if (!raw) return [];
   const options = JSON.parse(unescape(raw)) as { flashvars?: { metadata?: unknown } };
@@ -216,6 +219,7 @@ const pixeldrain: Extractor = async (_ctx, url) => {
 
 const fourshared: Extractor = async (ctx, url) => {
   const html = await (await page(ctx, url)).text();
+  if (/class="error4shared"/.test(html)) throw new Gone();
   const src = /(https?:\/\/[a-z0-9]+\.4shared\.com\/img\/[^"'\s]+\/preview\.mp4)/.exec(html)?.[1];
   return src ? [{ url: src, kind: "mp4", referer: "https://www.4shared.com/" }] : [];
 };
@@ -290,26 +294,49 @@ const hostFor = (url: string) => HOSTS.find((h) => h.match.test(url));
 /** Whether storm can turn this embed into a direct stream. */
 export const resolvable = (url: string) => !!hostFor(url);
 
-/** The direct streams for an embedded player, or none when the host isn't one storm knows or doesn't answer. */
-export async function direct(ctx: Context, url: string): Promise<VideoServer[]> {
-  const host = hostFor(url);
-  if (!host) return [];
+// what hosts show in place of a deleted video
+const GONE = /(video|file)\s+(was\s+|has\s+been\s+)?(not\s+found|deleted|removed)|no\s+longer\s+available|(doesn't|does\s+not)\s+exist|file\s+is\s+unavailable|не\s+найден|был\s+удал[её]н|error4shared|errno=\d+/i;
+
+// Asked only after a host gave no stream, so a working player is never written off.
+async function gone(ctx: Context, url: string): Promise<boolean> {
   try {
-    return (await host.get(ctx, url)).map((d) => ({ ...d, name: d.name ?? host.name }));
-  } catch (e) {
-    ctx.log("no direct stream", { url, error: String(e) });
-    return [];
+    const res = await page(ctx, url);
+    if (res.status === 404 || res.status === 410 || /error\.php/.test(res.url)) return true;
+    const visible = (await res.text()).replace(/<(script|style)[\s\S]*?<\/>/gi, " ").replace(/<[^>]+>/g, " ");
+    return GONE.test(visible.slice(0, 20_000));
+  } catch {
+    return false;
   }
 }
 
-/** The same servers in the same order; each one storm can read plays as a direct stream, the rest stay embeds. */
+/** The direct streams for an embedded player, or none when the host isn't one storm knows or doesn't answer. */
+export async function direct(ctx: Context, url: string): Promise<VideoServer[]> {
+  return (await read(ctx, url)).streams;
+}
+
+async function read(ctx: Context, url: string): Promise<{ streams: VideoServer[]; gone: boolean }> {
+  const host = hostFor(url);
+  if (!host) return { streams: [], gone: false };
+  try {
+    const streams = (await host.get(ctx, url)).map((d) => ({ ...d, name: d.name ?? host.name }));
+    return { streams, gone: !streams.length && (await gone(ctx, url)) };
+  } catch (e) {
+    if (e instanceof Gone) return { streams: [], gone: true };
+    ctx.log("no direct stream", { url, error: String(e) });
+    return { streams: [], gone: false };
+  }
+}
+
+/** The same servers in the same order; each one storm can read plays as a direct stream, a deleted one is marked, the rest stay embeds. */
 export async function withDirect(ctx: Context, servers: VideoServer[]): Promise<VideoServer[]> {
   let budget = MAX_RESOLVED;
   return Promise.all(
     servers.map(async (s) => {
       if (s.kind !== "embed" || s.download || !resolvable(s.url) || budget-- <= 0) return s;
-      const [d] = await direct(ctx, s.url);
-      return d ? { ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang } : s;
+      const { streams, gone } = await read(ctx, s.url);
+      const [d] = streams;
+      if (d) return { ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang };
+      return gone ? { ...s, unavailable: true } : s;
     }),
   );
 }

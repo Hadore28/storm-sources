@@ -1,3 +1,7 @@
+## 1.0.4
+
+- A server whose host says the video was deleted is marked unavailable instead of offered.
+
 ## 1.0.3
 
 - Streamtape plays from streamtape.to when streamtape.com is blocked.

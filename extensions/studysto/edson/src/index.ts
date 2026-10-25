@@ -41,7 +41,7 @@ const edson = feedSource({
 export default defineExtension({
   pkg: "storm.studysto.edson",
   name: "Edson",
-  version: "1.0.4",
+  version: "1.0.5",
   app: "studysto",
   sources: [edson],
 });

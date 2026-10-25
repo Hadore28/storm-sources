@@ -309,6 +309,7 @@ export function checkServers(list: VideoServer[], where: string): VideoServer[] 
       lang: clean(s.lang) || undefined,
       download: !!s.download,
       referer: isHttp(s.referer) ? s.referer : undefined,
+      unavailable: s.unavailable ? true : undefined,
     });
   }
   if (!out.some((s) => !s.download)) fail(`${where}: no playable servers`, list);

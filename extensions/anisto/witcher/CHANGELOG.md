@@ -1,3 +1,7 @@
+## 1.0.1
+
+- A server whose host says the video was deleted is marked unavailable instead of offered.
+
 ## 1.0.0
 
 - AnimeWitcher, read the way its Android app reads as a guest: new episodes and every anime from its search index; search.

@@ -167,6 +167,8 @@ export interface VideoServer {
   download?: boolean;
   /** only plays when storm's server fetches it, sending this Referer */
   referer?: string;
+  /** the host says this video is gone; shown, but not offered */
+  unavailable?: boolean;
 }
 
 /** Readable text for a novel chapter or a book section. Never HTML. */

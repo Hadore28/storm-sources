@@ -37,7 +37,7 @@ eduiraq.cache = { servers: 5 * 60_000 };
 export default defineExtension({
   pkg: "storm.studysto.eduiraq",
   name: "EduIraq",
-  version: "1.0.4",
+  version: "1.0.5",
   app: "studysto",
   sources: [eduiraq],
 });
