@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-25T12:38:21.069Z",
+  "generatedAt": "2026-10-25T12:54:07.426Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,11 +23,11 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.3.js",
-      "sha256": "344a9406bea4ecdd5215da01e821e23215f7c4750574125d751d9f404bb2c1b2",
-      "size": 28715,
+      "file": "extensions/storm.anisto.anime4up-1.0.4.js",
+      "sha256": "6ddc992b7f1726f1fca787a6e4f1c2a85c20401907de7a1a5eb6e44e2b1d6980",
+      "size": 29547,
       "sources": [
         {
           "id": "anime4up",
@@ -35,16 +35,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.3.js",
-      "sha256": "9a721324d914c2668d54cfd98b454f9c9f7708a1595d866ce234f022de732dda",
-      "size": 21555,
+      "file": "extensions/storm.anisto.anitaku-1.0.4.js",
+      "sha256": "2b87b884d20da85ff4861fd52b88a1ed8bf9122c414adfea95e0f6dad10ccbea",
+      "size": 22387,
       "sources": [
         {
           "id": "anitaku",
@@ -52,16 +52,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.2.js",
-      "sha256": "83e199cc54bdf618716fe7583a709fc4d884c4732fb30486e6541c18dbc94b26",
-      "size": 21860,
+      "file": "extensions/storm.anisto.slayer-1.0.3.js",
+      "sha256": "d169360acc5def08abb2cc2a5655b80542273bca1ff9fdcdb96bbdfae3408b84",
+      "size": 22692,
       "sources": [
         {
           "id": "slayer",
@@ -69,16 +69,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.4.js",
-      "sha256": "64bdec8fa494e3f90d41976821df120eb6740567c1170ccf971b8fd300e0fbde",
-      "size": 29355,
+      "file": "extensions/storm.anisto.witanime-1.0.5.js",
+      "sha256": "e9818ea5848f81335f892c8990e6b6d7d5d5f9c5b9c21f947526573df47d2feb",
+      "size": 30187,
       "sources": [
         {
           "id": "witanime",
@@ -86,23 +86,24 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.anisto.witcher",
       "name": "AnimeWitcher",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witcher-1.0.0.js",
-      "sha256": "fa73667df292f60f19546bcdc14349ffc0b881aae902d23dc643047c6c765746",
-      "size": 22808,
+      "file": "extensions/storm.anisto.witcher-1.0.1.js",
+      "sha256": "eaa81e8993e962ef1153e2a49f1c5123d15d2ecedad0dcd474ae1bed5e048c7f",
+      "size": 23640,
       "sources": [
         {
           "id": "witcher",
           "name": "AnimeWitcher",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- AnimeWitcher, read the way its Android app reads as a guest: new episodes and every anime from its search index; search.\n- Anime details with type, status, season, studio, genres and episode length; every episode with its Arabic title.\n- Each episode's servers in the app's order; MediaFire, Pixeldrain and Streamtape play in storm's own player, the rest stay embedded."
     },
     {
       "pkg": "storm.booksto.foulabook",
@@ -371,11 +372,11 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.4.js",
-      "sha256": "b5a56acf2c00b7c931ca0cc65875657494ca8ca9405cf0945e0ab14af2b6610a",
-      "size": 22049,
+      "file": "extensions/storm.studysto.edson-1.0.5.js",
+      "sha256": "24037adfacd867a353ada7f637d36672374ef253081fd3ec83f793416d12e7de",
+      "size": 22881,
       "sources": [
         {
           "id": "edson",
@@ -383,16 +384,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.4.js",
-      "sha256": "1adaf69b2f9fb0bedffb9f83b199b43123d4ff7e660b7b6ac4465d3c6248ed2f",
-      "size": 92040,
+      "file": "extensions/storm.studysto.eduiraq-1.0.5.js",
+      "sha256": "2d403934c5219b88d7567dc88a542508d6cdbab4e92ae3332d4367d457c72c88",
+      "size": 92872,
       "sources": [
         {
           "id": "eduiraq",
@@ -400,16 +401,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.4.js",
-      "sha256": "b2ba4d17968c01d6b56b958f1d56a06770d84657b6820ef2961d7bd6900cc445",
-      "size": 23219,
+      "file": "extensions/storm.studysto.manarast-1.0.5.js",
+      "sha256": "e4a7d6856db63caf7d9ffc756b9f06c484c520ebcb4e33b262b94d07327c5005",
+      "size": 24051,
       "sources": [
         {
           "id": "manara-st",
@@ -417,7 +418,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded."
+      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
     },
     {
       "pkg": "storm.tvsto.arabic",
