@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-25T11:42:53.304Z",
+  "generatedAt": "2026-10-25T11:52:52.131Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,59 +23,62 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.1.js",
-      "sha256": "b996690d551eb5b570013fa1ab7ec9fc294b1d782f85bafda347f5b6d1f55b3a",
-      "size": 29069,
+      "file": "extensions/storm.anisto.anime4up-1.0.2.js",
+      "sha256": "79ab8e6d8bd883f875746fdd81b863e6f3a70137452ff0b63fa30bd81c6aeeb3",
+      "size": 28566,
       "sources": [
         {
           "id": "anime4up",
           "name": "Anime4up",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- New episodes, recently added (with genre and type filters), this season and movies; search.\n- Anime details with type, year, season, episode count and length; every episode, however many pages the site splits them over.\n- Every server for an episode, and its download links.\n- The site's address can be changed in the admin when it moves."
     },
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.1.js",
-      "sha256": "00aa4725cc3d010d0582119c80b5cac30498fa7b14516f93f5c360ed7638f2df",
-      "size": 21909,
+      "file": "extensions/storm.anisto.anitaku-1.0.2.js",
+      "sha256": "85c2cb2e4382cc521c14101a2237e0ebfa028ab3e0729c47e6fe37106191c144",
+      "size": 21406,
       "sources": [
         {
           "id": "anitaku",
           "name": "AniTaku",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- Recently added and most watched, and search, from the AniTaku app's API.\n- Anime details with original title, year, genres and studio; every episode numbered straight through its arcs.\n- Episodes play in storm's own player: MediaFire and Pixeldrain files are opened as direct video."
     },
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.0.js",
-      "sha256": "1f81ee7bac9ffad222689dd113039b740eca9cfcef68e7faf3c2e019d8f02201",
-      "size": 22214,
+      "file": "extensions/storm.anisto.slayer-1.0.1.js",
+      "sha256": "df640d27356d3c3a4c58863f2e86ef0067be795e3de7d6cd2c9412068e1bcfd2",
+      "size": 21711,
       "sources": [
         {
           "id": "slayer",
           "name": "AnimeSlayer",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- AnimeSlayer, from the API behind its Android app: new episodes, top rated and A–Z; search.\n- Anime details with type, status, season, genres and English title; every episode.\n- Each episode's copies on other hosts, turned into direct streams where storm can read the host."
     },
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.2.js",
-      "sha256": "7005a1474f7a68dffcc9edd941ef1fc1ad3e6833d41b600e892bd425698cbf7e",
-      "size": 29709,
+      "file": "extensions/storm.anisto.witanime-1.0.3.js",
+      "sha256": "105445563cb944a8705a05dcd05be058da99174919499e5f2ec20f196c2699c5",
+      "size": 29206,
       "sources": [
         {
           "id": "witanime",
@@ -83,7 +86,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- WitAnime's new site (witanime.site): new episodes, most watched, this season, top rated, movies and A–Z.\n- Genre, type, status and year filters on lists and search.\n- Anime and film details with studio, season, episode count and length; every episode.\n- Each episode's players and downloads, opened the way the site opens them, so storm shows the real player."
+      "changelog": "- Players open again: the site now turns away a full Chrome User-Agent, and a gate opened with a Referer.\n- Gates are opened one at a time, a couple of seconds apart, since the site refuses a burst of them; up to three players and one download per episode."
     },
     {
       "pkg": "storm.booksto.foulabook",
@@ -352,50 +355,53 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.2.js",
-      "sha256": "ff55b87a18269d711af6fc204ed0f4e2d006f37332b985f335ad7c7aeb7100b1",
-      "size": 22403,
+      "file": "extensions/storm.studysto.edson-1.0.3.js",
+      "sha256": "cda31d2bc6810b4836d526e9b6f71ab79ce3fd2d4be9c6641712c22bcfdb24ee",
+      "size": 21900,
       "sources": [
         {
           "id": "edson",
           "name": "Edson",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- Edson's lectures for the classes of 2025 and 2026: every teacher, chapter and lecture from its public feeds.\n- Filter teachers by subject and class year, and search by name.\n- Each lecture plays from its file, playlist or player page; paid ones are listed as locked."
     },
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.2.js",
-      "sha256": "309dc14f29b3456c66a6caec754004db295f714165dea6346b3a8f371d053002",
-      "size": 92394,
+      "file": "extensions/storm.studysto.eduiraq-1.0.3.js",
+      "sha256": "ac9ac8829e49a3a1bfb8f7d7b45e0ea4ef4fd59e216a4350375b47d5de52eb55",
+      "size": 91891,
       "sources": [
         {
           "id": "eduiraq",
           "name": "EduIraq",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- EduIraq's lectures for the class of 2027: every teacher, chapter and lecture, from a decrypted copy of the site's catalog.\n- Lectures play from a signed EduIraq playlist, streamed through storm with the site's Referer; paid (VIP) lectures are listed as locked."
     },
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.2.js",
-      "sha256": "ffd733553a8542477900415cdae507a0eb2cef15e7dc7e13d3042a5c5e4b6493",
-      "size": 23573,
+      "file": "extensions/storm.studysto.manarast-1.0.3.js",
+      "sha256": "50dcc3a0e88eb0dde36d2bbaf99c59cc2f52546a446ffd2015c33b0bb48a7a52",
+      "size": 23070,
       "sources": [
         {
           "id": "manara-st",
           "name": "منارة ST",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- منارة ST's lectures for the classes of 2025, 2026 and 2027, read from the site's pages feed in one request.\n- Every teacher with a course per class year, its chapters, and each lecture's servers."
     },
     {
       "pkg": "storm.tvsto.arabic",
