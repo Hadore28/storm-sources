@@ -24,6 +24,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "../../../players";
 
 const SITE = "https://witanime.site";
 // The site answers 404 to a full Chrome User-Agent that doesn't act like Chrome,
@@ -32,6 +33,8 @@ const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chro
 // Gates take a short burst, then about one every two seconds.
 const GATE_GAP_MS = 2000;
 const MAX_STREAMS = 3;
+// players storm turns into a direct stream, by the names the site gives them
+const READABLE = /mp4upload|voe|uqload|okru|ok\.ru|\bok\b|\bvk\b|mixdrop|streamwish|earnvids|filemoon|vidhide|streamtape|dood|4shared|mediafire|pixeldrain/i;
 const MAX_DOWNLOADS = 1;
 const sleep = (ms: number) => new Promise<void>((done) => setTimeout(done, ms));
 const L = (en: string, ar: string): Text => ({ en, ar });
@@ -237,10 +240,12 @@ const witanime = defineAnimeSource({
     const manifest = await visit.json<{ players?: Record<string, Source[]>; downloads?: Record<string, Source[]> }>(new URL(sourcesUrl, SITE).toString(), { method: "POST", headers: xhr });
 
     const QUALITY = ["4K", "FHD", "HD", "SD"];
+    const rank = (s: Source & { quality: string }) => (READABLE.test(s.label ?? "") ? 0 : 10) + ((QUALITY.indexOf(s.quality) + 9) % 9);
+    // gates are slow, so the hosts storm can play directly are opened first
     const pick = (group: Record<string, Source[]> | undefined, max: number) =>
       Object.entries(group ?? {})
-        .sort(([a], [b]) => (QUALITY.indexOf(a) + 9) % 9 - ((QUALITY.indexOf(b) + 9) % 9))
         .flatMap(([quality, list]) => list.filter((s) => /^[a-f0-9]{64}$/.test(s.token)).map((s) => ({ ...s, quality })))
+        .sort((a, b) => rank(a) - rank(b))
         .slice(0, max);
 
     const open = async (s: Source & { quality: string }, kind: "stream" | "download"): Promise<VideoServer | null> => {
@@ -275,14 +280,14 @@ const witanime = defineAnimeSource({
       if (i > 0) await sleep(GATE_GAP_MS);
       opened.push(await open(s, kind));
     }
-    return opened.filter((s): s is VideoServer => !!s);
+    return withDirect(ctx, opened.filter((s): s is VideoServer => !!s));
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.witanime",
   name: "WitAnime",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "anisto",
   sources: [witanime],
 });

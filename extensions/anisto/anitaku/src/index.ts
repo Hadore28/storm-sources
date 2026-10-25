@@ -18,6 +18,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "../../../players";
 
 const API = "https://anitakuapp.hasalaty.com/public/api";
 // What the app sends: a fixed token, its package name, and a salt after every path.
@@ -92,37 +93,18 @@ async function paged(ctx: Context, path: string, page: number): Promise<Paged<An
   return { items: (d.data ?? []).map(card), hasNext: (d.current_page ?? 1) < (d.last_page ?? 1) };
 }
 
-// MediaFire file pages carry the file's direct address on their download button.
-async function mediafire(ctx: Context, link: string): Promise<string | undefined> {
-  const html = await ctx.http.text(link, { retries: 1, cacheMs: 10 * 60_000 });
-  const scrambled = /data-scrambled-url="([^"]+)"/.exec(html)?.[1];
-  if (scrambled) {
-    try {
-      const url = atob(scrambled);
-      if (/^https?:\/\/download\d*\.mediafire\.com\//.test(url)) return url;
-    } catch {
-      // fall through to the plain link
-    }
-  }
-  return /href="(https?:\/\/download\d*\.mediafire\.com\/[^"]+)"/.exec(html)?.[1]?.replace(/&amp;/g, "&");
-}
-
-async function playable(ctx: Context, v: AtVideo): Promise<VideoServer | null> {
+function server(v: AtVideo): VideoServer | null {
   const link = v.link?.trim();
   if (!link || !/^https?:\/\//.test(link)) return null;
   const quality = /\b(4K|FHD|HD|SD)\b/i.exec(v.server ?? "")?.[1]?.toUpperCase();
   const base = { name: clean((v.server ?? "").replace(/\b(4K|FHD|HD|SD)\b/i, "")) || new URL(link).host, quality, audio: "sub" as const, lang: /arab/i.test(v.lang ?? "") ? "ar" : undefined };
   if (v.hls || /\.m3u8(\?|$)/.test(link)) return { ...base, url: link, kind: "hls" };
-  if (v.embed) return { ...base, url: link, kind: "embed" };
-  const pixeldrain = /pixeldrain\.com\/u\/([A-Za-z0-9]+)/.exec(link)?.[1];
-  if (pixeldrain) return { ...base, url: `https://pixeldrain.com/api/file/${pixeldrain}`, kind: "mp4" };
-  if (/mediafire\.com\/file\//.test(link)) {
-    const direct = await mediafire(ctx, link).catch(() => undefined);
-    return direct ? { ...base, url: direct, kind: "mp4" } : null;
-  }
   if (/\.(mp4|webm)(\?|$)/.test(link)) return { ...base, url: link, kind: "mp4" };
   return { ...base, url: link, kind: "embed" };
 }
+
+// file pages (MediaFire, Pixeldrain) only count once they've turned into a video
+const isFilePage = (s: VideoServer) => s.kind === "embed" && /mediafire\.com|pixeldrain\.com/.test(s.url);
 
 // Seasons here are story arcs; episodes are numbered straight through, as the app shows them.
 function allEpisodes(s: AtShow): (AtEpisode & { n: number })[] {
@@ -188,14 +170,16 @@ const anitaku = defineAnimeSource({
     const s = await show(ctx, animeId);
     const videos = split(animeId).kind === "movie" ? (s.videos ?? []) : (allEpisodes(s).find((e) => String(e.id) === episodeId)?.videos ?? []);
     if (!videos.length) throw new SourceError("not-found", `AniTaku has no video for episode ${episodeId}`);
-    return (await Promise.all(videos.slice(0, 8).map((v) => playable(ctx, v)))).filter((v): v is VideoServer => !!v);
+    const found = (await withDirect(ctx, videos.slice(0, 8).map(server).filter((v): v is VideoServer => !!v))).filter((s) => !isFilePage(s));
+    if (!found.length) throw new SourceError("not-found", "AniTaku's files for this episode were removed");
+    return found;
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.anitaku",
   name: "AniTaku",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "anisto",
   sources: [anitaku],
 });

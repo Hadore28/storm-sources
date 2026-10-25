@@ -24,6 +24,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "../../../players";
 
 const DEFAULT_SITE = "https://w1.anime4up.rest";
 const L = (en: string, ar: string): Text => ({ en, ar });
@@ -222,14 +223,14 @@ const anime4up = defineAnimeSource({
       const q = clean(row.one(".td-quality")?.text());
       out.push({ name: clean(row.one(".server-name")?.text()) || new URL(url).host, url, kind: "embed", quality: q.match(/FHD|HD|SD/i)?.[0].toUpperCase() ?? (q || undefined), download: true });
     }
-    return out;
+    return withDirect(ctx, out);
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.anime4up",
   name: "Anime4up",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "anisto",
   sources: [anime4up],
 });
