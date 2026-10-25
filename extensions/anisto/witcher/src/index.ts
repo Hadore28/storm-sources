@@ -155,7 +155,7 @@ const witcher = defineAnimeSource({
       // MEGA plays only in its own embed page
       .map((s) => ({ name: s.name ?? new URL(s.link!).host, url: s.link!.replace(/mega\.(nz|io)\/file\//i, "mega.nz/embed/"), kind: "embed" as const, quality: s.quality, audio: "sub" as const, lang: "ar" }));
     // a file page in a frame plays nothing, so those only stay once they're a video
-    const found = (await withDirect(ctx, out)).filter((s) => !(s.kind === "embed" && /mediafire\.com|pixeldrain\.com/.test(s.url)));
+    const found = (await withDirect(ctx, out)).filter((s) => !(s.kind === "embed" && /mediafire\.com|pixeldrain\.com|firestream\.to/.test(s.url)));
     if (!found.length) throw new SourceError("not-found", `AnimeWitcher has no working copy of episode ${episodeId}`);
     return found;
   },
@@ -164,7 +164,7 @@ const witcher = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.witcher",
   name: "AnimeWitcher",
-  version: "1.0.2",
+  version: "1.0.3",
   app: "anisto",
   sources: [witcher],
 });

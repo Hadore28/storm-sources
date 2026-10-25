@@ -114,6 +114,20 @@ const dood: Extractor = async (ctx, url) => {
   return [{ url: `${base}${tail}?token=${token}&expiry=${Date.now()}`, kind: "mp4", referer: `${site}/` }];
 };
 
+// Firestream puts the file's signed address in a JSON block on its page.
+const firestream: Extractor = async (ctx, url) => {
+  const res = await page(ctx, url.replace(/\/(e|embed|v)\//, "/d/"));
+  const html = await res.text();
+  const raw = /<script id="video-data" type="application\/json">([\s\S]*?)<\/script>/.exec(html)?.[1];
+  if (!raw) {
+    if (/File Not Available/i.test(html)) throw new Gone();
+    return [];
+  }
+  const v = (JSON.parse(raw) as { video?: { downloadUrl?: string; downloadAllowed?: boolean } }).video;
+  if (!v?.downloadUrl) return [];
+  return [{ url: v.downloadUrl.replace(/&download$/, ""), kind: "mp4" }];
+};
+
 const mixdrop: Extractor = async (ctx, url) => {
   const res = await page(ctx, url.replace(/\/f\//, "/e/"));
   const code = unpackAll(await res.text());
@@ -277,12 +291,13 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Rutube", match: /^https?:\/\/rutube\.ru\/play\/embed\//, get: rutube },
   {
     name: "Streamwish",
-    match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|streamhg|hglink|dhtpre|smoothpre|playerwish|hlswish|kerapoxy)\.[a-z]+\/(e|v|f|embed)\//i,
+    match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|streamhg|hglink|hgcloud|dhtpre|smoothpre|playerwish|hlswish|kerapoxy)\.[a-z]+\/(e|v|f|embed)\//i,
     get: packed,
   },
   { name: "Mixdrop", match: /^https?:\/\/(www\.)?(mixdrop|mxdrop|mixdroop|m1xdrop|mixdrp)\.[a-z]+\/[ef]\//i, get: mixdrop },
   { name: "Megamax", match: /^https?:\/\/(www\.)?(megamax\.me|share4max\.com)\/(iframe|e|d|f|download)\//, get: megamax },
   { name: "MediaFire", match: /^https?:\/\/(www\.)?mediafire\.com\/file\//, get: mediafire },
+  { name: "Firestream", match: /^https?:\/\/(www\.)?firestream\.to\/(d|e|v|embed)\/[\w-]+/i, get: firestream },
   { name: "Pixeldrain", match: /^https?:\/\/(www\.)?pixeldrain\.com\/(u|api\/file)\//, get: pixeldrain },
   { name: "4shared", match: /^https?:\/\/(www\.)?4shared\.com\/(web\/)?embed\//, get: fourshared },
   { name: "Streamtape", match: /^https?:\/\/(www\.)?streamtape\.[a-z.]+\/[ev]\//i, get: streamtape },
