@@ -287,7 +287,7 @@ const witanime = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.witanime",
   name: "WitAnime",
-  version: "1.0.5",
+  version: "1.0.6",
   app: "anisto",
   sources: [witanime],
 });

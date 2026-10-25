@@ -214,7 +214,8 @@ const mediafire: Extractor = async (ctx, url) => {
 
 const pixeldrain: Extractor = async (_ctx, url) => {
   const id = /pixeldrain\.com\/(?:u|api\/file)\/([A-Za-z0-9]+)/.exec(url)?.[1];
-  return id ? [{ url: `https://pixeldrain.com/api/file/${id}`, kind: "mp4" }] : [];
+  // a browser playing it from another site is "hotlinking" (paid accounts only), so storm's server streams it
+  return id ? [{ url: `https://pixeldrain.com/api/file/${id}`, kind: "mp4", referer: "https://pixeldrain.com/" }] : [];
 };
 
 const fourshared: Extractor = async (ctx, url) => {

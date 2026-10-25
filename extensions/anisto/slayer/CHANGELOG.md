@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site.
+
 ## 1.0.3
 
 - A server whose host says the video was deleted is marked unavailable instead of offered.
