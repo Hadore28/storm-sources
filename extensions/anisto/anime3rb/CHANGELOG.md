@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Covers load again: the image server refuses a Referer from another site.
+
 ## 1.0.0
 
 - Anime3rb (anime3rb.com): new episodes, recently added, top rated and movies.

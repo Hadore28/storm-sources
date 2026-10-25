@@ -155,6 +155,8 @@ const anime3rb = defineAnimeSource({
   lang: "ar",
   baseUrl: SITE,
   rateLimit: { requests: 5, perMs: 1000 },
+  // covers 403 to another site's Referer
+  images: { noReferrer: true },
   listings: [
     { id: "episodes", label: L("New episodes", "أحدث الحلقات") },
     { id: "new", label: L("Recently added", "أضيفت حديثاً"), filters: true },
@@ -289,7 +291,7 @@ const anime3rb = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.anime3rb",
   name: "Anime3rb",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "anisto",
   sources: [anime3rb],
 });
