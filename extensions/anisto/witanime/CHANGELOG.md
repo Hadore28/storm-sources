@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded.
+
 ## 1.0.1
 
 - Players open again: the site now turns away a full Chrome User-Agent, and a gate opened with a Referer.

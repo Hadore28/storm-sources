@@ -11,7 +11,7 @@ type Extractor = (ctx: Context, url: string) => Promise<Found[]>;
 // the same agent storm's video proxy sends, for links tied to it
 const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 // how many embeds one episode resolves, so a page of thirty mirrors stays quick
-const MAX_RESOLVED = 8;
+const MAX_RESOLVED = 16;
 
 const unescape = (s: string) => s.replace(/&quot;/g, '"').replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 const origin = (url: string) => `${new URL(url).origin}/`;
@@ -248,7 +248,7 @@ const megamax: Extractor = async (ctx, url) => {
   // the best quality's copies first; a couple of hosts is plenty
   const out: Found[] = [];
   for (const w of wanted) {
-    if (out.length >= 2) break;
+    if (out.length) break;
     const host = hostFor(w.link);
     if (!host || host.get === megamax) continue;
     const got = await host.get(ctx, w.link).catch(() => [] as Found[]);
@@ -297,27 +297,14 @@ export async function direct(ctx: Context, url: string): Promise<VideoServer[]> 
   }
 }
 
-/** Each server's direct stream first, then the embeds as a fallback. */
+/** The same servers in the same order; each one storm can read plays as a direct stream, the rest stay embeds. */
 export async function withDirect(ctx: Context, servers: VideoServer[]): Promise<VideoServer[]> {
-  const seen = new Set<string>();
-  const rank = (url: string) => HOSTS.findIndex((h) => h.match.test(url));
-  // the same file under another path, e.g. Megamax's /iframe/, /d/ and /download/
-  const fileKey = (url: string) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/(iframe|e|d|f|v|download|embed)\//, "/").replace(/\.html$|\/$/, "");
-  const todo = servers
-    .filter((s) => s.kind === "embed" && resolvable(s.url) && !seen.has(fileKey(s.url)) && seen.add(fileKey(s.url)))
-    .sort((a, b) => rank(a.url) - rank(b.url))
-    .slice(0, MAX_RESOLVED);
-  const found = await Promise.all(
-    todo.map(async (s) => (await direct(ctx, s.url)).map((d) => ({ ...d, quality: d.quality ?? s.quality, audio: s.audio, lang: s.lang, download: false }))),
+  let budget = MAX_RESOLVED;
+  return Promise.all(
+    servers.map(async (s) => {
+      if (s.kind !== "embed" || s.download || !resolvable(s.url) || budget-- <= 0) return s;
+      const [d] = await direct(ctx, s.url);
+      return d ? { ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang } : s;
+    }),
   );
-  // one stream per host, kind and quality; signed links differ even for the same file
-  const keys = new Set<string>();
-  const all = found.flat();
-  const streams = all.filter((s) => {
-    const key = `${s.name}|${s.kind}|${s.quality ?? ""}`;
-    // an unlabelled copy of one that says its quality
-    const labelled = !s.quality && all.some((o) => o.quality && o.name === s.name && o.kind === s.kind);
-    return !labelled && !keys.has(key) && keys.add(key);
-  });
-  return [...streams, ...servers];
 }

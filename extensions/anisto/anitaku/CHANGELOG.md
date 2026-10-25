@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Servers keep the site's own names and order; the ones storm can read play in its own player, the rest stay embedded.
+
 ## 1.0.0
 
 - Recently added and most watched, and search, from the AniTaku app's API.
