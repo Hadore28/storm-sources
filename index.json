@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-25T12:54:07.426Z",
+  "generatedAt": "2026-10-25T13:03:12.384Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,11 +23,11 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.4.js",
-      "sha256": "6ddc992b7f1726f1fca787a6e4f1c2a85c20401907de7a1a5eb6e44e2b1d6980",
-      "size": 29547,
+      "file": "extensions/storm.anisto.anime4up-1.0.5.js",
+      "sha256": "9b2aa65a75d6420e21c21ce8d73967b6b70d1ed75af80882c367c6630db36365",
+      "size": 29581,
       "sources": [
         {
           "id": "anime4up",
@@ -35,16 +35,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.4.js",
-      "sha256": "2b87b884d20da85ff4861fd52b88a1ed8bf9122c414adfea95e0f6dad10ccbea",
-      "size": 22387,
+      "file": "extensions/storm.anisto.anitaku-1.0.5.js",
+      "sha256": "de102004a12a0bf8872c11739caeec81213a59b268cb28063475eba20b911f26",
+      "size": 22421,
       "sources": [
         {
           "id": "anitaku",
@@ -52,16 +52,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.3.js",
-      "sha256": "d169360acc5def08abb2cc2a5655b80542273bca1ff9fdcdb96bbdfae3408b84",
-      "size": 22692,
+      "file": "extensions/storm.anisto.slayer-1.0.4.js",
+      "sha256": "3fa649c7ffc9a2c17a306e787a98cc9f83c9384178bbe1df2b45a35592221d05",
+      "size": 22726,
       "sources": [
         {
           "id": "slayer",
@@ -69,16 +69,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.5.js",
-      "sha256": "e9818ea5848f81335f892c8990e6b6d7d5d5f9c5b9c21f947526573df47d2feb",
-      "size": 30187,
+      "file": "extensions/storm.anisto.witanime-1.0.6.js",
+      "sha256": "d527e8440dcffaab8e28820533b6262ac358a8f356cacd4aa00ddf87e3c5d020",
+      "size": 30221,
       "sources": [
         {
           "id": "witanime",
@@ -86,16 +86,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.anisto.witcher",
       "name": "AnimeWitcher",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witcher-1.0.1.js",
-      "sha256": "eaa81e8993e962ef1153e2a49f1c5123d15d2ecedad0dcd474ae1bed5e048c7f",
-      "size": 23640,
+      "file": "extensions/storm.anisto.witcher-1.0.2.js",
+      "sha256": "927915c440c9fda493dbaff83afb55406c114ee6b0cbea14f50d96e76b5f5d34",
+      "size": 23674,
       "sources": [
         {
           "id": "witcher",
@@ -103,7 +103,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- AnimeWitcher, read the way its Android app reads as a guest: new episodes and every anime from its search index; search.\n- Anime details with type, status, season, studio, genres and episode length; every episode with its Arabic title.\n- Each episode's servers in the app's order; MediaFire, Pixeldrain and Streamtape play in storm's own player, the rest stay embedded."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.booksto.foulabook",
@@ -372,11 +372,11 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.5.js",
-      "sha256": "24037adfacd867a353ada7f637d36672374ef253081fd3ec83f793416d12e7de",
-      "size": 22881,
+      "file": "extensions/storm.studysto.edson-1.0.6.js",
+      "sha256": "27fd3a52409bb26e0c0b2702a207f54fdfef924db301347c99c993df0b98baff",
+      "size": 22915,
       "sources": [
         {
           "id": "edson",
@@ -384,16 +384,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.5.js",
-      "sha256": "2d403934c5219b88d7567dc88a542508d6cdbab4e92ae3332d4367d457c72c88",
-      "size": 92872,
+      "file": "extensions/storm.studysto.eduiraq-1.0.6.js",
+      "sha256": "70655c4809a0b4fda34a7a78f9e6de9ce924da8f7d571b5cc830d0df3f47bd59",
+      "size": 92906,
       "sources": [
         {
           "id": "eduiraq",
@@ -401,16 +401,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.5.js",
-      "sha256": "e4a7d6856db63caf7d9ffc756b9f06c484c520ebcb4e33b262b94d07327c5005",
-      "size": 24051,
+      "file": "extensions/storm.studysto.manarast-1.0.6.js",
+      "sha256": "44dd6cc8f121dfb7408d8b37f33ca3f0111cf97a692c5062715a8b901ddb05ba",
+      "size": 24085,
       "sources": [
         {
           "id": "manara-st",
@@ -418,7 +418,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Streamtape plays from streamtape.to when streamtape.com is blocked."
+      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
     },
     {
       "pkg": "storm.tvsto.arabic",
