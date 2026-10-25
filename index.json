@@ -1,8 +1,24 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-24T19:55:04.011Z",
+  "generatedAt": "2026-10-25T08:29:33.605Z",
   "extensions": [
+    {
+      "pkg": "storm.anisto.anime3rb",
+      "name": "Anime3rb",
+      "version": "1.0.0",
+      "app": "anisto",
+      "file": "extensions/storm.anisto.anime3rb-1.0.0.js",
+      "sha256": "5351180170f610c69c8143e2266731eb68643e2d9e4664ddeefd614839f7a3f8",
+      "size": 18956,
+      "sources": [
+        {
+          "id": "anime3rb",
+          "name": "Anime3rb",
+          "lang": "ar"
+        }
+      ]
+    },
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
