@@ -41,7 +41,7 @@ const okru: Extractor = async (ctx, url) => {
 };
 
 const vk: Extractor = async (ctx, url) => {
-  const html = await ctx.http.text(url.replace("vkvideo.ru/", "vk.com/"), { headers: { "User-Agent": AGENT } });
+  const html = await ctx.http.text(url.replace(/\/\/(vkvideo\.ru|vk\.ru)\//, "//vk.com/"), { headers: { "User-Agent": AGENT } });
   const hls = /"hls(?:_ondemand)?"\s*:\s*"([^"]+)"/.exec(html)?.[1];
   if (hls) return [{ url: JSON.parse(`"${hls}"`), kind: "hls", referer: "https://vk.com/" }];
   const mp4 = [...html.matchAll(/"url(\d{3,4})"\s*:\s*"([^"]+)"/g)].sort((a, b) => Number(b[1]) - Number(a[1]))[0];
@@ -159,9 +159,12 @@ const packed: Extractor = async (ctx, url) => {
   if (links) {
     try {
       const o = JSON.parse(links) as Record<string, string>;
-      // the order the host's own player tries them
-      const pick = o.hls4 ?? o.hls3 ?? o.hls2;
-      if (pick) return [{ url: pick.startsWith("/") ? new URL(pick, res.url || url).toString() : pick, kind: "hls", referer }];
+      // the order the host's own player tries them; some of these addresses are dead or badly signed
+      const tries = [o.hls4, o.hls3, o.hls2].filter(Boolean).map((u) => (u.startsWith("/") ? new URL(u, res.url || url).toString() : u));
+      for (const u of tries) {
+        const ok = await page(ctx, u, referer).then((r) => r.status < 400, () => false);
+        if (ok) return [{ url: u, kind: "hls", referer }];
+      }
     } catch {
       // fall through to a plain file
     }
@@ -289,13 +292,15 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Voe", match: /^https?:\/\/(www\.)?voe\.sx\/(e\/)?[a-z0-9]+/i, get: voe },
   { name: "Uqload", match: /^https?:\/\/(www\.)?uqload\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
   { name: "OK", match: /^https?:\/\/(www\.|m\.)?ok\.ru\/(videoembed|video)\//, get: okru },
-  { name: "VK", match: /^https?:\/\/(vk\.com|vkvideo\.ru)\/video_ext\.php/, get: vk },
+  { name: "VK", match: /^https?:\/\/(vk\.com|vk\.ru|vkvideo\.ru)\/video_ext\.php/, get: vk },
   { name: "Rutube", match: /^https?:\/\/rutube\.ru\/play\/embed\//, get: rutube },
   {
     name: "Streamwish",
     match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|streamhg|hglink|hgcloud|dhtpre|smoothpre|playerwish|hlswish|kerapoxy)\.[a-z]+\/(e|v|f|embed)\//i,
     get: packed,
   },
+  { name: "Vidmoly", match: /^https?:\/\/(www\.)?vidmoly\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
+  { name: "1vid", match: /^https?:\/\/(www\.)?1vid\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
   { name: "Mixdrop", match: /^https?:\/\/(www\.)?(mixdrop|mxdrop|mixdroop|m1xdrop|mixdrp)\.[a-z]+\/[ef]\//i, get: mixdrop },
   { name: "Megamax", match: /^https?:\/\/(www\.)?(megamax\.me|share4max\.com)\/(iframe|e|d|f|download)\//, get: megamax },
   { name: "MediaFire", match: /^https?:\/\/(www\.)?mediafire\.com\/file\//, get: mediafire },
@@ -313,7 +318,7 @@ const hostFor = (url: string) => HOSTS.find((h) => h.match.test(url));
 export const resolvable = (url: string) => !!hostFor(url);
 
 // what hosts show in place of a deleted video
-const GONE = /(video|file)\s+(was\s+|has\s+been\s+)?(not\s+found|deleted|removed)|no\s+longer\s+available|(doesn't|does\s+not)\s+exist|file\s+is\s+unavailable|не\s+найден|был\s+удал[её]н|error4shared|errno=\d+/i;
+const GONE = /(video|file)\s+(was\s+|has\s+been\s+)?(not\s+found|deleted|removed)|can.t\s+find\s+the\s+video|no\s+longer\s+available|(doesn't|does\s+not)\s+exist|file\s+is\s+unavailable|не\s+найден|был\s+удал[её]н|error4shared|errno=\d+/i;
 
 // Asked only after a host gave no stream, so a working player is never written off.
 async function gone(ctx: Context, url: string): Promise<boolean> {

@@ -230,7 +230,7 @@ const anime4up = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.anime4up",
   name: "Anime4up",
-  version: "1.0.7",
+  version: "1.0.8",
   app: "anisto",
   sources: [anime4up],
 });

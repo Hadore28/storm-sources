@@ -175,7 +175,7 @@ const egybest = defineFilmSource({
 export default defineExtension({
   pkg: "storm.movisto.egybest",
   name: "EgyBest",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "movisto",
   sources: [egybest],
 });
