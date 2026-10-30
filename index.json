@@ -1,28 +1,8 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-30T18:03:30.673Z",
+  "generatedAt": "2026-10-30T19:04:26.142Z",
   "extensions": [
-    {
-      "pkg": "storm.addons.discord",
-      "name": "Discord bot",
-      "version": "1.0.0",
-      "app": "addons",
-      "file": "extensions/storm.addons.discord-1.0.0.js",
-      "sha256": "0b198336a6b32dcb65a61da836242467a4139d2fc4549326e373caa2fcabb68c",
-      "size": 9013,
-      "sources": []
-    },
-    {
-      "pkg": "storm.addons.telegram",
-      "name": "Telegram bot",
-      "version": "1.0.0",
-      "app": "addons",
-      "file": "extensions/storm.addons.telegram-1.0.0.js",
-      "sha256": "635d85bdf500868f19deb04ec1a50e83c01828dac469e27fba9e406658ef56cf",
-      "size": 8518,
-      "sources": []
-    },
     {
       "pkg": "storm.anisto.anime3rb",
       "name": "Anime3rb",
