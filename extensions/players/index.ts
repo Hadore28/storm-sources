@@ -14,6 +14,8 @@ type Extractor = (ctx: Context, url: string) => Promise<Found[]>;
 const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
 // how many embeds one episode resolves, so a page of thirty mirrors stays quick
 const MAX_RESOLVED = 16;
+// a host that hangs stays an embed instead of holding up the whole list
+const RESOLVE_MS = 8_000;
 
 const unescape = (s: string) => s.replace(/&quot;/g, '"').replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 const origin = (url: string) => `${new URL(url).origin}/`;
@@ -349,7 +351,8 @@ export async function withDirect(ctx: Context, servers: VideoServer[]): Promise<
   return Promise.all(
     servers.map(async (s) => {
       if (s.kind !== "embed" || s.download || !resolvable(s.url) || budget-- <= 0) return s;
-      const { streams, gone } = await read(ctx, s.url);
+      const late = new Promise<{ streams: VideoServer[]; gone: boolean }>((done) => setTimeout(() => done({ streams: [], gone: false }), RESOLVE_MS));
+      const { streams, gone } = await Promise.race([read(ctx, s.url), late]);
       const [d] = streams;
       if (d) return { ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang };
       return gone ? { ...s, unavailable: true } : s;

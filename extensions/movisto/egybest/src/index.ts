@@ -19,6 +19,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "../../../players";
 
 const DEFAULT_SITE = "https://egytbest.live";
 const L = (en: string, ar: string): Text => ({ en, ar });
@@ -167,14 +168,14 @@ const egybest = defineFilmSource({
       const frame = doc.one("iframe#mainPlayer")?.href("src");
       if (frame) out.push({ name: new URL(frame).host, url: frame, kind: "embed", audio: "sub", lang: "ar" });
     }
-    return out;
+    return withDirect(ctx, out);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.egybest",
   name: "EgyBest",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "movisto",
   sources: [egybest],
 });

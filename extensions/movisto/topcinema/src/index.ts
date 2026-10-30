@@ -24,6 +24,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "../../../players";
 
 const DEFAULT_SITE = "https://web.topcinema.io";
 const L = (en: string, ar: string): Text => ({ en, ar });
@@ -260,14 +261,14 @@ const topcinema = defineFilmSource({
     } catch {
       // downloads are optional
     }
-    return out;
+    return withDirect(ctx, out);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.topcinema",
   name: "TopCinema",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "movisto",
   sources: [topcinema],
 });

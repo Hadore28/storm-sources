@@ -23,6 +23,7 @@ import {
   type Text,
   type VideoServer,
 } from "@storm-sources/sdk";
+import { withDirect } from "../../../players";
 
 const DEFAULT_SITE = "https://tv10.egydead.live";
 const L = (en: string, ar: string): Text => ({ en, ar });
@@ -225,14 +226,14 @@ const egydead = defineFilmSource({
       if (!link) continue;
       out.push({ name: clean(li.one(".ser-name")?.text()) || new URL(link).host, url: link, kind: "embed", quality: clean(li.one(".server-info em")?.text()) || undefined, download: true });
     }
-    return out;
+    return withDirect(ctx, out);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.egydead",
   name: "EgyDead",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "movisto",
   sources: [egydead],
 });
