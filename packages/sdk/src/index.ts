@@ -1,7 +1,6 @@
 import { SDK_VERSION, type AnimeSource, type BookSource, type Extension, type FilmSource, type MangaSource, type NovelSource, type StudySource, type TvSource } from "./types";
 
 export * from "./types";
-export * from "./addons";
 export * from "./errors";
 export * from "./utils";
 export * from "./genres";

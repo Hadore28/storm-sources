@@ -9,7 +9,7 @@
 import { Glob } from "bun";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { SDK_VERSION, type Addon, type Extension } from "@storm-sources/sdk";
+import { SDK_VERSION, type Extension } from "@storm-sources/sdk";
 import { sha256, type RepoEntry, type RepoIndex } from "@storm-sources/host";
 
 const ROOT = join(import.meta.dir, "..");
@@ -28,7 +28,7 @@ const sourceIds = new Set<string>();
 
 for (const entry of [...new Glob("extensions/*/*/src/index.ts").scanSync(ROOT)].sort()) {
   const dir = join(ROOT, dirname(dirname(entry)));
-  const ext = (await import(join(ROOT, entry))).default as Extension | Addon;
+  const ext = (await import(join(ROOT, entry))).default as Extension;
   const where = entry.replace(/\\/g, "/");
 
   if (ext.sdk !== SDK_VERSION) throw new Error(`${where}: built for sdk ${ext.sdk}, this repo is on ${SDK_VERSION}`);

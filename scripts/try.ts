@@ -2,7 +2,6 @@
 //   bun scripts/try.ts <extension folder> <source id> [item id] [search text]
 import type { AnimeDetails, BookDetails, FilmDetails, MangaDetails, NovelDetails } from "@storm-sources/sdk";
 import { SourceHost, importExtension } from "@storm-sources/host";
-import { isAddon } from "@storm-sources/sdk";
 
 const [folder, sourceId, itemArg, searchText] = process.argv.slice(2);
 if (!folder || !sourceId) {
@@ -11,7 +10,6 @@ if (!folder || !sourceId) {
 }
 
 const ext = await importExtension(`${folder}/src/index.ts`);
-if (isAddon(ext)) throw new Error("addons have no sources to try");
 const host = new SourceHost({
   onCall: (e) => console.log(`  · ${e.op} ${Math.round(e.ms)}ms${e.cached ? " (cached)" : ""}${e.ok ? "" : ` ✗ ${e.error?.kind}: ${e.error?.message}`}`),
 });
