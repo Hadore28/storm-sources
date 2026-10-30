@@ -2,13 +2,13 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import type { AppKind, ContentRating, Extension } from "@storm-sources/sdk";
+import type { Addon, AppKind, ContentRating, Extension } from "@storm-sources/sdk";
 
 export interface RepoEntry {
   pkg: string;
   name: string;
   version: string;
-  app: AppKind;
+  app: AppKind | Addon["app"];
   /** path of the bundle, relative to the index */
   file: string;
   sha256: string;
@@ -36,11 +36,11 @@ export async function verifyIndex(indexText: string, signatureB64: string, publi
   return crypto.subtle.verify("Ed25519", key, b64(signatureB64.trim()), new TextEncoder().encode(indexText));
 }
 
-/** Loads a bundled extension from disk. */
-export async function importExtension(path: string): Promise<Extension> {
+/** Loads a bundled extension or addon from disk. */
+export async function importExtension(path: string): Promise<Extension | Addon> {
   // the query busts the module cache so a new version on the same path loads fresh
   const mod = await import(`${pathToFileURL(path).href}?v=${Date.now()}`);
-  const ext = mod.default as Extension;
+  const ext = mod.default as Extension | Addon;
   if (!ext || typeof ext !== "object" || typeof ext.pkg !== "string" || !Array.isArray(ext.sources)) {
     throw new Error(`${path} is not a storm extension`);
   }
