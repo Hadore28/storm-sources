@@ -164,7 +164,7 @@ const witcher = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.witcher",
   name: "AnimeWitcher",
-  version: "1.0.7",
+  version: "1.0.8",
   app: "anisto",
   sources: [witcher],
 });

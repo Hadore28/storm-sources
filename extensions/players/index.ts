@@ -102,23 +102,6 @@ const voe: Extractor = async (ctx, url) => {
   return out;
 };
 
-// Dood only reveals the stream after a captcha from a browser; most servers
-// won't pass it, so the player falls back to the embed. On a host that can
-// (impersonation / clearance), the extractor returns the real MP4.
-const dood: Extractor = async (ctx, url) => {
-  const embed = url.replace(/\/[de]\//, "/e/");
-  const res = await page(ctx, embed);
-  const html = await res.text();
-  const pass = /\/pass_md5\/[^'"]+/.exec(html)?.[0];
-  const token = /[?&]token=([a-z0-9]+)/i.exec(pass ?? "")?.[1] ?? /token=([a-z0-9]+)/i.exec(html)?.[1];
-  if (!pass || !token) return [];
-  const site = new URL(res.url || embed).origin;
-  const base = (await (await page(ctx, `${site}${pass}`, res.url || embed)).text()).trim();
-  if (!/^https?:\/\//.test(base)) return [];
-  const tail = Array.from({ length: 10 }, () => "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[Math.floor(Math.random() * 62)]).join("");
-  return [{ url: `${base}${tail}?token=${token}&expiry=${Date.now()}`, kind: "mp4", referer: `${site}/` }];
-};
-
 // Firestream puts the file's signed address in a JSON block on its page.
 const firestream: Extractor = async (ctx, url) => {
   const res = await page(ctx, url.replace(/\/(e|embed|v)\//, "/d/"));
@@ -249,7 +232,7 @@ const fourshared: Extractor = async (ctx, url) => {
 };
 
 // Megamax lists every quality's copies on other hosts; storm plays the copies it can read.
-const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide", "dood", "doodstream"]);
+const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide"]);
 const megamax: Extractor = async (ctx, url) => {
   const hash = /\/(?:iframe|e|d|f|download|mirror)\/([A-Za-z0-9]+)/.exec(url)?.[1];
   if (!hash) return [];
@@ -312,7 +295,6 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Pixeldrain", match: /^https?:\/\/(www\.)?pixeldrain\.com\/(u|api\/file)\//, get: pixeldrain },
   { name: "4shared", match: /^https?:\/\/(www\.)?4shared\.com\/(web\/)?embed\//, get: fourshared },
   { name: "Streamtape", match: /^https?:\/\/(www\.)?streamtape\.[a-z.]+\/[ev]\//i, get: streamtape },
-  { name: "Dood", match: /^https?:\/\/(www\.)?(dood[a-z]*|d0+d|ds2play|dsvplay|playmogo|dooood|vide0|myvidplay)\.[a-z]+\/[de]\//i, get: dood },
   { name: "Savefiles", match: /^https?:\/\/(www\.)?savefiles\.com\/(e\/)?[a-z0-9]{12}/i, get: packed },
 ];
 
