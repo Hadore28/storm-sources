@@ -20,14 +20,14 @@ const RESOLVE_MS = 8_000;
 const unescape = (s: string) => s.replace(/&quot;/g, '"').replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 const origin = (url: string) => `${new URL(url).origin}/`;
 const page = (ctx: Context, url: string, referer?: string) =>
-  ctx.http.request("GET", url, { headers: { "User-Agent": AGENT, ...(referer ? { Referer: referer } : {}) }, retries: 1 });
+  ctx.http.request("GET", url, { headers: { "User-Agent": AGENT, ...(referer ? { Referer: referer } : {}) }, retries: 1, unlimited: true });
 const kindOf = (url: string): Found["kind"] => (/\.m3u8(\?|$)|\/master\.txt(\?|$)/.test(url) ? "hls" : "mp4");
 const abs = (url: string) => (url.startsWith("//") ? `https:${url}` : url);
 
 const okru: Extractor = async (ctx, url) => {
   const id = /videoembed\/(\d+)|video\/(\d+)/.exec(url);
   if (!id) return [];
-  const html = await ctx.http.text(`https://ok.ru/videoembed/${id[1] ?? id[2]}`, { headers: { "User-Agent": AGENT } });
+  const html = await ctx.http.text(`https://ok.ru/videoembed/${id[1] ?? id[2]}`, { headers: { "User-Agent": AGENT }, unlimited: true });
   if (/vp_video_stub/.test(html)) throw new Gone();
   const raw = /data-options="([^"]+)"/.exec(html)?.[1];
   if (!raw) return [];
@@ -41,7 +41,7 @@ const okru: Extractor = async (ctx, url) => {
 };
 
 const vk: Extractor = async (ctx, url) => {
-  const html = await ctx.http.text(url.replace(/\/\/(vkvideo\.ru|vk\.ru)\//, "//vk.com/"), { headers: { "User-Agent": AGENT } });
+  const html = await ctx.http.text(url.replace(/\/\/(vkvideo\.ru|vk\.ru)\//, "//vk.com/"), { headers: { "User-Agent": AGENT }, unlimited: true });
   const hls = /"hls(?:_ondemand)?"\s*:\s*"([^"]+)"/.exec(html)?.[1];
   if (hls) return [{ url: JSON.parse(`"${hls}"`), kind: "hls", referer: "https://vk.com/" }];
   const mp4 = [...html.matchAll(/"url(\d{3,4})"\s*:\s*"([^"]+)"/g)].sort((a, b) => Number(b[1]) - Number(a[1]))[0];
@@ -102,20 +102,6 @@ const voe: Extractor = async (ctx, url) => {
   return out;
 };
 
-const dood: Extractor = async (ctx, url) => {
-  const embed = url.replace(/\/[de]\//, "/e/");
-  const res = await page(ctx, embed);
-  const html = await res.text();
-  const pass = /\/pass_md5\/[^'"]+/.exec(html)?.[0];
-  const token = /[?&]token=([a-z0-9]+)/i.exec(pass ?? "")?.[1] ?? /token=([a-z0-9]+)/i.exec(html)?.[1];
-  if (!pass || !token) return [];
-  const site = new URL(res.url || embed).origin;
-  const base = (await (await page(ctx, `${site}${pass}`, res.url || embed)).text()).trim();
-  if (!/^https?:\/\//.test(base)) return [];
-  const tail = Array.from({ length: 10 }, () => "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[Math.floor(Math.random() * 62)]).join("");
-  return [{ url: `${base}${tail}?token=${token}&expiry=${Date.now()}`, kind: "mp4", referer: `${site}/` }];
-};
-
 // Firestream puts the file's signed address in a JSON block on its page.
 const firestream: Extractor = async (ctx, url) => {
   const res = await page(ctx, url.replace(/\/(e|embed|v)\//, "/d/"));
@@ -149,6 +135,7 @@ const packed: Extractor = async (ctx, url) => {
       headers: { "User-Agent": AGENT, Referer: at },
       form: { op: "embed", file_code: code, auto: "1", referer: "" },
       retries: 1,
+      unlimited: true,
     });
     html = await res.text();
     res = { ...res, url: at };
@@ -205,7 +192,7 @@ const streamtape: Extractor = async (ctx, url) => {
   }
   if (!path) return [];
   const getVideo = path.startsWith("http") ? path : `https:${path.startsWith("//") ? path : `//${path.replace(/^\//, "")}`}`;
-  const hop = await ctx.http.request("GET", `${getVideo}&stream=1`, { headers: { "User-Agent": AGENT, Referer: embed }, redirect: "manual", retries: 0 });
+  const hop = await ctx.http.request("GET", `${getVideo}&stream=1`, { unlimited: true, headers: { "User-Agent": AGENT, Referer: embed }, redirect: "manual", retries: 0 });
   const cdn = hop.headers.location;
   return cdn && /^https?:\/\//.test(cdn) ? [{ url: cdn, kind: "mp4", referer: `${site}/` }] : [];
 };
@@ -245,7 +232,7 @@ const fourshared: Extractor = async (ctx, url) => {
 };
 
 // Megamax lists every quality's copies on other hosts; storm plays the copies it can read.
-const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide", "dood", "doodstream"]);
+const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide"]);
 const megamax: Extractor = async (ctx, url) => {
   const hash = /\/(?:iframe|e|d|f|download|mirror)\/([A-Za-z0-9]+)/.exec(url)?.[1];
   if (!hash) return [];
@@ -308,7 +295,6 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Pixeldrain", match: /^https?:\/\/(www\.)?pixeldrain\.com\/(u|api\/file)\//, get: pixeldrain },
   { name: "4shared", match: /^https?:\/\/(www\.)?4shared\.com\/(web\/)?embed\//, get: fourshared },
   { name: "Streamtape", match: /^https?:\/\/(www\.)?streamtape\.[a-z.]+\/[ev]\//i, get: streamtape },
-  { name: "Dood", match: /^https?:\/\/(www\.)?(dood[a-z]*|d0+d|ds2play|dsvplay|playmogo|dooood|vide0|myvidplay)\.[a-z]+\/[de]\//i, get: dood },
   { name: "Savefiles", match: /^https?:\/\/(www\.)?savefiles\.com\/(e\/)?[a-z0-9]{12}/i, get: packed },
 ];
 

@@ -572,6 +572,8 @@ export interface RequestOptions {
   cacheMs?: number;
   /** connect to these IPs instead of the host's DNS answer, like curl --resolve */
   resolve?: string[];
+  /** this isn't the source's own site, so its rate limit doesn't apply */
+  unlimited?: boolean;
   /** "manual" hands back a redirect (its address in headers.location) instead of following it */
   redirect?: "follow" | "manual";
 }

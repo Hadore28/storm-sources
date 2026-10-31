@@ -91,7 +91,7 @@ export function createHttp(deps: HttpDeps): Http {
       body = new URLSearchParams(opts.form).toString();
       headers["Content-Type"] ??= "application/x-www-form-urlencoded";
     }
-    await deps.limiter?.acquire();
+    if (!opts.unlimited) await deps.limiter?.acquire();
     let res: Response;
     try {
       res = await deps.fetch(url, {
