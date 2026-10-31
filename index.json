@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-31T08:47:18.436Z",
+  "generatedAt": "2026-10-31T09:14:01.821Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,11 +23,11 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.10.js",
-      "sha256": "16534b3855a85d44e1c1f537d5454bade6fbdcb413f166f351e73f5c83318fb6",
-      "size": 30597,
+      "file": "extensions/storm.anisto.anime4up-1.0.11.js",
+      "sha256": "1465df1d916e1c46724ba9eda303032f416c337c138687866fc8c705f8710b4c",
+      "size": 29782,
       "sources": [
         {
           "id": "anime4up",
@@ -40,11 +40,11 @@
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.10.js",
-      "sha256": "a3cddefa5608f3ca9caf904ef75ca609474f9be0060e9c6a4f80671533a9addd",
-      "size": 23437,
+      "file": "extensions/storm.anisto.anitaku-1.0.11.js",
+      "sha256": "e9eff86ba366c29e8a78d17cbc65cae305ad2cc4071ff9c0bf7bdca710d52230",
+      "size": 22622,
       "sources": [
         {
           "id": "anitaku",
@@ -57,11 +57,11 @@
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.9.js",
-      "sha256": "afe3bbef3e6d7124885ee2f230d29c20ef3142ba1ea65c168eea2972408b4280",
-      "size": 23741,
+      "file": "extensions/storm.anisto.slayer-1.0.10.js",
+      "sha256": "fa5b995c176904720d6f335b259e7b7a43ba24b8d4e4134337170386327afaf5",
+      "size": 22927,
       "sources": [
         {
           "id": "slayer",
@@ -74,11 +74,11 @@
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.11.js",
-      "sha256": "1356b4fa868f8ecd14bbd00e3283fc73e4ceda9a91f6dd0d65fa8806358a58a5",
-      "size": 31237,
+      "file": "extensions/storm.anisto.witanime-1.0.12.js",
+      "sha256": "72aeaf9091fe0117db36fa0f5dc9b764139c253a882a38e9eddf0087064f9014",
+      "size": 30422,
       "sources": [
         {
           "id": "witanime",
@@ -91,11 +91,11 @@
     {
       "pkg": "storm.anisto.witcher",
       "name": "AnimeWitcher",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witcher-1.0.7.js",
-      "sha256": "04c68058af2cc01dadb51a8443e915d623247e628ebe2c8c9d0aeaebe3760791",
-      "size": 24704,
+      "file": "extensions/storm.anisto.witcher-1.0.8.js",
+      "sha256": "4eb08bded3651b2fe2a4e8f4303060be1acc0bd4f64c28b297abf9aafa5e4688",
+      "size": 23889,
       "sources": [
         {
           "id": "witcher",
@@ -276,11 +276,11 @@
     {
       "pkg": "storm.movisto.egybest",
       "name": "EgyBest",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egybest-1.0.4.js",
-      "sha256": "6fee580795f2f5c46795bb23bbe59e3ec560ee08187c56decab1fb8d41738dd0",
-      "size": 24910,
+      "file": "extensions/storm.movisto.egybest-1.0.5.js",
+      "sha256": "6f30a711b9b3e76999b43eb9f47820ac47456d49af11381292e98577afa6b69b",
+      "size": 24095,
       "sources": [
         {
           "id": "egybest",
@@ -292,11 +292,11 @@
     {
       "pkg": "storm.movisto.egydead",
       "name": "EgyDead",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egydead-1.0.4.js",
-      "sha256": "0eb7d9e2cfc412d924e2cb20ae1301ec346bf442b830207b4fc26cc3502dfb1e",
-      "size": 28274,
+      "file": "extensions/storm.movisto.egydead-1.0.5.js",
+      "sha256": "424f06e440792e7fe1734489024f0662a5c5caef8bd376b5f82ce935edd79e6b",
+      "size": 27459,
       "sources": [
         {
           "id": "egydead",
@@ -308,11 +308,11 @@
     {
       "pkg": "storm.movisto.topcinema",
       "name": "TopCinema",
-      "version": "1.0.4",
+      "version": "1.0.5",
       "app": "movisto",
-      "file": "extensions/storm.movisto.topcinema-1.0.4.js",
-      "sha256": "4c87db6e27032c7aa5ed41e64c1ebf46d3980375939f9c07a6ecc40576acc5e0",
-      "size": 28440,
+      "file": "extensions/storm.movisto.topcinema-1.0.5.js",
+      "sha256": "44492ef8e86fa9e47d94a52dfb1d8d7ea8bb4ec0733bfee653cc5f4c1f81baaa",
+      "size": 27625,
       "sources": [
         {
           "id": "topcinema",
@@ -372,11 +372,11 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.10.js",
-      "sha256": "2dd8f03a74b9045f30e2825f160a0419530ca9ce0d30f0b556070347f5fd1bb2",
-      "size": 23931,
+      "file": "extensions/storm.studysto.edson-1.0.11.js",
+      "sha256": "162ecc46d03ce43680a73cd7c19c95229aa449cc521ec6eb0dead79084a745a4",
+      "size": 23116,
       "sources": [
         {
           "id": "edson",
@@ -389,11 +389,11 @@
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.10.js",
-      "sha256": "77221f2f974470635945471c8f481f4ba083276e7bb854e5c60e59ca4bed2cb6",
-      "size": 93922,
+      "file": "extensions/storm.studysto.eduiraq-1.0.11.js",
+      "sha256": "85c2d0bb14f983ff6a755faf6f31054b4308e9593c79c6cebaab5c3bbfba583a",
+      "size": 93107,
       "sources": [
         {
           "id": "eduiraq",
@@ -406,11 +406,11 @@
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.10.js",
-      "sha256": "3c9c424a63d77145fdb1de5b70ea3d45e4089a939e06f72ac869f4d066cf7c92",
-      "size": 25101,
+      "file": "extensions/storm.studysto.manarast-1.0.11.js",
+      "sha256": "cfb7a081ef378507991770a103329b37a906087c9b656beae0c2c443e2ad4353",
+      "size": 24286,
       "sources": [
         {
           "id": "manara-st",
