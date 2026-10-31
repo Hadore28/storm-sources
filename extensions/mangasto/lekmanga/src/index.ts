@@ -1,6 +1,5 @@
 // LekManga — an Arabic Madara (WordPress) site. Lists and search go through its
-// ajax endpoint; series, chapters and images sit behind Cloudflare, so those
-// are fetched straight from the origin servers, the way its app does.
+// ajax endpoint.
 
 import {
   SourceError,
@@ -24,8 +23,6 @@ import {
 
 const MIRRORS = ["https://lekmanga.site", "https://mangalik.net", "https://like-manga.net"];
 const SITE = MIRRORS[0];
-// .218 serves the pages, some image shards only answer on .217
-const ORIGIN = ["5.187.35.218", "5.187.35.217"];
 const PER_PAGE = 20;
 // real pages sit in a /data<N>/ folder, or the old manga_<hash>/<chapter>/<n>.jpg layout
 const PAGE = /^https?:\/\/[^/]+\.lekmanga\.site\/(?:.*\/data\d*\/|.*\/manga_[a-z0-9]+\/\d+\/\d+\.\w+$)/i;
@@ -88,7 +85,7 @@ async function listing(ctx: Context, order: Record<string, string>, page: number
 }
 
 // manga() and chapters() read the same page, so it's kept briefly
-const series = (ctx: Context, id: string) => ctx.http.doc(`${SITE}/manga/${encodeURIComponent(id)}/`, { resolve: ORIGIN, cacheMs: 5 * 60_000 });
+const series = (ctx: Context, id: string) => ctx.http.doc(`${SITE}/manga/${encodeURIComponent(id)}/`, { cacheMs: 5 * 60_000 });
 
 const lekmanga = defineSource({
   id: "lekmanga",
@@ -96,7 +93,7 @@ const lekmanga = defineSource({
   lang: "ar",
   baseUrl: SITE,
   rateLimit: { requests: 2, perMs: 1000 },
-  images: { proxy: true, resolve: ORIGIN },
+  images: { proxy: true },
   listings: [
     { id: "popular", label: L("Most viewed", "الأكثر مشاهدة"), filters: true },
     { id: "latest", label: L("Latest updates", "آخر التحديثات"), filters: true },
@@ -104,7 +101,7 @@ const lekmanga = defineSource({
     { id: "az", label: L("A–Z", "أبجدياً"), filters: true },
   ],
   async filters(ctx) {
-    const doc = await ctx.http.doc(`${SITE}/?s=&post_type=wp-manga`, { resolve: ORIGIN });
+    const doc = await ctx.http.doc(`${SITE}/?s=&post_type=wp-manga`);
     const genres = doc.all("input[name='genre[]']").flatMap((input) => {
       const slug = input.attr("value");
       const name = clean(doc.one(`label[for='${input.attr("id")}']`)?.text());
@@ -181,7 +178,7 @@ const lekmanga = defineSource({
 
   async pages(ctx, id, chapter) {
     const path = [id, ...chapter.split("/")].map(encodeURIComponent).join("/");
-    const doc = await ctx.http.doc(`${SITE}/manga/${path}/`, { resolve: ORIGIN });
+    const doc = await ctx.http.doc(`${SITE}/manga/${path}/`);
     const urls = doc
       .all("img.wp-manga-chapter-img")
       .map((img) => img.href())
@@ -199,7 +196,7 @@ const lekmanga = defineSource({
 export default defineExtension({
   pkg: "storm.mangasto.lekmanga",
   name: "LekManga",
-  version: "1.2.1",
+  version: "1.2.2",
   app: "mangasto",
   sources: [lekmanga],
 });

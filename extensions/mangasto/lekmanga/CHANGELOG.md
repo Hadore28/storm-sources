@@ -1,3 +1,7 @@
+## 1.2.2
+
+- Reads LekManga at its normal address instead of its origin servers.
+
 ## 1.2.1
 
 - Built for SDK 2, which adds anime, film, novel and book sources; nothing changes for readers.
