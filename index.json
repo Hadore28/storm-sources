@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-31T09:14:01.821Z",
+  "generatedAt": "2026-10-31T10:09:59.370Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -181,11 +181,11 @@
     {
       "pkg": "storm.mangasto.lekmanga",
       "name": "LekManga",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.lekmanga-1.2.1.js",
-      "sha256": "a1b4b6914699b5d547c94b8e1a88b897339858909b1a536ed6fb10f3876e358c",
-      "size": 17914,
+      "file": "extensions/storm.mangasto.lekmanga-1.2.2.js",
+      "sha256": "6d893932d893ce401000a210c2950da3d20efebdccf4d12fa57ebeeae808acfc",
+      "size": 17811,
       "sources": [
         {
           "id": "lekmanga",
@@ -193,7 +193,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A genre filter on every list and on search."
+      "changelog": "- Built for SDK 2, which adds anime, film, novel and book sources; nothing changes for readers.\n- Genre names match storm's genres in a few more Arabic spellings."
     },
     {
       "pkg": "storm.mangasto.mangadex",
