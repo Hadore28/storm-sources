@@ -1,16 +1,16 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-10-31T10:09:59.370Z",
+  "generatedAt": "2026-11-02T17:09:30.651Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
       "name": "Anime3rb",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime3rb-1.0.1.js",
-      "sha256": "327c2c7e762edd86b71bc368aba20cfaabae0a0ab37def7ac76cbb86355dab8b",
-      "size": 18979,
+      "file": "extensions/storm.anisto.anime3rb-1.0.2.js",
+      "sha256": "29075f717d2dc90f2d0aa2a1767cc13a5f3a775c6397dd1bd2120781fbd84d86",
+      "size": 19066,
       "sources": [
         {
           "id": "anime3rb",
@@ -18,7 +18,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Anime3rb (anime3rb.com): new episodes, recently added, top rated and movies.\n- Genre and type filters on lists.\n- Search through the site's own search box, since its search page is behind a Cloudflare check.\n- Anime and film details with studio, season, episode count and length; every episode with its title.\n- Each episode plays as a plain MP4 in 1080p, 720p and 480p."
+      "changelog": "- Covers load again: the image server refuses a Referer from another site."
     },
     {
       "pkg": "storm.anisto.anime4up",
