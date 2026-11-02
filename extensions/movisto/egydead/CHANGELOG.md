@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Films and episodes play again: the site put its players on a separate watch page.
+
 ## 1.0.0
 
 - English movies, English series, Arabic movies, and 19 sections to browse; search.

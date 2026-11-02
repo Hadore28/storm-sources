@@ -215,8 +215,9 @@ const egydead = defineFilmSource({
 
   async servers(ctx, filmId, episodeId) {
     const url = urlOf(ctx, episodeId ?? filmId);
-    // the players are only in the answer to the page's "watch" form
-    const doc = ctx.html(await ctx.http.text(url, { method: "POST", form: { View: "1" }, headers: { Referer: url } }), url);
+    // the players have their own page; older copies of the site show them after a "watch" form instead
+    let doc = await ctx.http.doc(`${url.replace(/\/?$/, "/")}watch/`, { headers: { Referer: url } }).catch(() => null);
+    if (!doc?.one(".serversList li[data-link]")) doc = ctx.html(await ctx.http.text(url, { method: "POST", form: { View: "1" }, headers: { Referer: url } }), url);
     const out: VideoServer[] = doc.all(".serversList li[data-link]").flatMap((li): VideoServer[] => {
       const link = li.href("data-link");
       return link ? [{ name: clean(li.one("p")?.text()) || new URL(link).host, url: link, kind: /\.m3u8(\?|$)/.test(link) ? "hls" : "embed", audio: "sub", lang: "ar" }] : [];
@@ -233,7 +234,7 @@ const egydead = defineFilmSource({
 export default defineExtension({
   pkg: "storm.movisto.egydead",
   name: "EgyDead",
-  version: "1.0.5",
+  version: "1.0.6",
   app: "movisto",
   sources: [egydead],
 });
