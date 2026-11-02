@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Search and Top rated work again: the site moved the address its search box talks to.
+
 ## 1.0.1
 
 - Covers load again: the image server refuses a Referer from another site.

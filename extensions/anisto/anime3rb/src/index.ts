@@ -116,7 +116,9 @@ async function render(visit: Http, url: string, component: string, updates: Reco
   const csrf = /data-csrf="([^"]+)"/.exec(html)?.[1];
   const snapshot = [...html.matchAll(/wire:snapshot="([^"]*)"/g)].map((m) => decodeEntities(m[1])).find((s) => s.includes(`"name":"${component}"`));
   if (!csrf || !snapshot) throw new SourceError("changed", `Anime3rb's page has no ${component} component`);
-  const res = await visit.json<{ components?: { effects?: { html?: string } }[] }>(`${SITE}/livewire/update`, {
+  // the address moves between Livewire versions; the page names the current one
+  const update = decodeEntities(/data-update-uri="([^"]+)"/.exec(html)?.[1] ?? "/livewire/update");
+  const res = await visit.json<{ components?: { effects?: { html?: string } }[] }>(new URL(update, SITE).href, {
     method: "POST",
     headers: { "X-Livewire": "true", Referer: url, Accept: "application/json" },
     retries: 1,
@@ -291,7 +293,7 @@ const anime3rb = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.anime3rb",
   name: "Anime3rb",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "anisto",
   sources: [anime3rb],
 });
