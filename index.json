@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-02T17:09:30.651Z",
+  "generatedAt": "2026-11-02T17:17:11.552Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -292,18 +292,19 @@
     {
       "pkg": "storm.movisto.egydead",
       "name": "EgyDead",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egydead-1.0.5.js",
-      "sha256": "424f06e440792e7fe1734489024f0662a5c5caef8bd376b5f82ce935edd79e6b",
-      "size": 27459,
+      "file": "extensions/storm.movisto.egydead-1.0.6.js",
+      "sha256": "b20d8f2c465c4d081ab5901a3982eb074ed2827e3756d1bb6263f24f29618a9d",
+      "size": 27605,
       "sources": [
         {
           "id": "egydead",
           "name": "EgyDead",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- English movies, English series, Arabic movies, and 19 sections to browse; search.\n- Films and series with their story, genres, year, country and language; every season of a series in order, with its episodes.\n- The players and downloads the site shows after its watch button.\n- The site's address can be changed in the admin when it moves."
     },
     {
       "pkg": "storm.movisto.topcinema",
