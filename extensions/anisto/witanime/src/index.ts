@@ -27,9 +27,9 @@ import {
 import { withDirect } from "../../../players";
 
 const SITE = "https://witanime.site";
-// The site answers 404 to a full Chrome User-Agent that doesn't act like Chrome,
-// and lets a plainer one through.
-const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36";
+// The server list and gates answer 404 unless the request looks like Chrome's own fetch
+const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36";
+const CHROME_HINTS = { "sec-ch-ua": '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"', "sec-ch-ua-mobile": "?0", "sec-ch-ua-platform": '"Windows"' };
 // Gates take a short burst, then about one every two seconds.
 const GATE_GAP_MS = 2000;
 const MAX_STREAMS = 3;
@@ -138,7 +138,7 @@ const witanime = defineAnimeSource({
   name: "WitAnime",
   lang: "ar",
   baseUrl: SITE,
-  headers: { "User-Agent": AGENT },
+  headers: { "User-Agent": AGENT, ...CHROME_HINTS },
   rateLimit: { requests: 6, perMs: 1000 },
   listings: [
     { id: "episodes", label: L("New episodes", "أحدث الحلقات") },
@@ -235,7 +235,7 @@ const witanime = defineAnimeSource({
     const csrf = /<meta name="csrf-token" content="([^"]+)"/.exec(html)?.[1] ?? /data-csrf="([^"]+)"/.exec(html)?.[1];
     const sourcesUrl = /sourcesUrl:\s*'([^']+)'/.exec(html)?.[1]?.replace(/\\\//g, "/");
     if (!csrf || !sourcesUrl) throw new SourceError("changed", "WitAnime's watch page has no source list");
-    const xhr = { Accept: "application/json", "X-CSRF-TOKEN": csrf, "X-Requested-With": "XMLHttpRequest", Referer: watch };
+    const xhr = { Accept: "application/json", "X-CSRF-TOKEN": csrf, Referer: watch };
     type Source = { token: string; label?: string; version?: string; lang?: string };
     const manifest = await visit.json<{ players?: Record<string, Source[]>; downloads?: Record<string, Source[]> }>(new URL(sourcesUrl, SITE).toString(), { method: "POST", headers: xhr });
 
@@ -287,7 +287,7 @@ const witanime = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.witanime",
   name: "WitAnime",
-  version: "1.0.12",
+  version: "1.0.13",
   app: "anisto",
   sources: [witanime],
 });

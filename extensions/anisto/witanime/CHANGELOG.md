@@ -1,3 +1,7 @@
+## 1.0.13
+
+- Players open again: the site now answers only requests that send Chrome's client hints and no X-Requested-With.
+
 ## 1.0.6
 
 - Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site.
