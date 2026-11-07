@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-02T17:17:11.552Z",
+  "generatedAt": "2026-11-07T20:44:07.869Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -74,11 +74,11 @@
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.12.js",
-      "sha256": "72aeaf9091fe0117db36fa0f5dc9b764139c253a882a38e9eddf0087064f9014",
-      "size": 30422,
+      "file": "extensions/storm.anisto.witanime-1.0.13.js",
+      "sha256": "73f7d6cf3dd8f0843cbfaa86f02e13d0b8460cd6510e6c9873d9b295b6c84ee9",
+      "size": 30580,
       "sources": [
         {
           "id": "witanime",
@@ -86,7 +86,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.anisto.witcher",
