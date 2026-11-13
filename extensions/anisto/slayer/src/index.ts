@@ -132,7 +132,7 @@ const slayer = defineAnimeSource({
       if (u.episode_server_name === "cdn" || !/^https?:\/\//.test(u.episode_url)) continue;
       if (u.episode_server_name === "muilt") {
         // it used to list copies on other hosts; now it often is the video itself, so only the first bytes are read
-        const url = u.episode_url.replace(/\/g, "%5C");
+        const url = u.episode_url.replace(/\\/g, "%5C");
         const head = await ctx.http
           .request("GET", url, { headers: { "User-Agent": "okhttp/4.9.1", Range: "bytes=0-2047" }, retries: 0, timeoutMs: 15_000, unlimited: true })
           .catch(() => undefined);
