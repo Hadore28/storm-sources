@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-07T20:44:07.869Z",
+  "generatedAt": "2026-11-13T20:32:30.650Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -57,11 +57,11 @@
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.10.js",
-      "sha256": "fa5b995c176904720d6f335b259e7b7a43ba24b8d4e4134337170386327afaf5",
-      "size": 22927,
+      "file": "extensions/storm.anisto.slayer-1.0.11.js",
+      "sha256": "5fee7ed6680bf8cb48587918ca02ae4349949f56736998343ad9751c4824fb8d",
+      "size": 23193,
       "sources": [
         {
           "id": "slayer",
@@ -458,11 +458,11 @@
     {
       "pkg": "storm.tvsto.iptvorg",
       "name": "IPTV-org",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "app": "tvsto",
-      "file": "extensions/storm.tvsto.iptvorg-1.0.1.js",
-      "sha256": "3112726cd357fd1b66351cc804e92e6b3e649b4e5f7a64b66670b2fd755f82ec",
-      "size": 12327,
+      "file": "extensions/storm.tvsto.iptvorg-1.0.2.js",
+      "sha256": "ef6b9472b23ff77b475f70c99926094d3272cfe3a285263e9f280b25deaab51f",
+      "size": 12344,
       "sources": [
         {
           "id": "iptvorg",
