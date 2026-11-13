@@ -37,7 +37,7 @@ interface Rec extends ChannelSummary {
 }
 
 const catalog = memo(6 * 3_600_000, async (ctx: Context) => {
-  const get = <T>(file: string) => ctx.http.json<T>(`${API}/${file}`, { timeoutMs: 60_000 });
+  const get = <T>(file: string) => ctx.http.json<T>(`${API}/${file}`, { timeoutMs: 60_000, cacheMs: 6 * 3_600_000 });
   const [streams, channels, logos] = await Promise.all([get<Stream[]>("streams.json"), get<Channel[]>("channels.json"), get<Logo[]>("logos.json").catch(() => [] as Logo[])]);
   const byChannel = new Map(channels.map((c) => [c.id, c]));
   const logo = new Map<string, string>();
@@ -109,7 +109,7 @@ const iptvorg = defineTvSource({
 export default defineExtension({
   pkg: "storm.tvsto.iptvorg",
   name: "IPTV-org",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "tvsto",
   sources: [iptvorg],
 });

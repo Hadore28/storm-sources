@@ -131,7 +131,22 @@ const slayer = defineAnimeSource({
       // "cdn" is the app's old player, gone for good
       if (u.episode_server_name === "cdn" || !/^https?:\/\//.test(u.episode_url)) continue;
       if (u.episode_server_name === "muilt") {
-        const copies = await ctx.http.json<unknown>(u.episode_url, { headers: { "User-Agent": "okhttp/4.9.1" }, cacheMs: 10 * 60_000 }).catch(() => []);
+        // it used to list copies on other hosts; now it often is the video itself, so only the first bytes are read
+        const url = u.episode_url.replace(/\/g, "%5C");
+        const head = await ctx.http
+          .request("GET", url, { headers: { "User-Agent": "okhttp/4.9.1", Range: "bytes=0-2047" }, retries: 0, timeoutMs: 15_000, unlimited: true })
+          .catch(() => undefined);
+        const text = head && head.status < 400 ? await head.text() : "";
+        if (/^.{4}ftyp/s.test(text) || /^video\//.test(head?.headers["content-type"] ?? "")) {
+          out.push({ name: "Slayer", url, kind: "mp4", audio: "sub", lang: "ar" });
+          continue;
+        }
+        let copies: unknown = [];
+        try {
+          copies = JSON.parse(text);
+        } catch {
+          copies = await ctx.http.json<unknown>(url, { headers: { "User-Agent": "okhttp/4.9.1" }, cacheMs: 10 * 60_000 }).catch(() => []);
+        }
         for (const link of Array.isArray(copies) ? copies : []) {
           if (typeof link === "string" && /^https?:\/\//.test(link) && !DEAD.test(hostName(link))) out.push({ name: hostName(link), url: link, kind: "embed", audio: "sub", lang: "ar" });
         }
@@ -149,7 +164,7 @@ const slayer = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.slayer",
   name: "AnimeSlayer",
-  version: "1.0.10",
+  version: "1.0.11",
   app: "anisto",
   sources: [slayer],
 });
