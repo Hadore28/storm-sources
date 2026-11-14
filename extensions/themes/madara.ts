@@ -80,14 +80,17 @@ export function madara(site: MadaraSite): MangaSource {
   const mirrors = [site.url, ...(site.mirrors ?? [])];
   const base = (ctx: Context) => (mirrors.includes(String(ctx.settings.mirror)) ? String(ctx.settings.mirror) : site.url);
   const hosts = mirrors.map((m) => new URL(m).host);
-  // a series is its path on the site, e.g. "manga/solo-leveling"
+  // ids carry no slash: "solo-leveling" under the usual path, "series~solo-leveling" under another
+  const idFrom = (parts: string[]) => (parts[0] === prefix ? parts[1] : `${parts[0]}~${parts[1]}`);
+  const pathOf = (id: string) => (id.includes("~") ? id.split("~") : [prefix, id]);
+  const urlOf = (ctx: Context, id: string) => `${base(ctx)}/${pathOf(id).map(encodeURIComponent).join("/")}/`;
   const idOf = (href: string | null) => {
     if (!href) return undefined;
     try {
       const u = new URL(href);
-      const parts = u.pathname.split("/").filter(Boolean);
+      const parts = u.pathname.split("/").filter(Boolean).map(decodeURIComponent);
       if (!hosts.includes(u.host) || parts.length < 2 || parts.length > 3 || /^(page|feed|genre|tag|author|artist)$/i.test(parts[1])) return undefined;
-      return parts.slice(0, 2).join("/");
+      return idFrom(parts);
     } catch {
       return undefined;
     }
@@ -105,7 +108,7 @@ export function madara(site: MadaraSite): MangaSource {
       if (had) {
         had.cover ??= fullSize(imageOf(img));
         if (!had.title && title) had.title = title;
-      } else if (img || title) found.set(id, { id, title, cover: fullSize(imageOf(img)), url: `${base(ctx)}/${id}/` });
+      } else if (img || title) found.set(id, { id, title, cover: fullSize(imageOf(img)), url: urlOf(ctx, id) });
     }
     return [...found.values()].filter((m) => m.title && m.cover);
   };
@@ -121,7 +124,7 @@ export function madara(site: MadaraSite): MangaSource {
       seen.add(id);
       const title = clean(link!.text()) || clean(card.one("img")?.attr("alt"));
       if (!title) return [];
-      return [{ id, title, cover: fullSize(imageOf(card.one("img"))), url: `${base(ctx)}/${id}/`, latestChapter: chapterNumber(card.one(".chapter a, .chapter-item a")?.text()) }];
+      return [{ id, title, cover: fullSize(imageOf(card.one("img"))), url: urlOf(ctx, id), latestChapter: chapterNumber(card.one(".chapter a, .chapter-item a")?.text()) }];
     });
   };
 
@@ -187,8 +190,9 @@ export function madara(site: MadaraSite): MangaSource {
   }
 
   // manga() and chapters() read the same page
-  const series = (ctx: Context, id: string) => ctx.http.doc(`${base(ctx)}/${id.split("/").map(encodeURIComponent).join("/")}/`, { cacheMs: 5 * 60_000 });
+  const series = (ctx: Context, id: string) => ctx.http.doc(urlOf(ctx, id), { cacheMs: 5 * 60_000 });
 
+  // a chapter is what follows the series in its link, slashes made "~"
   const chapterList = (doc: Doc, id: string): Chapter[] =>
     doc.all("li.wp-manga-chapter").flatMap((li): Chapter[] => {
       const a = li.one("a");
@@ -200,8 +204,9 @@ export function madara(site: MadaraSite): MangaSource {
       } catch {
         return [];
       }
-      const at = path.indexOf(`/${id.split("/")[1]}/`);
-      const chapter = at >= 0 ? path.slice(at + id.split("/")[1].length + 2).replace(/\/+$/, "") : "";
+      const slug = pathOf(id)[1];
+      const at = path.indexOf(`/${slug}/`);
+      const chapter = at >= 0 ? path.slice(at + slug.length + 2).replace(/\/+$/, "").replace(/\//g, "~") : "";
       if (!chapter) return [];
       const date = li.one("img:not(.thumb)")?.attr("alt") || li.one("span a")?.attr("title") || li.one(".chapter-release-date")?.text();
       return [{ id: chapter, number: chapterNumber(a.text()) ?? chapterNumber(chapter.replace("-", ".")), title: clean(a.text()) || undefined, lang: site.lang, date: siteDate(date), url: href }];
@@ -269,7 +274,7 @@ export function madara(site: MadaraSite): MangaSource {
       return {
         id,
         title,
-        url: `${base(ctx)}/${id}/`,
+        url: urlOf(ctx, id),
         cover: fullSize(imageOf(doc.one("div.summary_image img"))) ?? doc.one('meta[property="og:image"]')?.attr("content") ?? undefined,
         type: [typeText, ...tags].map(mangaType).find((t) => t && t !== "other"),
         status: statusOf(row(/status|estado|durum|tình trạng|الحالة|statut|stato/i) ?? rows.at(-1)?.[1] ?? ""),
@@ -284,7 +289,7 @@ export function madara(site: MadaraSite): MangaSource {
 
     async chapters(ctx, id) {
       const doc = await series(ctx, id);
-      const url = `${base(ctx)}/${id}/`;
+      const url = urlOf(ctx, id);
       const ways: Record<string, () => Promise<Chapter[]>> = {
         MangaPage: async () => chapterList(doc, id),
         MangaAjax: async () => {
@@ -307,7 +312,7 @@ export function madara(site: MadaraSite): MangaSource {
           return d ? chapterList(d, id) : [];
         },
         MangaAjaxQuery: async () => {
-          const d = await post(ctx, `${base(ctx)}/index.php`, { "manga-core": id.split("/")[1], manga_ajax: "1", maction: "get_chapters" });
+          const d = await post(ctx, `${base(ctx)}/index.php`, { "manga-core": pathOf(id)[1], manga_ajax: "1", maction: "get_chapters" });
           return d ? chapterList(d, id) : [];
         },
       };
@@ -320,7 +325,7 @@ export function madara(site: MadaraSite): MangaSource {
     },
 
     async pages(ctx, id, chapter) {
-      const path = [...id.split("/"), ...chapter.split("/")].map(encodeURIComponent).join("/");
+      const path = [...pathOf(id), ...chapter.split("~")].map(encodeURIComponent).join("/");
       const doc = await ctx.http.doc(`${base(ctx)}/${path}/?style=list`);
       if (doc.one("#chapter-protector-data")) throw new SourceError("unsupported", `${site.name} locks its chapter pages`);
       const urls = doc
@@ -336,7 +341,7 @@ export function madara(site: MadaraSite): MangaSource {
         if (!hosts.includes(u.host)) return null;
         const parts = decodeURIComponent(u.pathname).split("/").filter(Boolean);
         if (parts.length < 2) return null;
-        return parts.length > 2 ? { mangaId: parts.slice(0, 2).join("/"), chapterId: parts.slice(2).join("/") } : { mangaId: parts.slice(0, 2).join("/") };
+        return parts.length > 2 ? { mangaId: idFrom(parts), chapterId: parts.slice(2).join("~") } : { mangaId: idFrom(parts) };
       } catch {
         return null;
       }

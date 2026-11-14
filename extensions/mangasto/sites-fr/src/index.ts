@@ -8,7 +8,7 @@ import sites from "./sites.json";
 export default defineExtension({
   pkg: "storm.mangasto.sites-fr",
   name: "Manga sites: French",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "mangasto",
   sources: themeSources(sites as ThemeSite[]),
 });
