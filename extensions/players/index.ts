@@ -273,6 +273,52 @@ const megamax: Extractor = async (ctx, url) => {
   return out;
 };
 
+const dailymotion: Extractor = async (ctx, url) => {
+  const u = new URL(url);
+  const id = u.searchParams.get("video") ?? /\/(?:embed\/)?video\/([a-z0-9]+)/i.exec(u.pathname)?.[1] ?? (u.hostname === "dai.ly" ? u.pathname.slice(1) : undefined);
+  if (!id) return [];
+  const m = await ctx.http.json<{ qualities?: { auto?: { url: string }[] }; error?: { type?: string } }>(`https://www.dailymotion.com/player/metadata/video/${id}`, {
+    query: { locale: "en-US" },
+    headers: { "User-Agent": AGENT, Referer: "https://www.dailymotion.com/" },
+  });
+  if (m.error?.type === "not_found" || m.error?.type === "deleted") throw new Gone();
+  const hls = m.qualities?.auto?.[0]?.url;
+  return hls ? [{ url: hls, kind: "hls", referer: "https://www.dailymotion.com/" }] : [];
+};
+
+// Dood only gives /pass_md5/ to pages it trusts (phones usually); otherwise it stays an embed.
+const dood: Extractor = async (ctx, url) => {
+  const res = await page(ctx, url.replace(/\/[dfv]\//, "/e/"));
+  const at = res.url || url;
+  const html = await res.text();
+  const pass = /'(\/pass_md5\/[^']+)'/.exec(html)?.[1];
+  if (!pass) return [];
+  const site = new URL(at).origin;
+  const start = (await (await page(ctx, site + pass, at)).text()).trim();
+  if (!/^https?:\/\//.test(start)) return [];
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const noise = Array.from({ length: 10 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  const quality = /\d{3,4}p/.exec(/<title>([^<]*)/.exec(html)?.[1] ?? "")?.[0];
+  return [{ url: `${start}${noise}?token=${pass.split("/").pop()}&expiry=${Date.now()}`, kind: "mp4", referer: `${site}/`, quality }];
+};
+
+// Most small hosts (Sibnet, Sendvid, VidBom, Vudeo, YourUpload...) name the file next to a player key.
+const FILE_AT = /\b(?:file|src|hls\d?|source|video_?url|playlist)["']?\s*[:=]\s*\[?\s*["']((?:https?:)?\/\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?|\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?)["']/gi;
+const generic: Extractor = async (ctx, url) => {
+  const res = await page(ctx, url);
+  if (res.status >= 400) return [];
+  const html = await res.text();
+  const at = res.url || url;
+  const code = `${unpackAll(html)}\n${html}`;
+  const found = [...code.matchAll(FILE_AT), ...code.matchAll(/<source[^>]+src=["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/gi)]
+    .map((m) => new URL(abs(unescape(m[1])), at).toString())
+    .filter((u) => !/thumb|preview|poster|\/ads?\//i.test(u));
+  const best = found.find((u) => kindOf(u) === "hls") ?? found[0];
+  return best ? [{ url: best, kind: kindOf(best), referer: origin(at) }] : [];
+};
+// pages the general reader can't play: paid lockers, YouTube
+const NOT_GENERIC = /^https?:\/\/([a-z0-9-]+\.)*(youtube\.com|youtu\.be|youtube-nocookie\.com|mega\.nz|1fichier\.com|rapidgator\.net|nitroflare\.com|uptobox\.[a-z]+|facebook\.com|google\.com|gofile\.io)\//i;
+
 // most dependable first: an episode resolves the first few it lists
 const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Mp4upload", match: /^https?:\/\/(www\.)?mp4upload\.com\//, get: mp4upload },
@@ -290,15 +336,21 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "1vid", match: /^https?:\/\/(www\.)?1vid\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
   { name: "Mixdrop", match: /^https?:\/\/(www\.)?(mixdrop|mxdrop|mixdroop|m1xdrop|mixdrp)\.[a-z]+\/[ef]\//i, get: mixdrop },
   { name: "Megamax", match: /^https?:\/\/(www\.)?(megamax\.me|share4max\.com)\/(iframe|e|d|f|download)\//, get: megamax },
+  { name: "Lulu", match: /^https?:\/\/(www\.)?(luluvdo|lulustream|luluvid|lulu)\.[a-z]+\/(e|d|v)\//i, get: packed },
+  { name: "Dailymotion", match: /^https?:\/\/(www\.)?(dailymotion\.com\/(embed\/)?video\/|dailymotion\.com\/player|geo\.dailymotion\.com\/player|dai\.ly\/)/i, get: dailymotion },
   { name: "MediaFire", match: /^https?:\/\/(www\.)?mediafire\.com\/file\//, get: mediafire },
   { name: "Firestream", match: /^https?:\/\/(www\.)?firestream\.to\/(d|e|v|embed)\/[\w-]+/i, get: firestream },
   { name: "Pixeldrain", match: /^https?:\/\/(www\.)?pixeldrain\.com\/(u|api\/file)\//, get: pixeldrain },
   { name: "4shared", match: /^https?:\/\/(www\.)?4shared\.com\/(web\/)?embed\//, get: fourshared },
   { name: "Streamtape", match: /^https?:\/\/(www\.)?streamtape\.[a-z.]+\/[ev]\//i, get: streamtape },
   { name: "Savefiles", match: /^https?:\/\/(www\.)?savefiles\.com\/(e\/)?[a-z0-9]{12}/i, get: packed },
+  { name: "Dood", match: /^https?:\/\/(www\.)?(dood[a-z]*|d0+d|d0o0d|d000d|ds2play|ds2video|dsvplay|playmogo|vidply|dooood|doods)\.[a-z]+\/[defv]\//i, get: dood },
+  // Megamax moves to new domains; its pages give it away
+  { name: "Megamax", match: /^https?:\/\/[^/]+\/iframe\/[A-Za-z0-9]{10,}\/?$/, get: megamax },
+  { name: "Server", match: /^https?:\/\//, get: generic },
 ];
 
-const hostFor = (url: string) => HOSTS.find((h) => h.match.test(url));
+const hostFor = (url: string) => HOSTS.find((h) => h.match.test(url) && !(h.get === generic && NOT_GENERIC.test(url)));
 
 /** Whether storm can turn this embed into a direct stream. */
 export const resolvable = (url: string) => !!hostFor(url);

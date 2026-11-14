@@ -1,3 +1,7 @@
+## 1.0.12
+
+- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts.
+
 ## 1.0.4
 
 - Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site.

@@ -1,3 +1,7 @@
+## 1.0.7
+
+- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts.
+
 ## 1.0.6
 
 - Films and episodes play again: the site put its players on a separate watch page.

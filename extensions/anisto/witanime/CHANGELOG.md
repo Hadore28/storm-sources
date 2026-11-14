@@ -1,3 +1,7 @@
+## 1.0.14
+
+- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts.
+
 ## 1.0.13
 
 - Players open again: the site now answers only requests that send Chrome's client hints and no X-Requested-With.
