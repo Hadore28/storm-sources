@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-14T19:38:57.990Z",
+  "generatedAt": "2026-11-14T20:23:59.911Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,11 +23,11 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.12.js",
-      "sha256": "b1d9873a7e1f7c1a0a3c95fc795716eade5d31a767d5baf1ec1efddcec78641f",
-      "size": 32494,
+      "file": "extensions/storm.anisto.anime4up-1.0.13.js",
+      "sha256": "c97da6c9fdb4ff457a793a185f7b2cae225b8521066ef1c86a5105e6bab5ee1a",
+      "size": 37841,
       "sources": [
         {
           "id": "anime4up",
@@ -35,16 +35,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.12.js",
-      "sha256": "e4bb9aa18715cdc9c9760f1432557967acab3e1506d3f4db184d08610c3e1fec",
-      "size": 25334,
+      "file": "extensions/storm.anisto.anitaku-1.0.13.js",
+      "sha256": "30183bd863d89560ac3de0ecd515451ad734d5150bccd21852244af6b4389946",
+      "size": 30681,
       "sources": [
         {
           "id": "anitaku",
@@ -52,16 +52,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.12.js",
-      "sha256": "919cb37d0234146b3700a734346f5aeebcb13fdd51ec12388264443c873c3e3c",
-      "size": 25905,
+      "file": "extensions/storm.anisto.slayer-1.0.13.js",
+      "sha256": "5392f3ef799167b236ada488662558b7e07f5ff286e77cffa05351d839352b85",
+      "size": 31252,
       "sources": [
         {
           "id": "slayer",
@@ -69,16 +69,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.14",
+      "version": "1.0.15",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.14.js",
-      "sha256": "e28d12f3153b9ad28d8a14f4c5b19d989d81859c5ea1c2a5975bfa090240373c",
-      "size": 33292,
+      "file": "extensions/storm.anisto.witanime-1.0.15.js",
+      "sha256": "1c137fa098286e7f8bd8a87368c3c215fe81930fe984652ae6460aa231c95d4b",
+      "size": 38639,
       "sources": [
         {
           "id": "witanime",
@@ -86,16 +86,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Players open again: the site now answers only requests that send Chrome's client hints and no X-Requested-With."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.anisto.witcher",
       "name": "AnimeWitcher",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witcher-1.0.9.js",
-      "sha256": "d60b381e1210fee67582be0829a366cad3a2c54c0c54d975ac65ce76cea7aab9",
-      "size": 26601,
+      "file": "extensions/storm.anisto.witcher-1.0.10.js",
+      "sha256": "ded1f71ce3ea3ae215d9110a67bb0ed10afe505a8de52fdd9068f98261e16d93",
+      "size": 31949,
       "sources": [
         {
           "id": "witcher",
@@ -103,7 +103,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.booksto.foulabook",
@@ -1104,11 +1104,11 @@
     {
       "pkg": "storm.movisto.egybest",
       "name": "EgyBest",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egybest-1.0.6.js",
-      "sha256": "ac9d479e5ee3d8793c473c38c70c123c77916ad5ee67234edd461b25ccc734b0",
-      "size": 26807,
+      "file": "extensions/storm.movisto.egybest-1.0.7.js",
+      "sha256": "bf2e4eb7d45bd869761a2366eed339d80f9c9178e716bbeedc382053b4b14ba2",
+      "size": 32154,
       "sources": [
         {
           "id": "egybest",
@@ -1116,16 +1116,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Movies, new episodes, series and most watched; search.\n- Every player on a film or episode page; a show's season and its episodes.\n- The site's address can be changed in the admin when it moves."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.movisto.egydead",
       "name": "EgyDead",
-      "version": "1.0.7",
+      "version": "1.0.8",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egydead-1.0.7.js",
-      "sha256": "2c598b55d9c86ff0e1fafaf198fa4c1b77b5a2cda0cce39b84f918508132a49b",
-      "size": 30317,
+      "file": "extensions/storm.movisto.egydead-1.0.8.js",
+      "sha256": "b38a57b9eaf20be6f4b20d7b58bca79c555cd856c8bfdb6bfb53f759b99ce7e4",
+      "size": 35664,
       "sources": [
         {
           "id": "egydead",
@@ -1133,16 +1133,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Films and episodes play again: the site put its players on a separate watch page."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.movisto.topcinema",
       "name": "TopCinema",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "app": "movisto",
-      "file": "extensions/storm.movisto.topcinema-1.0.6.js",
-      "sha256": "2aedebe831443d57c1efda179ebe9b5ae8acbe70f6b1fb4cf2143dde15a1c268",
-      "size": 30337,
+      "file": "extensions/storm.movisto.topcinema-1.0.7.js",
+      "sha256": "b52a3f74a7973338ba9d0e0e4e6e85bb29e6f295d7aaf45ef6d95244ff1a8487",
+      "size": 35684,
       "sources": [
         {
           "id": "topcinema",
@@ -1150,7 +1150,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Movies, new episodes, series, and ten sections to browse; search.\n- Films and shows with story, genres, length, year, country and language; every season of a show and its episodes.\n- Every server on a title's watch page, and its downloads.\n- The site's address can be changed in the admin when it moves."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.novelsto.arnovel",
@@ -1203,11 +1203,11 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.12.js",
-      "sha256": "638beb07ff00fae345c8d6d52da3fc64cf2c05019ed6d95da3f7dc7dc9f1e4fb",
-      "size": 25828,
+      "file": "extensions/storm.studysto.edson-1.0.13.js",
+      "sha256": "81a7c72f554b0edc5142dd17928b723a7dcf56367b571fc2eabfa55007141ff7",
+      "size": 31175,
       "sources": [
         {
           "id": "edson",
@@ -1215,16 +1215,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.12.js",
-      "sha256": "f118f16ae6ba477d4922ae8c378fae90017d41f02ac63b12019417af34a0220a",
-      "size": 95819,
+      "file": "extensions/storm.studysto.eduiraq-1.0.13.js",
+      "sha256": "bde9dae04f085948c72bcdddb7894602aa621141a86848007c87b503d3c2f793",
+      "size": 101166,
       "sources": [
         {
           "id": "eduiraq",
@@ -1232,16 +1232,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.12.js",
-      "sha256": "6d366058ddb31fffeac7b06e5491a79c4a7fd6eb81a774f0ced9e6b78580b80c",
-      "size": 26998,
+      "file": "extensions/storm.studysto.manarast-1.0.13.js",
+      "sha256": "ba9a3764332d7ffee6f3db607b569cd351f4873340f0f7396fb95847f95bad22",
+      "size": 32345,
       "sources": [
         {
           "id": "manara-st",
@@ -1249,7 +1249,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
     },
     {
       "pkg": "storm.tvsto.arabic",
