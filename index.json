@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-13T20:32:30.650Z",
+  "generatedAt": "2026-11-14T19:09:59.701Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,11 +23,11 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.11.js",
-      "sha256": "1465df1d916e1c46724ba9eda303032f416c337c138687866fc8c705f8710b4c",
-      "size": 29782,
+      "file": "extensions/storm.anisto.anime4up-1.0.12.js",
+      "sha256": "b1d9873a7e1f7c1a0a3c95fc795716eade5d31a767d5baf1ec1efddcec78641f",
+      "size": 32494,
       "sources": [
         {
           "id": "anime4up",
@@ -35,16 +35,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.11.js",
-      "sha256": "e9eff86ba366c29e8a78d17cbc65cae305ad2cc4071ff9c0bf7bdca710d52230",
-      "size": 22622,
+      "file": "extensions/storm.anisto.anitaku-1.0.12.js",
+      "sha256": "e4bb9aa18715cdc9c9760f1432557967acab3e1506d3f4db184d08610c3e1fec",
+      "size": 25334,
       "sources": [
         {
           "id": "anitaku",
@@ -52,16 +52,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.11.js",
-      "sha256": "5fee7ed6680bf8cb48587918ca02ae4349949f56736998343ad9751c4824fb8d",
-      "size": 23193,
+      "file": "extensions/storm.anisto.slayer-1.0.12.js",
+      "sha256": "919cb37d0234146b3700a734346f5aeebcb13fdd51ec12388264443c873c3e3c",
+      "size": 25905,
       "sources": [
         {
           "id": "slayer",
@@ -69,16 +69,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.13",
+      "version": "1.0.14",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.13.js",
-      "sha256": "73f7d6cf3dd8f0843cbfaa86f02e13d0b8460cd6510e6c9873d9b295b6c84ee9",
-      "size": 30580,
+      "file": "extensions/storm.anisto.witanime-1.0.14.js",
+      "sha256": "e28d12f3153b9ad28d8a14f4c5b19d989d81859c5ea1c2a5975bfa090240373c",
+      "size": 33292,
       "sources": [
         {
           "id": "witanime",
@@ -86,16 +86,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
+      "changelog": "- Players open again: the site now answers only requests that send Chrome's client hints and no X-Requested-With."
     },
     {
       "pkg": "storm.anisto.witcher",
       "name": "AnimeWitcher",
-      "version": "1.0.8",
+      "version": "1.0.9",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witcher-1.0.8.js",
-      "sha256": "4eb08bded3651b2fe2a4e8f4303060be1acc0bd4f64c28b297abf9aafa5e4688",
-      "size": 23889,
+      "file": "extensions/storm.anisto.witcher-1.0.9.js",
+      "sha256": "d60b381e1210fee67582be0829a366cad3a2c54c0c54d975ac65ce76cea7aab9",
+      "size": 26601,
       "sources": [
         {
           "id": "witcher",
@@ -103,7 +103,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.booksto.foulabook",
@@ -276,27 +276,28 @@
     {
       "pkg": "storm.movisto.egybest",
       "name": "EgyBest",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egybest-1.0.5.js",
-      "sha256": "6f30a711b9b3e76999b43eb9f47820ac47456d49af11381292e98577afa6b69b",
-      "size": 24095,
+      "file": "extensions/storm.movisto.egybest-1.0.6.js",
+      "sha256": "ac9d479e5ee3d8793c473c38c70c123c77916ad5ee67234edd461b25ccc734b0",
+      "size": 26807,
       "sources": [
         {
           "id": "egybest",
           "name": "EgyBest",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- Movies, new episodes, series and most watched; search.\n- Every player on a film or episode page; a show's season and its episodes.\n- The site's address can be changed in the admin when it moves."
     },
     {
       "pkg": "storm.movisto.egydead",
       "name": "EgyDead",
-      "version": "1.0.6",
+      "version": "1.0.7",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egydead-1.0.6.js",
-      "sha256": "b20d8f2c465c4d081ab5901a3982eb074ed2827e3756d1bb6263f24f29618a9d",
-      "size": 27605,
+      "file": "extensions/storm.movisto.egydead-1.0.7.js",
+      "sha256": "2c598b55d9c86ff0e1fafaf198fa4c1b77b5a2cda0cce39b84f918508132a49b",
+      "size": 30317,
       "sources": [
         {
           "id": "egydead",
@@ -304,23 +305,24 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- English movies, English series, Arabic movies, and 19 sections to browse; search.\n- Films and series with their story, genres, year, country and language; every season of a series in order, with its episodes.\n- The players and downloads the site shows after its watch button.\n- The site's address can be changed in the admin when it moves."
+      "changelog": "- Films and episodes play again: the site put its players on a separate watch page."
     },
     {
       "pkg": "storm.movisto.topcinema",
       "name": "TopCinema",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "app": "movisto",
-      "file": "extensions/storm.movisto.topcinema-1.0.5.js",
-      "sha256": "44492ef8e86fa9e47d94a52dfb1d8d7ea8bb4ec0733bfee653cc5f4c1f81baaa",
-      "size": 27625,
+      "file": "extensions/storm.movisto.topcinema-1.0.6.js",
+      "sha256": "2aedebe831443d57c1efda179ebe9b5ae8acbe70f6b1fb4cf2143dde15a1c268",
+      "size": 30337,
       "sources": [
         {
           "id": "topcinema",
           "name": "TopCinema",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- Movies, new episodes, series, and ten sections to browse; search.\n- Films and shows with story, genres, length, year, country and language; every season of a show and its episodes.\n- Every server on a title's watch page, and its downloads.\n- The site's address can be changed in the admin when it moves."
     },
     {
       "pkg": "storm.novelsto.arnovel",
@@ -373,11 +375,11 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.11.js",
-      "sha256": "162ecc46d03ce43680a73cd7c19c95229aa449cc521ec6eb0dead79084a745a4",
-      "size": 23116,
+      "file": "extensions/storm.studysto.edson-1.0.12.js",
+      "sha256": "638beb07ff00fae345c8d6d52da3fc64cf2c05019ed6d95da3f7dc7dc9f1e4fb",
+      "size": 25828,
       "sources": [
         {
           "id": "edson",
@@ -385,16 +387,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.11.js",
-      "sha256": "85c2d0bb14f983ff6a755faf6f31054b4308e9593c79c6cebaab5c3bbfba583a",
-      "size": 93107,
+      "file": "extensions/storm.studysto.eduiraq-1.0.12.js",
+      "sha256": "f118f16ae6ba477d4922ae8c378fae90017d41f02ac63b12019417af34a0220a",
+      "size": 95819,
       "sources": [
         {
           "id": "eduiraq",
@@ -402,16 +404,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.11",
+      "version": "1.0.12",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.11.js",
-      "sha256": "cfb7a081ef378507991770a103329b37a906087c9b656beae0c2c443e2ad4353",
-      "size": 24286,
+      "file": "extensions/storm.studysto.manarast-1.0.12.js",
+      "sha256": "6d366058ddb31fffeac7b06e5491a79c4a7fd6eb81a774f0ced9e6b78580b80c",
+      "size": 26998,
       "sources": [
         {
           "id": "manara-st",
@@ -419,7 +421,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- A server whose host says the video was deleted is marked unavailable instead of offered."
+      "changelog": "- Pixeldrain plays again: it is streamed through storm, since Pixeldrain refuses browsers playing it from another site."
     },
     {
       "pkg": "storm.tvsto.arabic",
