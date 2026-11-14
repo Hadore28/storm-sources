@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-14T20:23:59.911Z",
+  "generatedAt": "2026-11-14T20:36:36.536Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -53,6 +53,22 @@
         }
       ],
       "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+    },
+    {
+      "pkg": "storm.anisto.okanime",
+      "name": "OkAnime",
+      "version": "1.0.0",
+      "app": "anisto",
+      "file": "extensions/storm.anisto.okanime-1.0.0.js",
+      "sha256": "0e26afc2bf82ea16c056fb1f9d8ec5a4ac4649c9daab74bf247b0023fed825b1",
+      "size": 30335,
+      "sources": [
+        {
+          "id": "okanime",
+          "name": "OkAnime",
+          "lang": "ar"
+        }
+      ]
     },
     {
       "pkg": "storm.anisto.slayer",
@@ -1097,6 +1113,22 @@
         {
           "id": "akwam",
           "name": "Akwam",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.movisto.arabseed",
+      "name": "ArabSeed",
+      "version": "1.0.0",
+      "app": "movisto",
+      "file": "extensions/storm.movisto.arabseed-1.0.0.js",
+      "sha256": "68d68a23feaf814ff140ac3e7ec8d077fe1a4b86c7b382031c68a42eae2067c6",
+      "size": 32949,
+      "sources": [
+        {
+          "id": "arabseed",
+          "name": "ArabSeed",
           "lang": "ar"
         }
       ]
