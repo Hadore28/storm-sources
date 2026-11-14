@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-14T20:36:36.536Z",
+  "generatedAt": "2026-11-14T20:41:42.361Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -1129,6 +1129,22 @@
         {
           "id": "arabseed",
           "name": "ArabSeed",
+          "lang": "ar"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.movisto.asia2tv",
+      "name": "Asia2TV",
+      "version": "1.0.0",
+      "app": "movisto",
+      "file": "extensions/storm.movisto.asia2tv-1.0.0.js",
+      "sha256": "afc2c5629599902df2ea6de6a1c85702523efabec823cc30b8d6e31ea3d55040",
+      "size": 29818,
+      "sources": [
+        {
+          "id": "asia2tv",
+          "name": "Asia2TV",
           "lang": "ar"
         }
       ]
