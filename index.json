@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-14T19:26:25.690Z",
+  "generatedAt": "2026-11-14T19:38:57.990Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -242,11 +242,11 @@
     {
       "pkg": "storm.mangasto.sites-all",
       "name": "Manga sites: Multiple languages",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-all-1.0.0.js",
-      "sha256": "dd76160abcf2ed417c1f66d200fd9d44744d05ed09e33bc53003b4fafe3042f1",
-      "size": 23949,
+      "file": "extensions/storm.mangasto.sites-all-1.0.1.js",
+      "sha256": "a35914d94243d5dd6940c10a2f09fd4c82a7e7d7daf835d9057dd1130bfd0951",
+      "size": 24062,
       "sources": [
         {
           "id": "grabberzone",
@@ -254,16 +254,17 @@
           "lang": "all",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 1 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-ar",
       "name": "Manga sites: Arabic",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-ar-1.0.0.js",
-      "sha256": "b7aa9bda8c6e8433b634faac2142d0567ff36b1623dd0e95be5ce5ab3b075791",
-      "size": 25015,
+      "file": "extensions/storm.mangasto.sites-ar-1.0.1.js",
+      "sha256": "5b05d988670f294b73f8b7da1a7e31317b3c705550ad5a4c4dfac8c5aff85367",
+      "size": 25128,
       "sources": [
         {
           "id": "anyonemanga",
@@ -319,16 +320,17 @@
           "lang": "ar",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 9 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-en",
       "name": "Manga sites: English",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-en-1.0.0.js",
-      "sha256": "c6b8f1ec100e3e1674bc240ff6332b44501b0d3bff5e1ac446dd40bb141752df",
-      "size": 29424,
+      "file": "extensions/storm.mangasto.sites-en-1.0.1.js",
+      "sha256": "53558eef65c70a7b9bdcb852a9a2f650059b954fbd59b7a7843bdce547cbd29e",
+      "size": 29537,
       "sources": [
         {
           "id": "aquamanga",
@@ -582,16 +584,17 @@
           "lang": "en",
           "rating": "suggestive"
         }
-      ]
+      ],
+      "changelog": "- 42 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-es",
       "name": "Manga sites: Spanish",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-es-1.0.0.js",
-      "sha256": "fd3d5d167f8e3b63ae47797bbee8d6dcfd2493cdcc8990ce46c5864287b074e2",
-      "size": 26347,
+      "file": "extensions/storm.mangasto.sites-es-1.0.1.js",
+      "sha256": "042f8112a3188e5678e37062013b8a42063f6b2df72c3c19f5382d5b4bd3d60e",
+      "size": 26460,
       "sources": [
         {
           "id": "barmanga",
@@ -701,16 +704,17 @@
           "lang": "es",
           "rating": "suggestive"
         }
-      ]
+      ],
+      "changelog": "- 18 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-fr",
       "name": "Manga sites: French",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-fr-1.0.0.js",
-      "sha256": "461566fe263312a2bf60bc3b3052a1e483bdf852a0a622b47dfc94a1992fc39a",
-      "size": 24080,
+      "file": "extensions/storm.mangasto.sites-fr-1.0.1.js",
+      "sha256": "111738c6012a6d570b42b4c5d55aea31f2e0f154c846baf1af8837c8d237c9fe",
+      "size": 24193,
       "sources": [
         {
           "id": "mangascantrad",
@@ -724,16 +728,17 @@
           "lang": "fr",
           "rating": "suggestive"
         }
-      ]
+      ],
+      "changelog": "- 2 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-id",
       "name": "Manga sites: Indonesian",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-id-1.0.0.js",
-      "sha256": "d093387cffad51f74ff807b6b4270684b81fb7aeaee463f0eb69b23dd25f661e",
-      "size": 23962,
+      "file": "extensions/storm.mangasto.sites-id-1.0.1.js",
+      "sha256": "8cb18fb9a028c7d8791ed576c1e2bd27be3f8c45f2d000be4c12aa797cb1cc01",
+      "size": 24075,
       "sources": [
         {
           "id": "klikmanga",
@@ -741,16 +746,17 @@
           "lang": "id",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 1 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-it",
       "name": "Manga sites: Italian",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-it-1.0.0.js",
-      "sha256": "7f9ee01e4f874e59ae0f3a49545b94c78e9d6e35ecb639cdf756ede2d22d4544",
-      "size": 24075,
+      "file": "extensions/storm.mangasto.sites-it-1.0.1.js",
+      "sha256": "ea7ba4579e250c44751a92d23db645fa28d48521b137514afdb4642366031050",
+      "size": 24188,
       "sources": [
         {
           "id": "animeshinigami",
@@ -764,16 +770,17 @@
           "lang": "it",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 2 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-ja",
       "name": "Manga sites: Japanese",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-ja-1.0.0.js",
-      "sha256": "73860b302f63a41c4d389e349f488d05548ad292edd1c4f285217b8398a55805",
-      "size": 23950,
+      "file": "extensions/storm.mangasto.sites-ja-1.0.1.js",
+      "sha256": "6a94708d840551ef6cade1fba11b4aff246dc8d1229bf40a162ed951e8245d17",
+      "size": 24063,
       "sources": [
         {
           "id": "kmansin09",
@@ -781,16 +788,17 @@
           "lang": "ja",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 1 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-ko",
       "name": "Manga sites: Korean",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-ko-1.0.0.js",
-      "sha256": "74d7f4755bd0d0b6d7dbb8323f06acb64a9806e6a39a5f8f688772bae2717c54",
-      "size": 23952,
+      "file": "extensions/storm.mangasto.sites-ko-1.0.1.js",
+      "sha256": "c73ba8a27105289098b2574e479d1c9b92b28870380a49bf84453ad31cf8e87f",
+      "size": 24065,
       "sources": [
         {
           "id": "goodtoon",
@@ -798,16 +806,17 @@
           "lang": "ko",
           "rating": "suggestive"
         }
-      ]
+      ],
+      "changelog": "- 1 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-pt-br",
       "name": "Manga sites: Portuguese (Brazil)",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-pt-br-1.0.0.js",
-      "sha256": "608e843d0790d34e4dc0b087f87e927b80be8d0dc3eb18462966c22a6ca4e365",
-      "size": 25758,
+      "file": "extensions/storm.mangasto.sites-pt-br-1.0.1.js",
+      "sha256": "e34ccb317d91d0ad5b37ab8b3f9d7a8980071e3fe22b8957ba29ba26d2e7b19f",
+      "size": 25871,
       "sources": [
         {
           "id": "amuy",
@@ -893,16 +902,17 @@
           "lang": "pt-BR",
           "rating": "suggestive"
         }
-      ]
+      ],
+      "changelog": "- 14 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-th",
       "name": "Manga sites: Thai",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-th-1.0.0.js",
-      "sha256": "16728f332349f80a8127ae433958a70d36f4385d7bb444886799bf71f446bc5a",
-      "size": 24582,
+      "file": "extensions/storm.mangasto.sites-th-1.0.1.js",
+      "sha256": "99e1abe55084fa27c4beb9711cabdc1c2afcfe93d9977363528cc7b6d4e0029e",
+      "size": 24695,
       "sources": [
         {
           "id": "doodmanga",
@@ -940,16 +950,17 @@
           "lang": "th",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 6 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-tr",
       "name": "Manga sites: Turkish",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-tr-1.0.0.js",
-      "sha256": "39289336f78e6e8338fbad32a7e40fa856e7056b6bb1d69866950491219e71d8",
-      "size": 25634,
+      "file": "extensions/storm.mangasto.sites-tr-1.0.1.js",
+      "sha256": "4feb098f0500fa9dfa56449912808faeff5a3a319f99bd1a4b4d7494c29e9855",
+      "size": 25747,
       "sources": [
         {
           "id": "anikiga",
@@ -1035,16 +1046,17 @@
           "lang": "tr",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 14 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.sites-vi",
       "name": "Manga sites: Vietnamese",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "app": "mangasto",
-      "file": "extensions/storm.mangasto.sites-vi-1.0.0.js",
-      "sha256": "68cb0d0d06f6bd8d7b236282ca7664670f3fc4c30e7fd729377591dcbe32474a",
-      "size": 23975,
+      "file": "extensions/storm.mangasto.sites-vi-1.0.1.js",
+      "sha256": "797e41f495ef4dcb4add6f68a8925a5bb2cdd51e11246ad0ba51094ce0ad41fa",
+      "size": 24088,
       "sources": [
         {
           "id": "truyentuoitho",
@@ -1052,7 +1064,8 @@
           "lang": "vi",
           "rating": "safe"
         }
-      ]
+      ],
+      "changelog": "- 1 manga sites on the Madara theme, adult series hidden."
     },
     {
       "pkg": "storm.mangasto.teamx",
