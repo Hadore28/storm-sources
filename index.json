@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-14T19:09:59.701Z",
+  "generatedAt": "2026-11-14T19:26:25.690Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -238,6 +238,821 @@
         }
       ],
       "changelog": "- Popular, latest, trending, top rated and A–Z lists; genre, type and status filters; details with authors, chapters and pages.\n- Novels are left out; premium chapters open on MangaTime."
+    },
+    {
+      "pkg": "storm.mangasto.sites-all",
+      "name": "Manga sites: Multiple languages",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-all-1.0.0.js",
+      "sha256": "dd76160abcf2ed417c1f66d200fd9d44744d05ed09e33bc53003b4fafe3042f1",
+      "size": 23949,
+      "sources": [
+        {
+          "id": "grabberzone",
+          "name": "Grabber Zone",
+          "lang": "all",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-ar",
+      "name": "Manga sites: Arabic",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-ar-1.0.0.js",
+      "sha256": "b7aa9bda8c6e8433b634faac2142d0567ff36b1623dd0e95be5ce5ab3b075791",
+      "size": 25015,
+      "sources": [
+        {
+          "id": "anyonemanga",
+          "name": "Anyone Manga",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "hizomanga",
+          "name": "Hizo Manga",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "mangastarz",
+          "name": "Manga Starz",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "mangalionz",
+          "name": "MangaLionz",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "mangaspark",
+          "name": "MangaSpark",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "nijitranslations",
+          "name": "Niji Translations",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "detectiveconanar",
+          "name": "شبكة كونان العربية",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "manga3asq",
+          "name": "مانجا العاشق",
+          "lang": "ar",
+          "rating": "safe"
+        },
+        {
+          "id": "mangalink",
+          "name": "مانجا لينك",
+          "lang": "ar",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-en",
+      "name": "Manga sites: English",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-en-1.0.0.js",
+      "sha256": "c6b8f1ec100e3e1674bc240ff6332b44501b0d3bff5e1ac446dd40bb141752df",
+      "size": 29424,
+      "sources": [
+        {
+          "id": "aquamanga",
+          "name": "Aqua Manga",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "boratscans",
+          "name": "Borat Scans",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "brainrotcomics",
+          "name": "BrainRotComics",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "bunmanga",
+          "name": "Bun Manga",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "cocomic",
+          "name": "Cocomic",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "decadencescans",
+          "name": "Decadence Scans",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "dragontea",
+          "name": "DragonTea",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "gakamangas",
+          "name": "GakaMangas",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "galaxydegenscans",
+          "name": "GalaxyDegenScans",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "hunlightcomics",
+          "name": "Hunlight Comics",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "jinmangas",
+          "name": "Jinmangas",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "kensscan",
+          "name": "Kensscan",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "kissmangain",
+          "name": "Kissmanga.in",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "wearehunger",
+          "name": "KokoMangas",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "ksgroupscans",
+          "name": "KSGroupScans",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "lhtranslation",
+          "name": "LHTranslation",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "lilymanga",
+          "name": "Lily Manga",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "linkmanga",
+          "name": "LinkManga",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "lovesjanescans",
+          "name": "Lovesjane Scans",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "mangaeclipse",
+          "name": "Manga Eclipse",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "mangagg",
+          "name": "MangaGG",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangaowlio",
+          "name": "MangaOwl.io (unoriginal)",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangareadorg",
+          "name": "MangaRead.org",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangasushi",
+          "name": "Mangasushi",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "manhuaplus",
+          "name": "Manhua Plus",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "manhuahot",
+          "name": "ManhuaHot",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "manhuanext",
+          "name": "Manhuanext",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "manhuaus",
+          "name": "ManhuaUS",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "manhwareads",
+          "name": "Manhwa Reads",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "manhwanex",
+          "name": "ManhwaNex",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "manhwatop",
+          "name": "Manhwatop",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "s2manga",
+          "name": "S2Manga",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "setsuscans",
+          "name": "Setsu Scans",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "sleepytranslations",
+          "name": "Sleepy Translations",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "toongod",
+          "name": "ToonGod",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "toonily",
+          "name": "Toonily",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "toonizy",
+          "name": "Toonizy",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "tritiniascans",
+          "name": "TritiniaScans",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "webtoonxyz",
+          "name": "WebtoonXYZ",
+          "lang": "en",
+          "rating": "suggestive"
+        },
+        {
+          "id": "wuxiaworld",
+          "name": "WuxiaWorld",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "yakshacomics",
+          "name": "YakshaComics",
+          "lang": "en",
+          "rating": "safe"
+        },
+        {
+          "id": "yaoiscan",
+          "name": "YaoiScan",
+          "lang": "en",
+          "rating": "suggestive"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-es",
+      "name": "Manga sites: Spanish",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-es-1.0.0.js",
+      "sha256": "fd3d5d167f8e3b63ae47797bbee8d6dcfd2493cdcc8990ce46c5864287b074e2",
+      "size": 26347,
+      "sources": [
+        {
+          "id": "barmanga",
+          "name": "BarManga",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "begatranslation",
+          "name": "Bega Translation",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "dragontranslationorg",
+          "name": "DragonTranslation.org",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "hadesnofansub",
+          "name": "Hades no Fansub",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "houseofotakus",
+          "name": "House Of Otakus",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "infrafandub",
+          "name": "InfraFandub",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "inmortalscan",
+          "name": "Inmortal Scan",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "inventariooculto",
+          "name": "Inventario Oculto",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "kazokuden",
+          "name": "Kazoku Den",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "mangaromance",
+          "name": "Manga Romance",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangasnosekai",
+          "name": "Mangas No Sekai",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "manhwalatino",
+          "name": "Manhwa-Latino",
+          "lang": "es",
+          "rating": "suggestive"
+        },
+        {
+          "id": "marmota",
+          "name": "Marmota",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "monopolyscan",
+          "name": "Monopoly Scan",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "ragnarokscanlation",
+          "name": "Ragnarok Scanlation",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "richtoscan",
+          "name": "RichtoScan",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "taurusfansub",
+          "name": "Taurus Fansub",
+          "lang": "es",
+          "rating": "safe"
+        },
+        {
+          "id": "yurionline",
+          "name": "Yuri-Online",
+          "lang": "es",
+          "rating": "suggestive"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-fr",
+      "name": "Manga sites: French",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-fr-1.0.0.js",
+      "sha256": "461566fe263312a2bf60bc3b3052a1e483bdf852a0a622b47dfc94a1992fc39a",
+      "size": 24080,
+      "sources": [
+        {
+          "id": "mangascantrad",
+          "name": "Manga-Scantrad",
+          "lang": "fr",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangahubfr",
+          "name": "MangaHub.fr",
+          "lang": "fr",
+          "rating": "suggestive"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-id",
+      "name": "Manga sites: Indonesian",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-id-1.0.0.js",
+      "sha256": "d093387cffad51f74ff807b6b4270684b81fb7aeaee463f0eb69b23dd25f661e",
+      "size": 23962,
+      "sources": [
+        {
+          "id": "klikmanga",
+          "name": "KlikManga",
+          "lang": "id",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-it",
+      "name": "Manga sites: Italian",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-it-1.0.0.js",
+      "sha256": "7f9ee01e4f874e59ae0f3a49545b94c78e9d6e35ecb639cdf756ede2d22d4544",
+      "size": 24075,
+      "sources": [
+        {
+          "id": "animeshinigami",
+          "name": "AnimeShinigami",
+          "lang": "it",
+          "rating": "safe"
+        },
+        {
+          "id": "shinobiscans",
+          "name": "Shinobi Scans",
+          "lang": "it",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-ja",
+      "name": "Manga sites: Japanese",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-ja-1.0.0.js",
+      "sha256": "73860b302f63a41c4d389e349f488d05548ad292edd1c4f285217b8398a55805",
+      "size": 23950,
+      "sources": [
+        {
+          "id": "kmansin09",
+          "name": "Kmansin09",
+          "lang": "ja",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-ko",
+      "name": "Manga sites: Korean",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-ko-1.0.0.js",
+      "sha256": "74d7f4755bd0d0b6d7dbb8323f06acb64a9806e6a39a5f8f688772bae2717c54",
+      "size": 23952,
+      "sources": [
+        {
+          "id": "goodtoon",
+          "name": "GoodToon",
+          "lang": "ko",
+          "rating": "suggestive"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-pt-br",
+      "name": "Manga sites: Portuguese (Brazil)",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-pt-br-1.0.0.js",
+      "sha256": "608e843d0790d34e4dc0b087f87e927b80be8d0dc3eb18462966c22a6ca4e365",
+      "size": 25758,
+      "sources": [
+        {
+          "id": "amuy",
+          "name": "Amuy",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "arthurscan",
+          "name": "Arthur Scan",
+          "lang": "pt-BR",
+          "rating": "safe"
+        },
+        {
+          "id": "borutoexplorer",
+          "name": "Boruto Explorer",
+          "lang": "pt-BR",
+          "rating": "safe"
+        },
+        {
+          "id": "cafecomyaoi",
+          "name": "Café com Yaoi",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "flowermanga",
+          "name": "FlowerManga.net",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "hotcabaretscan",
+          "name": "Hot Cabaret Scan",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangalivreto",
+          "name": "Manga Livre.to",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "minitwoscan",
+          "name": "MiniTwo Scan",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "montetai",
+          "name": "Monte Tai",
+          "lang": "pt-BR",
+          "rating": "safe"
+        },
+        {
+          "id": "nebulosascan",
+          "name": "Nebulosa Scan",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "ninjascan",
+          "name": "Ninja Scan",
+          "lang": "pt-BR",
+          "rating": "safe"
+        },
+        {
+          "id": "nocturnesummer",
+          "name": "Nocturne Summer",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "yaoifanclub",
+          "name": "Yaoi Fan Club",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        },
+        {
+          "id": "yuriverso",
+          "name": "Yuri on Air",
+          "lang": "pt-BR",
+          "rating": "suggestive"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-th",
+      "name": "Manga sites: Thai",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-th-1.0.0.js",
+      "sha256": "16728f332349f80a8127ae433958a70d36f4385d7bb444886799bf71f446bc5a",
+      "size": 24582,
+      "sources": [
+        {
+          "id": "doodmanga",
+          "name": "Doodmanga",
+          "lang": "th",
+          "rating": "safe"
+        },
+        {
+          "id": "mangalc",
+          "name": "Manga-Lc",
+          "lang": "th",
+          "rating": "suggestive"
+        },
+        {
+          "id": "mangaisekaithai",
+          "name": "MangaIsekaiThai",
+          "lang": "th",
+          "rating": "suggestive"
+        },
+        {
+          "id": "manhuabug",
+          "name": "ManhuaBug",
+          "lang": "th",
+          "rating": "safe"
+        },
+        {
+          "id": "manhuathai",
+          "name": "ManhuaThai",
+          "lang": "th",
+          "rating": "safe"
+        },
+        {
+          "id": "manhwabreakup",
+          "name": "ManhwaBreakup",
+          "lang": "th",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-tr",
+      "name": "Manga sites: Turkish",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-tr-1.0.0.js",
+      "sha256": "39289336f78e6e8338fbad32a7e40fa856e7056b6bb1d69866950491219e71d8",
+      "size": 25634,
+      "sources": [
+        {
+          "id": "anikiga",
+          "name": "Anikiga",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "diamondfansub",
+          "name": "DiamondFansub",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "hayalistic",
+          "name": "Hayalistic",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "mangatilkisi",
+          "name": "MangaTilkisi",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "mangawow",
+          "name": "MangaWOW",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "merlinmanga",
+          "name": "Merlin Manga",
+          "lang": "tr",
+          "rating": "suggestive"
+        },
+        {
+          "id": "milasub",
+          "name": "MilaSub",
+          "lang": "tr",
+          "rating": "suggestive"
+        },
+        {
+          "id": "niverafansub",
+          "name": "Nivera Fansub",
+          "lang": "tr",
+          "rating": "suggestive"
+        },
+        {
+          "id": "ruyamanga",
+          "name": "Rüya Manga",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "tarotscans",
+          "name": "Tarot Scans",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "tonizutoon",
+          "name": "TonizuToon",
+          "lang": "tr",
+          "rating": "suggestive"
+        },
+        {
+          "id": "tortugaceviri",
+          "name": "Tortuga Ceviri",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "turkcemangaoku",
+          "name": "Türkçe Manga Oku",
+          "lang": "tr",
+          "rating": "safe"
+        },
+        {
+          "id": "webtoonhatti",
+          "name": "Webtoon Hatti",
+          "lang": "tr",
+          "rating": "safe"
+        }
+      ]
+    },
+    {
+      "pkg": "storm.mangasto.sites-vi",
+      "name": "Manga sites: Vietnamese",
+      "version": "1.0.0",
+      "app": "mangasto",
+      "file": "extensions/storm.mangasto.sites-vi-1.0.0.js",
+      "sha256": "68cb0d0d06f6bd8d7b236282ca7664670f3fc4c30e7fd729377591dcbe32474a",
+      "size": 23975,
+      "sources": [
+        {
+          "id": "truyentuoitho",
+          "name": "TruyenTuoiTho",
+          "lang": "vi",
+          "rating": "safe"
+        }
+      ]
     },
     {
       "pkg": "storm.mangasto.teamx",
