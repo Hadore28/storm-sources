@@ -1,0 +1,21 @@
+[
+ {
+  "theme": "madara",
+  "id": "animeshinigami",
+  "name": "AnimeShinigami",
+  "lang": "it",
+  "url": "https://www.animeshinigami.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "shinobiscans",
+  "name": "Shinobi Scans",
+  "lang": "it",
+  "url": "https://shinobiscans.com",
+  "mirrors": [],
+  "mixed": false
+ }
+]

@@ -1,0 +1,143 @@
+[
+ {
+  "theme": "madara",
+  "id": "amuy",
+  "name": "Amuy",
+  "lang": "pt-BR",
+  "url": "https://apenasmaisumyaoi.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "arthurscan",
+  "name": "Arthur Scan",
+  "lang": "pt-BR",
+  "url": "https://arthurscan.xyz",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "borutoexplorer",
+  "name": "Boruto Explorer",
+  "lang": "pt-BR",
+  "url": "https://leitor.borutoexplorer.com.br",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "cafecomyaoi",
+  "name": "Café com Yaoi",
+  "lang": "pt-BR",
+  "url": "https://cafecomyaoi.com.br",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "flowermanga",
+  "name": "FlowerManga.net",
+  "lang": "pt-BR",
+  "url": "https://flowermangas.net",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "hotcabaretscan",
+  "name": "Hot Cabaret Scan",
+  "lang": "pt-BR",
+  "url": "https://hotcabaretscan.com",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "mangalivreto",
+  "name": "Manga Livre.to",
+  "lang": "pt-BR",
+  "url": "https://mangalivre.to",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "minitwoscan",
+  "name": "MiniTwo Scan",
+  "lang": "pt-BR",
+  "url": "https://minitwoscan.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "AdminAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "montetai",
+  "name": "Monte Tai",
+  "lang": "pt-BR",
+  "url": "https://montetaiscanlator.xyz",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "nebulosascan",
+  "name": "Nebulosa Scan",
+  "lang": "pt-BR",
+  "url": "https://nebulosascan.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "ninjascan",
+  "name": "Ninja Scan",
+  "lang": "pt-BR",
+  "url": "https://ninjacomics.xyz",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "nocturnesummer",
+  "name": "Nocturne Summer",
+  "lang": "pt-BR",
+  "url": "https://nocfsb.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "yaoifanclub",
+  "name": "Yaoi Fan Club",
+  "lang": "pt-BR",
+  "url": "https://yaoifanclub.com",
+  "mirrors": [],
+  "mixed": true,
+  "path": "obra",
+  "noAjax": true,
+  "genres": "obra-genre"
+ },
+ {
+  "theme": "madara",
+  "id": "yuriverso",
+  "name": "Yuri on Air",
+  "lang": "pt-BR",
+  "url": "https://yurionair.top",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "noAjax": true,
+  "genres": "manga-genero"
+ }
+]

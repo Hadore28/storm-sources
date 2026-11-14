@@ -1,0 +1,432 @@
+[
+ {
+  "theme": "madara",
+  "id": "aquamanga",
+  "name": "Aqua Manga",
+  "lang": "en",
+  "url": "https://aquareader.org",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "boratscans",
+  "name": "Borat Scans",
+  "lang": "en",
+  "url": "https://boratscans.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "brainrotcomics",
+  "name": "BrainRotComics",
+  "lang": "en",
+  "url": "https://brainrotcomics.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "bunmanga",
+  "name": "Bun Manga",
+  "lang": "en",
+  "url": "https://bunmanga.com",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "cocomic",
+  "name": "Cocomic",
+  "lang": "en",
+  "url": "https://cocomic.co",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "decadencescans",
+  "name": "Decadence Scans",
+  "lang": "en",
+  "url": "https://reader.decadencescans.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "dragontea",
+  "name": "DragonTea",
+  "lang": "en",
+  "url": "https://dragontea.ink",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "novel"
+ },
+ {
+  "theme": "madara",
+  "id": "gakamangas",
+  "name": "GakaMangas",
+  "lang": "en",
+  "url": "https://gakamangas.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "allTypes": true
+ },
+ {
+  "theme": "madara",
+  "id": "galaxydegenscans",
+  "name": "GalaxyDegenScans",
+  "lang": "en",
+  "url": "https://gdscans.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "hunlightcomics",
+  "name": "Hunlight Comics",
+  "lang": "en",
+  "url": "https://hunlightcomics.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "jinmangas",
+  "name": "Jinmangas",
+  "lang": "en",
+  "url": "https://mangafree.info",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "kensscan",
+  "name": "Kensscan",
+  "lang": "en",
+  "url": "https://kensscan.com",
+  "mirrors": [],
+  "mixed": true,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "kissmangain",
+  "name": "Kissmanga.in",
+  "lang": "en",
+  "url": "https://kissmanga.in",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "kissmanga"
+ },
+ {
+  "theme": "madara",
+  "id": "wearehunger",
+  "name": "KokoMangas",
+  "lang": "en",
+  "url": "https://kokomangas.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "ksgroupscans",
+  "name": "KSGroupScans",
+  "lang": "en",
+  "url": "https://ksgroupscans.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "lhtranslation",
+  "name": "LHTranslation",
+  "lang": "en",
+  "url": "https://lhtranslation.net",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "lilymanga",
+  "name": "Lily Manga",
+  "lang": "en",
+  "url": "https://lilymanga.net",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "gl",
+  "noAjax": true,
+  "genres": "gl-genre"
+ },
+ {
+  "theme": "madara",
+  "id": "linkmanga",
+  "name": "LinkManga",
+  "lang": "en",
+  "url": "https://linkmanga.com",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "lovesjanescans",
+  "name": "Lovesjane Scans",
+  "lang": "en",
+  "url": "https://lovesjane.site",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjaxPaginated"
+ },
+ {
+  "theme": "madara",
+  "id": "mangaeclipse",
+  "name": "Manga Eclipse",
+  "lang": "en",
+  "url": "https://mangaeclipse.com",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "mangagg",
+  "name": "MangaGG",
+  "lang": "en",
+  "url": "https://mangagg.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjaxPaginated",
+  "path": "comic"
+ },
+ {
+  "theme": "madara",
+  "id": "mangaowlio",
+  "name": "MangaOwl.io (unoriginal)",
+  "lang": "en",
+  "url": "https://mangaowl.io",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "read-1"
+ },
+ {
+  "theme": "madara",
+  "id": "mangareadorg",
+  "name": "MangaRead.org",
+  "lang": "en",
+  "url": "https://www.mangaread.org",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "mangasushi",
+  "name": "Mangasushi",
+  "lang": "en",
+  "url": "https://mangasushi.org",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "manhuaplus",
+  "name": "Manhua Plus",
+  "lang": "en",
+  "url": "https://manhuaplus.com",
+  "mirrors": [],
+  "mixed": false,
+  "allTypes": true
+ },
+ {
+  "theme": "madara",
+  "id": "manhuahot",
+  "name": "ManhuaHot",
+  "lang": "en",
+  "url": "https://manhuahot.com",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "manhuanext",
+  "name": "Manhuanext",
+  "lang": "en",
+  "url": "https://manhuanext.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "manhuaus",
+  "name": "ManhuaUS",
+  "lang": "en",
+  "url": "https://manhuaus.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "allTypes": true
+ },
+ {
+  "theme": "madara",
+  "id": "manhwareads",
+  "name": "Manhwa Reads",
+  "lang": "en",
+  "url": "https://manhwareads.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "manhwanex",
+  "name": "ManhwaNex",
+  "lang": "en",
+  "url": "https://manhwanex.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "manhwatop",
+  "name": "Manhwatop",
+  "lang": "en",
+  "url": "https://manhwatop.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "allTypes": true
+ },
+ {
+  "theme": "madara",
+  "id": "s2manga",
+  "name": "S2Manga",
+  "lang": "en",
+  "url": "https://s2read.com",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "setsuscans",
+  "name": "Setsu Scans",
+  "lang": "en",
+  "url": "https://setsuscans.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "sleepytranslations",
+  "name": "Sleepy Translations",
+  "lang": "en",
+  "url": "https://sleepytranslations.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "toongod",
+  "name": "ToonGod",
+  "lang": "en",
+  "url": "https://www.toongod.org",
+  "mirrors": [],
+  "mixed": true,
+  "path": "webtoons",
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "toonily",
+  "name": "Toonily",
+  "lang": "en",
+  "url": "https://toonily.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "serie",
+  "noAjax": true,
+  "genres": "genre"
+ },
+ {
+  "theme": "madara",
+  "id": "toonizy",
+  "name": "Toonizy",
+  "lang": "en",
+  "url": "https://toonizy.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "webtoon"
+ },
+ {
+  "theme": "madara",
+  "id": "tritiniascans",
+  "name": "TritiniaScans",
+  "lang": "en",
+  "url": "https://tritinia.org",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "webtoonxyz",
+  "name": "WebtoonXYZ",
+  "lang": "en",
+  "url": "https://www.webtoon.xyz",
+  "mirrors": [],
+  "mixed": true,
+  "path": "read",
+  "genres": "webtoon-genre"
+ },
+ {
+  "theme": "madara",
+  "id": "wuxiaworld",
+  "name": "WuxiaWorld",
+  "lang": "en",
+  "url": "https://wuxiaworld.site",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "novel"
+ },
+ {
+  "theme": "madara",
+  "id": "yakshacomics",
+  "name": "YakshaComics",
+  "lang": "en",
+  "url": "https://yakshacomics.com",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "yaoiscan",
+  "name": "YaoiScan",
+  "lang": "en",
+  "url": "https://yaoiscan.com",
+  "mirrors": [],
+  "mixed": true
+ }
+]

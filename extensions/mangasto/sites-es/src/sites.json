@@ -1,0 +1,187 @@
+[
+ {
+  "theme": "madara",
+  "id": "barmanga",
+  "name": "BarManga",
+  "lang": "es",
+  "url": "https://archiviumbar.com",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "begatranslation",
+  "name": "Bega Translation",
+  "lang": "es",
+  "url": "https://begatranslation.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "series"
+ },
+ {
+  "theme": "madara",
+  "id": "dragontranslationorg",
+  "name": "DragonTranslation.org",
+  "lang": "es",
+  "url": "https://dragontranslation.org",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "hadesnofansub",
+  "name": "Hades no Fansub",
+  "lang": "es",
+  "url": "https://lectorhades.latamtoon.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "path": "tmo"
+ },
+ {
+  "theme": "madara",
+  "id": "houseofotakus",
+  "name": "House Of Otakus",
+  "lang": "es",
+  "url": "https://houseofotakusv2.xyz",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "infrafandub",
+  "name": "InfraFandub",
+  "lang": "es",
+  "url": "https://infrafandub.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "inmortalscan",
+  "name": "Inmortal Scan",
+  "lang": "es",
+  "url": "https://scan-inmortal.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "mg"
+ },
+ {
+  "theme": "madara",
+  "id": "inventariooculto",
+  "name": "Inventario Oculto",
+  "lang": "es",
+  "url": "https://inventariooculto.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "kazokuden",
+  "name": "Kazoku Den",
+  "lang": "es",
+  "url": "https://www.kazokuden.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "mangaromance",
+  "name": "Manga Romance",
+  "lang": "es",
+  "url": "https://mangaromance19.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "mangasnosekai",
+  "name": "Mangas No Sekai",
+  "lang": "es",
+  "url": "https://mangasnosekai.com",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "manhwalatino",
+  "name": "Manhwa-Latino",
+  "lang": "es",
+  "url": "https://manhwa-latino.com",
+  "mirrors": [
+   "https://manhwa-es.com"
+  ],
+  "mixed": true,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "marmota",
+  "name": "Marmota",
+  "lang": "es",
+  "url": "https://marmota.me",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "comic"
+ },
+ {
+  "theme": "madara",
+  "id": "monopolyscan",
+  "name": "Monopoly Scan",
+  "lang": "es",
+  "url": "https://monopolymanhua.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "ragnarokscanlation",
+  "name": "Ragnarok Scanlation",
+  "lang": "es",
+  "url": "https://ragnarokscanlation.org",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "series"
+ },
+ {
+  "theme": "madara",
+  "id": "richtoscan",
+  "name": "RichtoScan",
+  "lang": "es",
+  "url": "https://r1.richtoon.top",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "taurusfansub",
+  "name": "Taurus Fansub",
+  "lang": "es",
+  "url": "https://lectortaurus.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "yurionline",
+  "name": "Yuri-Online",
+  "lang": "es",
+  "url": "https://yuri-online.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ }
+]

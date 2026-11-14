@@ -1,0 +1,142 @@
+[
+ {
+  "theme": "madara",
+  "id": "anikiga",
+  "name": "Anikiga",
+  "lang": "tr",
+  "url": "https://anikiga.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "diamondfansub",
+  "name": "DiamondFansub",
+  "lang": "tr",
+  "url": "https://diamondfansub.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "seri"
+ },
+ {
+  "theme": "madara",
+  "id": "hayalistic",
+  "name": "Hayalistic",
+  "lang": "tr",
+  "url": "https://hayalistic.online",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "mangatilkisi",
+  "name": "MangaTilkisi",
+  "lang": "tr",
+  "url": "https://www.tilkiscans.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "mangawow",
+  "name": "MangaWOW",
+  "lang": "tr",
+  "url": "https://mangawow.org",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "merlinmanga",
+  "name": "Merlin Manga",
+  "lang": "tr",
+  "url": "https://merlinmanga.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "genres": "genre"
+ },
+ {
+  "theme": "madara",
+  "id": "milasub",
+  "name": "MilaSub",
+  "lang": "tr",
+  "url": "https://millascan.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "niverafansub",
+  "name": "Nivera Fansub",
+  "lang": "tr",
+  "url": "https://niverafansub.dev",
+  "mirrors": [],
+  "mixed": true
+ },
+ {
+  "theme": "madara",
+  "id": "ruyamanga",
+  "name": "Rüya Manga",
+  "lang": "tr",
+  "url": "https://www.ruyamanga2.com",
+  "mirrors": [],
+  "mixed": false,
+  "allTypes": true
+ },
+ {
+  "theme": "madara",
+  "id": "tarotscans",
+  "name": "Tarot Scans",
+  "lang": "tr",
+  "url": "https://www.tarotscans.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "tonizutoon",
+  "name": "TonizuToon",
+  "lang": "tr",
+  "url": "https://tonizu.top",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "tortugaceviri",
+  "name": "Tortuga Ceviri",
+  "lang": "tr",
+  "url": "https://tortugaceviri.com",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "turkcemangaoku",
+  "name": "Türkçe Manga Oku",
+  "lang": "tr",
+  "url": "https://trmangaoku.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "webtoonhatti",
+  "name": "Webtoon Hatti",
+  "lang": "tr",
+  "url": "https://webtoonhatti.club",
+  "mirrors": [],
+  "mixed": false,
+  "path": "webtoon",
+  "noAjax": true
+ }
+]

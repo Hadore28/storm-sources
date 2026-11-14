@@ -1,0 +1,22 @@
+[
+ {
+  "theme": "madara",
+  "id": "mangascantrad",
+  "name": "Manga-Scantrad",
+  "lang": "fr",
+  "url": "https://manga-scantrad.io",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "mangahubfr",
+  "name": "MangaHub.fr",
+  "lang": "fr",
+  "url": "https://mangahub.fr",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax"
+ }
+]

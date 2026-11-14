@@ -1,0 +1,13 @@
+[
+ {
+  "theme": "madara",
+  "id": "klikmanga",
+  "name": "KlikManga",
+  "lang": "id",
+  "url": "https://klikmanga.org",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "path": "daftar-komik"
+ }
+]

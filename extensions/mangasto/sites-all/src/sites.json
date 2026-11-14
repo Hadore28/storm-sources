@@ -1,0 +1,12 @@
+[
+ {
+  "theme": "madara",
+  "id": "grabberzone",
+  "name": "Grabber Zone",
+  "lang": "all",
+  "url": "https://grabber.zone",
+  "mirrors": [],
+  "mixed": false,
+  "path": "comics"
+ }
+]

@@ -1,0 +1,13 @@
+[
+ {
+  "theme": "madara",
+  "id": "truyentuoitho",
+  "name": "TruyenTuoiTho",
+  "lang": "vi",
+  "url": "https://truyentuoitho.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjaxPaginated",
+  "allTypes": true
+ }
+]

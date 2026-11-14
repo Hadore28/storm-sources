@@ -1,0 +1,63 @@
+[
+ {
+  "theme": "madara",
+  "id": "doodmanga",
+  "name": "Doodmanga",
+  "lang": "th",
+  "url": "https://www.doodmanga.com",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "mangalc",
+  "name": "Manga-Lc",
+  "lang": "th",
+  "url": "https://manga-lc.net",
+  "mirrors": [],
+  "mixed": true,
+  "allTypes": true
+ },
+ {
+  "theme": "madara",
+  "id": "mangaisekaithai",
+  "name": "MangaIsekaiThai",
+  "lang": "th",
+  "url": "https://www.mangaisekaithai.net",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "manhuabug",
+  "name": "ManhuaBug",
+  "lang": "th",
+  "url": "https://www.manhuabug.com",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "manhuathai",
+  "name": "ManhuaThai",
+  "lang": "th",
+  "url": "https://www.manhuathai.com",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "manhwabreakup",
+  "name": "ManhwaBreakup",
+  "lang": "th",
+  "url": "https://www.manhwabreakup.com",
+  "mirrors": [],
+  "mixed": false,
+  "noAjax": true
+ }
+]

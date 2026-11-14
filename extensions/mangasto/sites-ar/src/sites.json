@@ -1,0 +1,92 @@
+[
+ {
+  "theme": "madara",
+  "id": "anyonemanga",
+  "name": "Anyone Manga",
+  "lang": "ar",
+  "url": "https://anyonemanga.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax",
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "hizomanga",
+  "name": "Hizo Manga",
+  "lang": "ar",
+  "url": "https://hizomanga.net",
+  "mirrors": [],
+  "mixed": false,
+  "path": "serie"
+ },
+ {
+  "theme": "madara",
+  "id": "mangastarz",
+  "name": "Manga Starz",
+  "lang": "ar",
+  "url": "https://starzmanga.com",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "mangalionz",
+  "name": "MangaLionz",
+  "lang": "ar",
+  "url": "https://manga-lionz.org",
+  "mirrors": [],
+  "mixed": false
+ },
+ {
+  "theme": "madara",
+  "id": "mangaspark",
+  "name": "MangaSpark",
+  "lang": "ar",
+  "url": "https://sparkmanga.net",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "AdminAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "nijitranslations",
+  "name": "Niji Translations",
+  "lang": "ar",
+  "url": "https://niji-translations.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "AdminAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "detectiveconanar",
+  "name": "شبكة كونان العربية",
+  "lang": "ar",
+  "url": "https://manga.detectiveconanar.com",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjax"
+ },
+ {
+  "theme": "madara",
+  "id": "manga3asq",
+  "name": "مانجا العاشق",
+  "lang": "ar",
+  "url": "https://3asq.online",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaAjaxPaginated",
+  "noAjax": true
+ },
+ {
+  "theme": "madara",
+  "id": "mangalink",
+  "name": "مانجا لينك",
+  "lang": "ar",
+  "url": "https://link-manga.net",
+  "mirrors": [],
+  "mixed": false,
+  "chapters": "MangaPage"
+ }
+]

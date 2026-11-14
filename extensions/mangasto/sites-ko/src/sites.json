@@ -1,0 +1,13 @@
+[
+ {
+  "theme": "madara",
+  "id": "goodtoon",
+  "name": "GoodToon",
+  "lang": "ko",
+  "url": "https://www.goodtoon010.com",
+  "mirrors": [],
+  "mixed": true,
+  "chapters": "MangaAjax",
+  "noAjax": true
+ }
+]
