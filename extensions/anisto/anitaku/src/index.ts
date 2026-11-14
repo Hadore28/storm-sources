@@ -179,7 +179,7 @@ const anitaku = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.anitaku",
   name: "AniTaku",
-  version: "1.0.12",
+  version: "1.0.13",
   app: "anisto",
   sources: [anitaku],
 });

@@ -164,7 +164,7 @@ const slayer = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.slayer",
   name: "AnimeSlayer",
-  version: "1.0.12",
+  version: "1.0.13",
   app: "anisto",
   sources: [slayer],
 });

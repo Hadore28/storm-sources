@@ -1,3 +1,7 @@
+## 1.0.15
+
+- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains.
+
 ## 1.0.14
 
 - More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts.

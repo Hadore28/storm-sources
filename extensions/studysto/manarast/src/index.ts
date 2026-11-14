@@ -212,7 +212,7 @@ const manara = defineStudySource({
 export default defineExtension({
   pkg: "storm.studysto.manarast",
   name: "منارة ST",
-  version: "1.0.12",
+  version: "1.0.13",
   app: "studysto",
   sources: [manara],
 });

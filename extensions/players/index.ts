@@ -160,6 +160,20 @@ const packed: Extractor = async (ctx, url) => {
   return file ? [{ url: file, kind: kindOf(file), referer }] : [];
 };
 
+// a dead Streamwish mirror often still has the video on the main domains
+const STREAMWISH_HOMES = ["streamwish.com", "niramirus.com", "medixiru.com"];
+const streamwish: Extractor = async (ctx, url) => {
+  const first = await packed(ctx, url).catch(() => [] as Found[]);
+  if (first.length) return first;
+  const id = /\/[efdv]\/([a-zA-Z0-9]+)/.exec(url)?.[1];
+  for (const home of id ? STREAMWISH_HOMES : []) {
+    if (new URL(url).hostname.endsWith(home)) continue;
+    const got = await packed(ctx, `https://${home}/e/${id}`).catch(() => [] as Found[]);
+    if (got.length) return got;
+  }
+  return [];
+};
+
 // Streamtape writes its link as string pieces cut with .substring(); this reads them without running code.
 function joinPieces(expr: string): string | undefined {
   let out = "";
@@ -302,6 +316,92 @@ const dood: Extractor = async (ctx, url) => {
   return [{ url: `${start}${noise}?token=${pass.split("/").pop()}&expiry=${Date.now()}`, kind: "mp4", referer: `${site}/`, quality }];
 };
 
+const sibnet: Extractor = async (ctx, url) => {
+  const res = await page(ctx, url);
+  const src = /player\.src\(\[\{\s*src:\s*"([^"]+)"/.exec(await res.text())?.[1];
+  return src ? [{ url: new URL(src, res.url || url).toString(), kind: "mp4", referer: url }] : [];
+};
+
+// Yonaplay's SoraPlay, on WitAnime: a sources list that only answers with its referer
+const soraplay: Extractor = async (ctx, url) => {
+  const html = await (await page(ctx, url, "https://yonaplay.org/")).text();
+  const list = /sources:\s*\[([\s\S]*?)\]/.exec(html)?.[1] ?? "";
+  const files = [...list.matchAll(/"file"\s*:\s*"([^"]+)"(?:[^}]*"label"\s*:\s*"([^"]*)")?/g)];
+  return files.map((m) => ({ url: m[1].replace(/\\\//g, "/"), kind: kindOf(m[1]), quality: m[2] || undefined, referer: "https://yonaplay.org/" }));
+};
+
+const vidyard: Extractor = async (ctx, url) => {
+  const id = /vidyard\.com\/(?:watch\/|embed\/v4\/)?([\w-]+)/.exec(url)?.[1];
+  if (!id) return [];
+  const data = await ctx.http.json<{ payload?: { chapters?: { sources?: { hls?: { url: string; profile?: string }[]; mp4?: { url: string; profile?: string }[] } }[] } }>(
+    `https://play.vidyard.com/player/${id}.json`,
+    { headers: { Referer: "https://play.vidyard.com/" } },
+  );
+  const src = data.payload?.chapters?.[0]?.sources;
+  const hls = src?.hls?.find((h) => /auto/i.test(h.profile ?? "")) ?? src?.hls?.[0];
+  if (hls) return [{ url: hls.url, kind: "hls", referer: "https://play.vidyard.com/" }];
+  const mp4 = src?.mp4?.at(-1);
+  return mp4 ? [{ url: mp4.url, kind: "mp4", quality: mp4.profile, referer: "https://play.vidyard.com/" }] : [];
+};
+
+const rumble: Extractor = async (_ctx, url) => {
+  const id = /rumble\.com\/embed\/v([a-z0-9]+)/i.exec(url)?.[1];
+  return id ? [{ url: `https://rumble.com/hls-vod/${id}/playlist.m3u8`, kind: "hls", referer: "https://rumble.com/" }] : [];
+};
+
+// cda.pl scrambles its file address; this is the site's own unscrambling
+function cdaFile(a: string): string {
+  let s = a;
+  for (const p of ["_XDDD", "_CDA", "_ADC", "_CXD", "_QWE", "_Q5", "_IKSDE"]) s = s.split(p).join("");
+  s = [...decodeURIComponent(s)].map((c) => (c.charCodeAt(0) >= 33 && c.charCodeAt(0) <= 126 ? String.fromCharCode(33 + ((c.charCodeAt(0) + 14) % 94)) : c)).join("");
+  s = s.replace(".cda.mp4", "").replace(".2cda.pl", ".cda.pl").replace(".3cda.pl", ".cda.pl");
+  return s.includes("/upstream") ? `https://${s.replace("/upstream", ".mp4/upstream")}` : `https://${s}.mp4`;
+}
+const cda: Extractor = async (ctx, url) => {
+  const html = await (await page(ctx, url)).text();
+  if (/Materiał na który wskazywał ten link został usunięty/.test(html)) throw new Gone();
+  const raw = /player_data="([^"]+)"/.exec(html)?.[1] ?? /player_data='([^']+)'/.exec(html)?.[1];
+  if (!raw) return [];
+  const v = (JSON.parse(unescape(raw)) as { video?: { file?: string; quality?: string; manifest_apple?: string } }).video;
+  if (v?.manifest_apple) return [{ url: v.manifest_apple, kind: "hls", referer: "https://ebd.cda.pl/" }];
+  return v?.file ? [{ url: cdaFile(v.file), kind: "mp4", quality: v.quality, referer: "https://www.cda.pl/" }] : [];
+};
+
+const BLOGGER_FORMAT: Record<string, string> = { "7": "240p", "18": "360p", "22": "720p", "37": "1080p" };
+const blogger: Extractor = async (ctx, url) => {
+  const html = await (await page(ctx, url)).text();
+  if (/errorContainer/.test(html)) throw new Gone();
+  const streams = /"streams":\[([\s\S]*?)\]/.exec(html)?.[1] ?? "";
+  const found = [...streams.matchAll(/"play_url":"([^"]+)"[^}]*?"format_id":(\d+)/g)].map((m) => ({ url: JSON.parse(`"${m[1]}"`) as string, q: BLOGGER_FORMAT[m[2]] }));
+  const best = found.at(-1);
+  return best ? [{ url: best.url, kind: "mp4", quality: best.q, referer: "https://www.blogger.com/" }] : [];
+};
+
+// a shared Drive file plays from its download address; big files add a confirm form first
+const gdrive: Extractor = async (ctx, url) => {
+  const id = /\/file\/d\/([\w-]+)|[?&]id=([\w-]+)/.exec(url);
+  const file = id?.[1] ?? id?.[2];
+  if (!file) return [];
+  const direct = `https://drive.usercontent.google.com/download?id=${file}&export=download`;
+  const res = await ctx.http.request("GET", direct, { headers: { "User-Agent": AGENT }, retries: 0, unlimited: true, redirect: "manual" });
+  const type = res.headers["content-type"] ?? "";
+  if (!/text\/html/.test(type)) return [{ url: direct, kind: "mp4", referer: "https://drive.google.com/" }];
+  const html = await res.text();
+  if (/does not exist|not found|Sorry, the file/i.test(html)) throw new Gone();
+  const params = new URLSearchParams();
+  for (const m of html.matchAll(/<input type="hidden" name="([^"]+)" value="([^"]*)"/g)) params.set(m[1], m[2]);
+  if (!params.has("id")) return [];
+  return [{ url: `https://drive.usercontent.google.com/download?${params}`, kind: "mp4", referer: "https://drive.google.com/" }];
+};
+
+// AnimePahe's Kwik: the playlist sits in one of several packed scripts
+const kwik: Extractor = async (ctx, url) => {
+  const html = await (await page(ctx, url, "https://animepahe.si/")).text();
+  const code = unpackAll(html);
+  const src = /(?:const|var)\s+source\s*=\s*\\?['"](https?:[^'"\\]+\.m3u8[^'"\\]*)/.exec(code)?.[1] ?? /(https?:\/\/[^'"\s\\]+\.m3u8[^'"\s\\]*)/.exec(code)?.[1];
+  return src ? [{ url: src, kind: "hls", referer: "https://kwik.cx/" }] : [];
+};
+
 // Most small hosts (Sibnet, Sendvid, VidBom, Vudeo, YourUpload...) name the file next to a player key.
 const FILE_AT = /\b(?:file|src|hls\d?|source|video_?url|playlist)["']?\s*[:=]\s*\[?\s*["']((?:https?:)?\/\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?|\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?)["']/gi;
 const generic: Extractor = async (ctx, url) => {
@@ -329,9 +429,22 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Rutube", match: /^https?:\/\/rutube\.ru\/play\/embed\//, get: rutube },
   {
     name: "Streamwish",
-    match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|streamhg|hglink|hgcloud|dhtpre|smoothpre|playerwish|hlswish|kerapoxy)\.[a-z]+\/(e|v|f|embed)\//i,
+    match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|playerwish|hlswish|niramirus|medixiru|swhoi|wishonly|streamwish\w*|sfastwish|obeywish|awish|dwish|mwish|strwish|cdnwish|flaswish|embedwish|jodwish|asnwish|egsyxurh|kswplayer|swdyu|ghbrisk|iplayerhls)\.[a-z]+\/(e|v|f|d|embed)\//i,
+    get: streamwish,
+  },
+  {
+    name: "Filemoon",
+    match: /^https?:\/\/(www\.)?(filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|vidhidevip|vidhideplus|streamhg|hglink|hgcloud|dhtpre|smoothpre|kerapoxy|filelions|alions|dlions|mlions|lylxan|callistanise|minochinos|movearnpre|dinisglows|mivalyo|dingtezuni|ryderjet)\.[a-z]+\/(e|v|f|d|embed|file)\//i,
     get: packed,
   },
+  { name: "Sibnet", match: /^https?:\/\/video\.sibnet\.ru\/(shell\.php|video)/i, get: sibnet },
+  { name: "SoraPlay", match: /^https?:\/\/([a-z0-9-]+\.)?(yonaplay|soraplay)\.[a-z]+\//i, get: soraplay },
+  { name: "VidYard", match: /^https?:\/\/(play|video|share)\.vidyard\.com\//i, get: vidyard },
+  { name: "Rumble", match: /^https?:\/\/(www\.)?rumble\.com\/embed\/v/i, get: rumble },
+  { name: "CDA", match: /^https?:\/\/(www\.|ebd\.)?cda\.pl\/(video|[0-9a-z]+x[0-9]+\/)?/i, get: cda },
+  { name: "Blogger", match: /^https?:\/\/(www\.)?blogger\.com\/video\.g\?/i, get: blogger },
+  { name: "Drive", match: /^https?:\/\/(drive|docs)\.google\.com\/(file\/d\/|uc\?|open\?)/i, get: gdrive },
+  { name: "Kwik", match: /^https?:\/\/(www\.)?kwik\.[a-z]+\/e\//i, get: kwik },
   { name: "Vidmoly", match: /^https?:\/\/(www\.)?vidmoly\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
   { name: "1vid", match: /^https?:\/\/(www\.)?1vid\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
   { name: "Mixdrop", match: /^https?:\/\/(www\.)?(mixdrop|mxdrop|mixdroop|m1xdrop|mixdrp)\.[a-z]+\/[ef]\//i, get: mixdrop },
