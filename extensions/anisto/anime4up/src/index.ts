@@ -223,14 +223,14 @@ const anime4up = defineAnimeSource({
       const q = clean(row.one(".td-quality")?.text());
       out.push({ name: clean(row.one(".server-name")?.text()) || new URL(url).host, url, kind: "embed", quality: q.match(/FHD|HD|SD/i)?.[0].toUpperCase() ?? (q || undefined), download: true });
     }
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${site(ctx)}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.anime4up",
   name: "Anime4up",
-  version: "1.0.13",
+  version: "1.0.14",
   app: "anisto",
   sources: [anime4up],
 });

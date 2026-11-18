@@ -109,14 +109,14 @@ const asia2tv = defineFilmSource({
       return url && /^https?:\/\//.test(url) ? [{ name: clean(li.text()) || "Server", url, kind: "embed", lang: "ar", audio: "sub" }] : [];
     });
     if (!out.length) throw new SourceError("not-found", `Asia2TV has no servers for ${episodeId ?? filmId}`);
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${SITE}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.asia2tv",
   name: "Asia2TV",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "movisto",
   sources: [asia2tv],
 });

@@ -8,7 +8,8 @@ import { unpackAll } from "./unpack";
 type Found = Omit<VideoServer, "name"> & { name?: string };
 /** an extractor's way of saying the host plainly reports the video gone */
 class Gone extends Error {}
-type Extractor = (ctx: Context, url: string) => Promise<Found[]>;
+/** `from` is the page the player is embedded in; some hosts only answer the sites they work with */
+type Extractor = (ctx: Context, url: string, from?: string) => Promise<Found[]>;
 
 // the same agent storm's video proxy sends, for links tied to it
 const AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
@@ -84,8 +85,9 @@ function voeDecode(raw: string): { source?: string; direct_access_url?: string }
   }
 }
 
-const voe: Extractor = async (ctx, url) => {
-  let res = await page(ctx, url);
+const voe: Extractor = async (ctx, url, from) => {
+  // a bare video address is its download page
+  let res = await page(ctx, url.replace(/^(https?:\/\/[^/]+)\/([a-z0-9]+)$/i, "$1/e/$2"), from);
   let html = await res.text();
   // the first page only sends the browser on to the day's domain
   const next = /window\.location\.href\s*=\s*'(https?:\/\/[^']+\/e\/[^']+)'/.exec(html)?.[1];
@@ -102,6 +104,25 @@ const voe: Extractor = async (ctx, url) => {
   return out;
 };
 
+// Lulu's old domains are gone; every video still plays on the main one
+const lulu: Extractor = (ctx, url, from) => packed(ctx, url.replace(/^https?:\/\/(www\.)?[^/]+/, "https://lulustream.com"), from);
+
+// Vidara's player asks its API for the stream, a link tied to the address that asked
+const vidara: Extractor = async (ctx, url) => {
+  const code = /\/(?:e|v|d)\/([A-Za-z0-9]+)/.exec(url)?.[1];
+  if (!code) return [];
+  const site = new URL(url).origin;
+  const res = await ctx.http.request("POST", `${site}/api/stream`, {
+    headers: { "User-Agent": AGENT, Referer: `${site}/e/${code}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ filecode: code, device: "desktop" }),
+    retries: 1,
+    unlimited: true,
+  });
+  if (res.status === 404) throw new Gone();
+  const hls = ((await res.json()) as { streaming_url?: string }).streaming_url;
+  return hls ? [{ url: hls, kind: "hls", referer: `${site}/` }] : [];
+};
+
 // Firestream puts the file's signed address in a JSON block on its page.
 const firestream: Extractor = async (ctx, url) => {
   const res = await page(ctx, url.replace(/\/(e|embed|v)\//, "/d/"));
@@ -116,16 +137,16 @@ const firestream: Extractor = async (ctx, url) => {
   return [{ url: v.downloadUrl.replace(/&download$/, ""), kind: "mp4" }];
 };
 
-const mixdrop: Extractor = async (ctx, url) => {
-  const res = await page(ctx, url.replace(/\/f\//, "/e/"));
+const mixdrop: Extractor = async (ctx, url, from) => {
+  const res = await page(ctx, url.replace(/\/f\//, "/e/"), from);
   const code = unpackAll(await res.text());
   const src = /MDCore\.wurl\s*=\s*"([^"]+)"/.exec(code)?.[1];
   return src ? [{ url: abs(src), kind: "mp4", referer: origin(res.url || url) }] : [];
 };
 
 // The jwplayer family (streamwish, filemoon, earnvids and their many domains).
-const packed: Extractor = async (ctx, url) => {
-  let res = await page(ctx, url);
+const packed: Extractor = async (ctx, url, from) => {
+  let res = await page(ctx, url, from);
   let html = await res.text();
   // XFileSharing hosts (uqload, savefiles) post a form to get the player
   if (/name="op" value="embed"/.test(html)) {
@@ -162,13 +183,13 @@ const packed: Extractor = async (ctx, url) => {
 
 // a dead Streamwish mirror often still has the video on the main domains
 const STREAMWISH_HOMES = ["streamwish.com", "niramirus.com", "medixiru.com"];
-const streamwish: Extractor = async (ctx, url) => {
-  const first = await packed(ctx, url).catch(() => [] as Found[]);
+const streamwish: Extractor = async (ctx, url, from) => {
+  const first = await packed(ctx, url, from).catch(() => [] as Found[]);
   if (first.length) return first;
   const id = /\/[efdv]\/([a-zA-Z0-9]+)/.exec(url)?.[1];
   for (const home of id ? STREAMWISH_HOMES : []) {
     if (new URL(url).hostname.endsWith(home)) continue;
-    const got = await packed(ctx, `https://${home}/e/${id}`).catch(() => [] as Found[]);
+    const got = await packed(ctx, `https://${home}/e/${id}`, from).catch(() => [] as Found[]);
     if (got.length) return got;
   }
   return [];
@@ -246,7 +267,7 @@ const fourshared: Extractor = async (ctx, url) => {
 };
 
 // Megamax lists every quality's copies on other hosts; storm plays the copies it can read.
-const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide"]);
+const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide", "lulustream"]);
 const megamax: Extractor = async (ctx, url) => {
   const hash = /\/(?:iframe|e|d|f|download|mirror)\/([A-Za-z0-9]+)/.exec(url)?.[1];
   if (!hash) return [];
@@ -281,7 +302,7 @@ const megamax: Extractor = async (ctx, url) => {
     if (out.length) break;
     const host = hostFor(w.link);
     if (!host || host.get === megamax) continue;
-    const got = await host.get(ctx, w.link).catch(() => [] as Found[]);
+    const got = await host.get(ctx, w.link, `${site}/`).catch(() => [] as Found[]);
     out.push(...got.map((g) => ({ ...g, name: host.name, quality: g.quality ?? w.quality })));
   }
   return out;
@@ -404,8 +425,8 @@ const kwik: Extractor = async (ctx, url) => {
 
 // Most small hosts (Sibnet, Sendvid, VidBom, Vudeo, YourUpload...) name the file next to a player key.
 const FILE_AT = /\b(?:file|src|hls\d?|source|video_?url|playlist)["']?\s*[:=]\s*\[?\s*["']((?:https?:)?\/\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?|\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?)["']/gi;
-const generic: Extractor = async (ctx, url) => {
-  const res = await page(ctx, url);
+const generic: Extractor = async (ctx, url, from) => {
+  const res = await page(ctx, url, from);
   if (res.status >= 400) return [];
   const html = await res.text();
   const at = res.url || url;
@@ -417,7 +438,9 @@ const generic: Extractor = async (ctx, url) => {
   return best ? [{ url: best, kind: kindOf(best), referer: origin(at) }] : [];
 };
 // pages the general reader can't play: paid lockers, YouTube
-const NOT_GENERIC = /^https?:\/\/([a-z0-9-]+\.)*(youtube\.com|youtu\.be|youtube-nocookie\.com|mega\.nz|1fichier\.com|rapidgator\.net|nitroflare\.com|uptobox\.[a-z]+|facebook\.com|google\.com|gofile\.io)\//i;
+// also file lockers behind a captcha or a wait, and players behind a bot check (Byse's proof of work)
+const NOT_GENERIC =
+  /^https?:\/\/([a-z0-9-]+\.)*(youtube\.com|youtu\.be|youtube-nocookie\.com|mega\.nz|1fichier\.com|rapidgator\.net|nitroflare\.com|uptobox\.[a-z]+|facebook\.com|google\.com|gofile\.io|workupload\.com|vikingfile\.com|vik1ngfile\.[a-z]+|fireload\.com|filespay\.org|bowfile\.com|koramaup\.com|1cloudfile\.com|mdiaload\.com|byse[a-z]*\.com)\//i;
 
 // most dependable first: an episode resolves the first few it lists
 const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
@@ -429,12 +452,12 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Rutube", match: /^https?:\/\/rutube\.ru\/play\/embed\//, get: rutube },
   {
     name: "Streamwish",
-    match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|playerwish|hlswish|niramirus|medixiru|swhoi|wishonly|streamwish\w*|sfastwish|obeywish|awish|dwish|mwish|strwish|cdnwish|flaswish|embedwish|jodwish|asnwish|egsyxurh|kswplayer|swdyu|ghbrisk|iplayerhls)\.[a-z]+\/(e|v|f|d|embed)\//i,
+    match: /^https?:\/\/(www\.)?(streamwish|swish|wishembed|wishfast|playerwish|hlswish|niramirus|medixiru|swhoi|wishonly|streamwish\w*|sfastwish|obeywish|awish|dwish|mwish|strwish|cdnwish|flaswish|embedwish|jodwish|asnwish|egsyxurh|kswplayer|swdyu|ghbrisk|iplayerhls|hglink|hgcloud)\.[a-z]+\/(e|v|f|d|embed)\//i,
     get: streamwish,
   },
   {
     name: "Filemoon",
-    match: /^https?:\/\/(www\.)?(filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|vidhidevip|vidhideplus|streamhg|hglink|hgcloud|dhtpre|smoothpre|kerapoxy|filelions|alions|dlions|mlions|lylxan|callistanise|minochinos|movearnpre|dinisglows|mivalyo|dingtezuni|ryderjet)\.[a-z]+\/(e|v|f|d|embed|file)\//i,
+    match: /^https?:\/\/(www\.)?(filemoon|moonplayer|earnvids|morencius|vidhide|vidhidepro|vidhidevip|vidhideplus|streamhg|dhtpre|smoothpre|kerapoxy|filelions|alions|dlions|mlions|lylxan|callistanise|minochinos|movearnpre|dinisglows|mivalyo|dingtezuni|ryderjet)\.[a-z]+\/(e|v|f|d|embed|file)\//i,
     get: packed,
   },
   { name: "Sibnet", match: /^https?:\/\/video\.sibnet\.ru\/(shell\.php|video)/i, get: sibnet },
@@ -449,7 +472,7 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "1vid", match: /^https?:\/\/(www\.)?1vid\.[a-z]+\/(e\/|embed-)?[a-z0-9]{12}/i, get: packed },
   { name: "Mixdrop", match: /^https?:\/\/(www\.)?(mixdrop|mxdrop|mixdroop|m1xdrop|mixdrp)\.[a-z]+\/[ef]\//i, get: mixdrop },
   { name: "Megamax", match: /^https?:\/\/(www\.)?(megamax\.me|share4max\.com)\/(iframe|e|d|f|download)\//, get: megamax },
-  { name: "Lulu", match: /^https?:\/\/(www\.)?(luluvdo|lulustream|luluvid|lulu)\.[a-z]+\/(e|d|v)\//i, get: packed },
+  { name: "Lulu", match: /^https?:\/\/(www\.)?(luluvdo|lulustream|luluvid|lulu)\.[a-z]+\/(e|d|v)\//i, get: lulu },
   { name: "Dailymotion", match: /^https?:\/\/(www\.)?(dailymotion\.com\/(embed\/)?video\/|dailymotion\.com\/player|geo\.dailymotion\.com\/player|dai\.ly\/)/i, get: dailymotion },
   { name: "MediaFire", match: /^https?:\/\/(www\.)?mediafire\.com\/file\//, get: mediafire },
   { name: "Firestream", match: /^https?:\/\/(www\.)?firestream\.to\/(d|e|v|embed)\/[\w-]+/i, get: firestream },
@@ -457,6 +480,7 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "4shared", match: /^https?:\/\/(www\.)?4shared\.com\/(web\/)?embed\//, get: fourshared },
   { name: "Streamtape", match: /^https?:\/\/(www\.)?streamtape\.[a-z.]+\/[ev]\//i, get: streamtape },
   { name: "Savefiles", match: /^https?:\/\/(www\.)?savefiles\.com\/(e\/)?[a-z0-9]{12}/i, get: packed },
+  { name: "Vidara", match: /^https?:\/\/(www\.)?vidara\.[a-z]+\/(e|v|d)\/[A-Za-z0-9]+/i, get: vidara },
   { name: "Dood", match: /^https?:\/\/(www\.)?(dood[a-z]*|d0+d|d0o0d|d000d|ds2play|ds2video|dsvplay|playmogo|vidply|dooood|doods)\.[a-z]+\/[defv]\//i, get: dood },
   // Megamax moves to new domains; its pages give it away
   { name: "Megamax", match: /^https?:\/\/[^/]+\/iframe\/[A-Za-z0-9]{10,}\/?$/, get: megamax },
@@ -484,15 +508,15 @@ async function gone(ctx: Context, url: string): Promise<boolean> {
 }
 
 /** The direct streams for an embedded player, or none when the host isn't one storm knows or doesn't answer. */
-export async function direct(ctx: Context, url: string): Promise<VideoServer[]> {
-  return (await read(ctx, url)).streams;
+export async function direct(ctx: Context, url: string, from?: string): Promise<VideoServer[]> {
+  return (await read(ctx, url, from)).streams;
 }
 
-async function read(ctx: Context, url: string): Promise<{ streams: VideoServer[]; gone: boolean }> {
+async function read(ctx: Context, url: string, from?: string): Promise<{ streams: VideoServer[]; gone: boolean }> {
   const host = hostFor(url);
   if (!host) return { streams: [], gone: false };
   try {
-    const streams = (await host.get(ctx, url)).map((d) => ({ ...d, name: d.name ?? host.name }));
+    const streams = (await host.get(ctx, url, from)).map((d) => ({ ...d, name: d.name ?? host.name }));
     return { streams, gone: !streams.length && (await gone(ctx, url)) };
   } catch (e) {
     if (e instanceof Gone) return { streams: [], gone: true };
@@ -501,14 +525,20 @@ async function read(ctx: Context, url: string): Promise<{ streams: VideoServer[]
   }
 }
 
-/** The same servers in the same order; each one storm can read plays as a direct stream, a deleted one is marked, the rest stay embeds. */
-export async function withDirect(ctx: Context, servers: VideoServer[]): Promise<VideoServer[]> {
-  let budget = MAX_RESOLVED;
+/**
+ * The same servers in the same order; each one storm can read plays as a direct stream, a deleted one is marked, the rest stay embeds.
+ * `from` is the source's site, the page these players are embedded in.
+ */
+export async function withDirect(ctx: Context, servers: VideoServer[], from?: string): Promise<VideoServer[]> {
+  // hosts storm knows get the budget before pages only the general reader might play
+  const wanted = servers.map((s, i) => ({ s, i, host: s.kind === "embed" && !s.download ? hostFor(s.url) : undefined })).filter((w) => w.host);
+  wanted.sort((a, b) => Number(a.host!.get === generic) - Number(b.host!.get === generic) || a.i - b.i);
+  const picked = new Set(wanted.slice(0, MAX_RESOLVED).map((w) => w.i));
   return Promise.all(
-    servers.map(async (s) => {
-      if (s.kind !== "embed" || s.download || !resolvable(s.url) || budget-- <= 0) return s;
+    servers.map(async (s, i) => {
+      if (!picked.has(i)) return s;
       const late = new Promise<{ streams: VideoServer[]; gone: boolean }>((done) => setTimeout(() => done({ streams: [], gone: false }), RESOLVE_MS));
-      const { streams, gone } = await Promise.race([read(ctx, s.url), late]);
+      const { streams, gone } = await Promise.race([read(ctx, s.url, s.referer ?? from), late]);
       const [d] = streams;
       if (d) return { ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang };
       return gone ? { ...s, unavailable: true } : s;

@@ -179,7 +179,7 @@ const arabseed = defineFilmSource({
       if (/^https?:\/\//.test(link)) out.push({ name: new URL(link).hostname.replace(/^www\./, "").split(".")[0], url: link, kind: "embed", quality: f.quality });
     }
     if (!out.length) throw new SourceError("not-found", `ArabSeed has no servers for ${episodeId ?? filmId}`);
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${SITE}/`);
   },
 });
 
@@ -189,7 +189,7 @@ arabseed.cache = { servers: 10 * 60_000 };
 export default defineExtension({
   pkg: "storm.movisto.arabseed",
   name: "ArabSeed",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "movisto",
   sources: [arabseed],
 });

@@ -261,14 +261,14 @@ const topcinema = defineFilmSource({
     } catch {
       // downloads are optional
     }
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${site(ctx)}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.topcinema",
   name: "TopCinema",
-  version: "1.0.7",
+  version: "1.0.8",
   app: "movisto",
   sources: [topcinema],
 });

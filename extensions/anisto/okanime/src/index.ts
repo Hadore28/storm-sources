@@ -102,14 +102,14 @@ const okanime = defineAnimeSource({
       out.push({ name, url, kind: "embed", quality: a.attr("data-umami-event-quality") ?? QUALITY[label], audio: "sub", lang: "ar" });
     }
     if (!out.length) throw new SourceError("not-found", `OkAnime has no servers for ${episodeId}`);
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${SITE}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.okanime",
   name: "OkAnime",
-  version: "1.0.0",
+  version: "1.0.1",
   app: "anisto",
   sources: [okanime],
 });

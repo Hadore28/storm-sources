@@ -170,7 +170,7 @@ const anitaku = defineAnimeSource({
     const s = await show(ctx, animeId);
     const videos = split(animeId).kind === "movie" ? (s.videos ?? []) : (allEpisodes(s).find((e) => String(e.id) === episodeId)?.videos ?? []);
     if (!videos.length) throw new SourceError("not-found", `AniTaku has no video for episode ${episodeId}`);
-    const found = (await withDirect(ctx, videos.slice(0, 8).map(server).filter((v): v is VideoServer => !!v))).filter((s) => !isFilePage(s));
+    const found = (await withDirect(ctx, videos.slice(0, 8).map(server).filter((v): v is VideoServer => !!v), "https://anitakuapp.hasalaty.com/")).filter((s) => !isFilePage(s));
     if (!found.length) throw new SourceError("not-found", "AniTaku's files for this episode were removed");
     return found;
   },
@@ -179,7 +179,7 @@ const anitaku = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.anitaku",
   name: "AniTaku",
-  version: "1.0.13",
+  version: "1.0.14",
   app: "anisto",
   sources: [anitaku],
 });

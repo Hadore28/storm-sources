@@ -280,14 +280,14 @@ const witanime = defineAnimeSource({
       if (i > 0) await sleep(GATE_GAP_MS);
       opened.push(await open(s, kind));
     }
-    return withDirect(ctx, opened.filter((s): s is VideoServer => !!s));
+    return withDirect(ctx, opened.filter((s): s is VideoServer => !!s), `${SITE}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.anisto.witanime",
   name: "WitAnime",
-  version: "1.0.15",
+  version: "1.0.16",
   app: "anisto",
   sources: [witanime],
 });

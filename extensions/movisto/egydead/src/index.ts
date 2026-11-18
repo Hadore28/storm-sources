@@ -227,14 +227,14 @@ const egydead = defineFilmSource({
       if (!link) continue;
       out.push({ name: clean(li.one(".ser-name")?.text()) || new URL(link).host, url: link, kind: "embed", quality: clean(li.one(".server-info em")?.text()) || undefined, download: true });
     }
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${site(ctx)}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.egydead",
   name: "EgyDead",
-  version: "1.0.8",
+  version: "1.0.9",
   app: "movisto",
   sources: [egydead],
 });

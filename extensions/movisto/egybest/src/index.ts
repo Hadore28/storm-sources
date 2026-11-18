@@ -168,14 +168,14 @@ const egybest = defineFilmSource({
       const frame = doc.one("iframe#mainPlayer")?.href("src");
       if (frame) out.push({ name: new URL(frame).host, url: frame, kind: "embed", audio: "sub", lang: "ar" });
     }
-    return withDirect(ctx, out);
+    return withDirect(ctx, out, `${site(ctx)}/`);
   },
 });
 
 export default defineExtension({
   pkg: "storm.movisto.egybest",
   name: "EgyBest",
-  version: "1.0.7",
+  version: "1.0.8",
   app: "movisto",
   sources: [egybest],
 });

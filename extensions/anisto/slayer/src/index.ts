@@ -155,7 +155,7 @@ const slayer = defineAnimeSource({
       out.push({ name: u.episode_server_name, url: u.episode_url, kind: /\.m3u8(\?|$)/.test(u.episode_url) ? "hls" : /\.mp4(\?|$)/.test(u.episode_url) ? "mp4" : "embed", audio: "sub", lang: "ar" });
     }
     // a MediaFire page in a frame plays nothing
-    const found = (await withDirect(ctx, out)).filter((s) => !(s.kind === "embed" && /mediafire\.com|drive\.google\.com\/(?!file\/d\/[^/]+\/preview)/.test(s.url)));
+    const found = (await withDirect(ctx, out, "https://anslayer.com/")).filter((s) => !(s.kind === "embed" && /mediafire\.com|drive\.google\.com\/(?!file\/d\/[^/]+\/preview)/.test(s.url)));
     if (!found.length) throw new SourceError("not-found", `AnimeSlayer has no working copy of episode ${episodeId}`);
     return found;
   },
@@ -164,7 +164,7 @@ const slayer = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.slayer",
   name: "AnimeSlayer",
-  version: "1.0.13",
+  version: "1.0.14",
   app: "anisto",
   sources: [slayer],
 });
