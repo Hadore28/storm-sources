@@ -300,6 +300,10 @@ export function checkServers(list: VideoServer[], where: string): VideoServer[] 
     // a server without a usable address is skipped, not fatal: others may play
     if (!isHttp(s?.url) || !KINDS.has(s.kind) || seen.has(s.url)) continue;
     seen.add(s.url);
+    const subtitles = (Array.isArray(s.subtitles) ? s.subtitles : [])
+      .filter((t) => isHttp(t?.url))
+      .slice(0, 8)
+      .map((t) => ({ url: t.url, lang: clean(t.lang) || undefined, label: clean(t.label) || undefined }));
     out.push({
       name: clean(s.name) || new URL(s.url).host,
       url: s.url,
@@ -310,6 +314,7 @@ export function checkServers(list: VideoServer[], where: string): VideoServer[] 
       download: !!s.download,
       referer: isHttp(s.referer) ? s.referer : undefined,
       unavailable: s.unavailable ? true : undefined,
+      subtitles: subtitles.length ? subtitles : undefined,
     });
   }
   if (!out.some((s) => !s.download)) fail(`${where}: no playable servers`, list);

@@ -425,11 +425,33 @@ const kwik: Extractor = async (ctx, url) => {
 
 // Most small hosts (Sibnet, Sendvid, VidBom, Vudeo, YourUpload...) name the file next to a player key.
 const FILE_AT = /\b(?:file|src|hls\d?|source|video_?url|playlist)["']?\s*[:=]\s*\[?\s*["']((?:https?:)?\/\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?|\/[^"'\s]+?\.(?:m3u8|mp4)(?:\?[^"'\s]*)?)["']/gi;
+// VnxPlayer (a WordPress player): the stream is a token link without .m3u8, the subtitles a separate list
+function vnx(html: string, at: string): Found | undefined {
+  const stream = /\blet\s+streamUrl\s*=\s*"(https?:[^"]+)"/.exec(html)?.[1];
+  if (!stream) return undefined;
+  let tracks: { file?: string; label?: string; srclang?: string; kind?: string }[] = [];
+  try {
+    tracks = JSON.parse(/\bconst\s+tracks\s*=\s*(\[[^\n]*\]);/.exec(html)?.[1] ?? "[]");
+  } catch {}
+  const subtitles = tracks
+    .filter((t) => t.file && t.kind !== "chapters" && t.kind !== "thumbnails")
+    .map((t) => ({ url: new URL(t.file!, at).toString(), lang: t.srclang || undefined, label: t.label || undefined }));
+  return { url: JSON.parse(`"${stream}"`), kind: "hls", referer: origin(at), ...(subtitles.length ? { subtitles } : {}) };
+}
+
+const vnxPage: Extractor = async (ctx, url, from) => {
+  const res = await page(ctx, url, from);
+  const player = vnx(await res.text(), res.url || url);
+  return player ? [player] : [];
+};
+
 const generic: Extractor = async (ctx, url, from) => {
   const res = await page(ctx, url, from);
   if (res.status >= 400) return [];
   const html = await res.text();
   const at = res.url || url;
+  const player = vnx(html, at);
+  if (player) return [player];
   const code = `${unpackAll(html)}\n${html}`;
   const found = [...code.matchAll(FILE_AT), ...code.matchAll(/<source[^>]+src=["']([^"']+\.(?:m3u8|mp4)[^"']*)["']/gi)]
     .map((m) => new URL(abs(unescape(m[1])), at).toString())
@@ -482,6 +504,8 @@ const HOSTS: { name: string; match: RegExp; get: Extractor }[] = [
   { name: "Savefiles", match: /^https?:\/\/(www\.)?savefiles\.com\/(e\/)?[a-z0-9]{12}/i, get: packed },
   { name: "Vidara", match: /^https?:\/\/(www\.)?vidara\.[a-z]+\/(e|v|d)\/[A-Za-z0-9]+/i, get: vidara },
   { name: "Dood", match: /^https?:\/\/(www\.)?(dood[a-z]*|d0+d|d0o0d|d000d|ds2play|ds2video|dsvplay|playmogo|vidply|dooood|doods)\.[a-z]+\/[defv]\//i, get: dood },
+  // anime4up's own player, on domains that keep changing
+  { name: "Vnx", match: /^https?:\/\/[^/]+\/[\w-]+\/mal\/\d+\/[\d.]+\/(sub|dub)\/?$/i, get: vnxPage },
   // Megamax moves to new domains; its pages give it away
   { name: "Megamax", match: /^https?:\/\/[^/]+\/iframe\/[A-Za-z0-9]{10,}\/?$/, get: megamax },
   { name: "Server", match: /^https?:\/\//, get: generic },

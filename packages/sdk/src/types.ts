@@ -169,6 +169,16 @@ export interface VideoServer {
   referer?: string;
   /** the host says this video is gone; shown, but not offered */
   unavailable?: boolean;
+  /** subtitle files kept apart from the video, shown over it */
+  subtitles?: Subtitle[];
+}
+
+/** A WebVTT or SRT file. */
+export interface Subtitle {
+  url: string;
+  lang?: string;
+  /** as the site names it, e.g. "العربية" */
+  label?: string;
 }
 
 /** Readable text for a novel chapter or a book section. Never HTML. */

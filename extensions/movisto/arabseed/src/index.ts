@@ -189,7 +189,7 @@ arabseed.cache = { servers: 10 * 60_000 };
 export default defineExtension({
   pkg: "storm.movisto.arabseed",
   name: "ArabSeed",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "movisto",
   sources: [arabseed],
 });

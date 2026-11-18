@@ -116,7 +116,7 @@ const asia2tv = defineFilmSource({
 export default defineExtension({
   pkg: "storm.movisto.asia2tv",
   name: "Asia2TV",
-  version: "1.0.1",
+  version: "1.0.2",
   app: "movisto",
   sources: [asia2tv],
 });
