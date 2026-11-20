@@ -234,7 +234,7 @@ const egydead = defineFilmSource({
 export default defineExtension({
   pkg: "storm.movisto.egydead",
   name: "EgyDead",
-  version: "1.0.10",
+  version: "1.0.11",
   app: "movisto",
   sources: [egydead],
 });

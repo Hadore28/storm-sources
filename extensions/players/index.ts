@@ -267,6 +267,8 @@ const fourshared: Extractor = async (ctx, url) => {
 };
 
 // Megamax lists every quality's copies on other hosts; storm plays the copies it can read.
+const MEGAMAX_COPIES = 12;
+const MEGAMAX_MS = 6_000;
 const MEGAMAX_DRIVERS = new Set(["mp4upload", "voe", "mixdrop", "savefiles", "uqload", "earnvids", "streamwish", "filemoon", "vidhide", "lulustream"]);
 const megamax: Extractor = async (ctx, url) => {
   const hash = /\/(?:iframe|e|d|f|download|mirror)\/([A-Za-z0-9]+)/.exec(url)?.[1];
@@ -296,16 +298,17 @@ const megamax: Extractor = async (ctx, url) => {
       .filter((m) => m.link && MEGAMAX_DRIVERS.has((m.driver ?? "").toLowerCase()))
       .map((m) => ({ link: abs(m.link!), quality: /\d{3,4}p/.exec(s.label ?? "")?.[0] })),
   );
-  // the best quality's copies first; a couple of hosts is plenty
-  const out: Found[] = [];
-  for (const w of wanted) {
-    if (out.length) break;
-    const host = hostFor(w.link);
-    if (!host || host.get === megamax) continue;
-    const got = await host.get(ctx, w.link, `${site}/`).catch(() => [] as Found[]);
-    out.push(...got.map((g) => ({ ...g, name: host.name, quality: g.quality ?? w.quality })));
-  }
-  return out;
+  // every copy it can read, each its own server, best quality first
+  const read = await Promise.all(
+    wanted.slice(0, MEGAMAX_COPIES).map(async (w) => {
+      const host = hostFor(w.link);
+      if (!host || host.get === megamax) return [];
+      const late = new Promise<Found[]>((done) => setTimeout(() => done([]), MEGAMAX_MS));
+      const got = await Promise.race([host.get(ctx, w.link, `${site}/`).catch(() => [] as Found[]), late]);
+      return got.slice(0, 1).map((g) => ({ ...g, name: host.name, quality: w.quality ?? g.quality }));
+    }),
+  );
+  return read.flat();
 };
 
 const dailymotion: Extractor = async (ctx, url) => {
@@ -550,7 +553,7 @@ async function read(ctx: Context, url: string, from?: string): Promise<{ streams
 }
 
 /**
- * The same servers in the same order; each one storm can read plays as a direct stream, a deleted one is marked, the rest stay embeds.
+ * The same servers in the same order, a Megamax one opened into its copies; each one storm can read plays as a direct stream, a deleted one is marked, the rest stay embeds.
  * `from` is the source's site, the page these players are embedded in.
  */
 export async function withDirect(ctx: Context, servers: VideoServer[], from?: string): Promise<VideoServer[]> {
@@ -558,14 +561,18 @@ export async function withDirect(ctx: Context, servers: VideoServer[], from?: st
   const wanted = servers.map((s, i) => ({ s, i, host: s.kind === "embed" && !s.download ? hostFor(s.url) : undefined })).filter((w) => w.host);
   wanted.sort((a, b) => Number(a.host!.get === generic) - Number(b.host!.get === generic) || a.i - b.i);
   const picked = new Set(wanted.slice(0, MAX_RESOLVED).map((w) => w.i));
-  return Promise.all(
-    servers.map(async (s, i) => {
-      if (!picked.has(i)) return s;
-      const late = new Promise<{ streams: VideoServer[]; gone: boolean }>((done) => setTimeout(() => done({ streams: [], gone: false }), RESOLVE_MS));
+  const resolved = await Promise.all(
+    servers.map(async (s, i): Promise<VideoServer[]> => {
+      if (!picked.has(i)) return [s];
+      const many = hostFor(s.url)?.get === megamax;
+      const late = new Promise<{ streams: VideoServer[]; gone: boolean }>((done) => setTimeout(() => done({ streams: [], gone: false }), many ? RESOLVE_MS + MEGAMAX_MS : RESOLVE_MS));
       const { streams, gone } = await Promise.race([read(ctx, s.url, s.referer ?? from), late]);
+      // Megamax holds copies on several hosts, and each one plays as a server of its own
+      if (many && streams.length) return streams.map((d) => ({ ...d, name: `${s.name} ${d.name}`, quality: d.quality ?? s.quality, audio: s.audio, lang: s.lang }));
       const [d] = streams;
-      if (d) return { ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang };
-      return gone ? { ...s, unavailable: true } : s;
+      if (d) return [{ ...d, name: s.name, quality: s.quality ?? d.quality, audio: s.audio, lang: s.lang }];
+      return [gone ? { ...s, unavailable: true } : s];
     }),
   );
+  return resolved.flat();
 }

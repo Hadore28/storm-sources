@@ -268,7 +268,7 @@ const topcinema = defineFilmSource({
 export default defineExtension({
   pkg: "storm.movisto.topcinema",
   name: "TopCinema",
-  version: "1.0.9",
+  version: "1.0.10",
   app: "movisto",
   sources: [topcinema],
 });

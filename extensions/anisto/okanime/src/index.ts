@@ -109,7 +109,7 @@ const okanime = defineAnimeSource({
 export default defineExtension({
   pkg: "storm.anisto.okanime",
   name: "OkAnime",
-  version: "1.0.2",
+  version: "1.0.3",
   app: "anisto",
   sources: [okanime],
 });

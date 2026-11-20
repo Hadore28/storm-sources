@@ -1,3 +1,7 @@
+## 1.0.18
+
+- Megamax servers open into every copy they hold, each one its own server.
+
 ## 1.0.15
 
 - More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains.
