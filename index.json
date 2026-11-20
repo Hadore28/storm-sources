@@ -1,7 +1,7 @@
 {
   "format": 1,
   "sdk": 2,
-  "generatedAt": "2026-11-18T17:26:38.329Z",
+  "generatedAt": "2026-11-20T09:52:49.397Z",
   "extensions": [
     {
       "pkg": "storm.anisto.anime3rb",
@@ -23,11 +23,11 @@
     {
       "pkg": "storm.anisto.anime4up",
       "name": "Anime4up",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anime4up-1.0.15.js",
-      "sha256": "1998d83f08297352ad55b4a26b14b77a782455f214130f9e1eab99688283d279",
-      "size": 39807,
+      "file": "extensions/storm.anisto.anime4up-1.0.16.js",
+      "sha256": "acbacc11ec74684e9c53760de24d272b80a0ba8bef78afd14ccec2e78c29e8f7",
+      "size": 40168,
       "sources": [
         {
           "id": "anime4up",
@@ -35,16 +35,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.anisto.anitaku",
       "name": "AniTaku",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "app": "anisto",
-      "file": "extensions/storm.anisto.anitaku-1.0.15.js",
-      "sha256": "d7ccd80df95ae76e1bb3d4e1701c5801808d46a9e8f0fafafdda2b65f96de6f8",
-      "size": 32666,
+      "file": "extensions/storm.anisto.anitaku-1.0.16.js",
+      "sha256": "6aa3797f34d9d9a3f49b484b7236aada62553211b8c55b81b0f75fb0b0fc3ff2",
+      "size": 33027,
       "sources": [
         {
           "id": "anitaku",
@@ -52,32 +52,33 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.anisto.okanime",
       "name": "OkAnime",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "anisto",
-      "file": "extensions/storm.anisto.okanime-1.0.2.js",
-      "sha256": "34436d4905897cde2ff2d3f2c181f5fa64bfb8247846222207ecf1315880b74f",
-      "size": 32296,
+      "file": "extensions/storm.anisto.okanime-1.0.3.js",
+      "sha256": "baa549ff52ae434c7fdf4570f0b0fde0fa9f3b5a3fb5e403fe5020e6c8d86595",
+      "size": 32657,
       "sources": [
         {
           "id": "okanime",
           "name": "OkAnime",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- OkAnime: Arabic anime, with its servers playing in storm's own player where the host allows it."
     },
     {
       "pkg": "storm.anisto.slayer",
       "name": "AnimeSlayer",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "app": "anisto",
-      "file": "extensions/storm.anisto.slayer-1.0.15.js",
-      "sha256": "b664d29bbe87a19a23edd378ccc134dee31d4f785a6c6b8fb60362562d180d80",
-      "size": 33226,
+      "file": "extensions/storm.anisto.slayer-1.0.16.js",
+      "sha256": "754d633c923a1b5f5e03f625f936ed8e070e26f1a327c41b81f44c758f77ba3f",
+      "size": 33587,
       "sources": [
         {
           "id": "slayer",
@@ -85,16 +86,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.anisto.witanime",
       "name": "WitAnime",
-      "version": "1.0.17",
+      "version": "1.0.18",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witanime-1.0.17.js",
-      "sha256": "766d276f55bc48b1045bd1885aff4aadb9b5fc4ae178115c9e9e63cf7a2e5751",
-      "size": 40600,
+      "file": "extensions/storm.anisto.witanime-1.0.18.js",
+      "sha256": "7ce1a26100f935261cc39250a784f6714f38f8972a57626155794e36da74bb18",
+      "size": 40961,
       "sources": [
         {
           "id": "witanime",
@@ -102,16 +103,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.anisto.witcher",
       "name": "AnimeWitcher",
-      "version": "1.0.12",
+      "version": "1.0.13",
       "app": "anisto",
-      "file": "extensions/storm.anisto.witcher-1.0.12.js",
-      "sha256": "14893d6d37c0a1342ad13812f7be2e2d210dad8de03a487abc8662b671f59ad2",
-      "size": 33931,
+      "file": "extensions/storm.anisto.witcher-1.0.13.js",
+      "sha256": "13d77275dd77483f2e6bc1b18386b66b35529986e74767ee50b38a9994474c8d",
+      "size": 34292,
       "sources": [
         {
           "id": "witcher",
@@ -119,7 +120,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.booksto.foulabook",
@@ -1120,43 +1121,45 @@
     {
       "pkg": "storm.movisto.arabseed",
       "name": "ArabSeed",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "movisto",
-      "file": "extensions/storm.movisto.arabseed-1.0.2.js",
-      "sha256": "4db218bb24e596220c64a51aa27349b61f54c74e56e873ceceffe0ad035f601d",
-      "size": 34910,
+      "file": "extensions/storm.movisto.arabseed-1.0.3.js",
+      "sha256": "c0388d3417d20253e65021e74029edb4c554dde797038520f6c15c888c70a923",
+      "size": 35271,
       "sources": [
         {
           "id": "arabseed",
           "name": "ArabSeed",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- ArabSeed: Arabic and foreign films and series, every quality, with its own direct server."
     },
     {
       "pkg": "storm.movisto.asia2tv",
       "name": "Asia2TV",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "app": "movisto",
-      "file": "extensions/storm.movisto.asia2tv-1.0.2.js",
-      "sha256": "a236a9480b9e5fec42f1aff4d792f17c520093806e3866b35ad8c8d757fb4a9a",
-      "size": 31779,
+      "file": "extensions/storm.movisto.asia2tv-1.0.3.js",
+      "sha256": "e1442d87f595763f252ad4cad44778dbed52c3cccd807c3582ba0881516004c4",
+      "size": 32140,
       "sources": [
         {
           "id": "asia2tv",
           "name": "Asia2TV",
           "lang": "ar"
         }
-      ]
+      ],
+      "changelog": "- Asia2TV: Korean, Chinese, Japanese and Thai dramas and films with Arabic subtitles."
     },
     {
       "pkg": "storm.movisto.egybest",
       "name": "EgyBest",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egybest-1.0.9.js",
-      "sha256": "a49daa88d8f805830997d1f92fe5699a99b20726bd716f39738c283a84cc8ae7",
-      "size": 34120,
+      "file": "extensions/storm.movisto.egybest-1.0.10.js",
+      "sha256": "33cc650a99ab05f2810f99514989c635888b2a7fa5b8f4cd12da35ddeee298c8",
+      "size": 34482,
       "sources": [
         {
           "id": "egybest",
@@ -1164,16 +1167,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.movisto.egydead",
       "name": "EgyDead",
-      "version": "1.0.10",
+      "version": "1.0.11",
       "app": "movisto",
-      "file": "extensions/storm.movisto.egydead-1.0.10.js",
-      "sha256": "99f1a37a98a031099e2c12109ebe81f8cd6a36fbd56c48d27fdb6b575fb52610",
-      "size": 37631,
+      "file": "extensions/storm.movisto.egydead-1.0.11.js",
+      "sha256": "3290a7ef04d1a241b1fb8eddbee87409bb684144eba705a55b914280006b57e9",
+      "size": 37992,
       "sources": [
         {
           "id": "egydead",
@@ -1181,16 +1184,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.movisto.topcinema",
       "name": "TopCinema",
-      "version": "1.0.9",
+      "version": "1.0.10",
       "app": "movisto",
-      "file": "extensions/storm.movisto.topcinema-1.0.9.js",
-      "sha256": "bc470d1094d291b73701d441970eae063233e2193a9bb5936a7f4d523dc7aa0a",
-      "size": 37650,
+      "file": "extensions/storm.movisto.topcinema-1.0.10.js",
+      "sha256": "3cbf8cb97fe33bda142b31957841de5f7de23659967f6bd9cf21b311047ad552",
+      "size": 38012,
       "sources": [
         {
           "id": "topcinema",
@@ -1198,7 +1201,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.novelsto.arnovel",
@@ -1251,11 +1254,11 @@
     {
       "pkg": "storm.studysto.edson",
       "name": "Edson",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "app": "studysto",
-      "file": "extensions/storm.studysto.edson-1.0.15.js",
-      "sha256": "3427133d60641549d827f6a6ac4061a11a2e10eb8eadadae12052f7157b16a6d",
-      "size": 33125,
+      "file": "extensions/storm.studysto.edson-1.0.16.js",
+      "sha256": "5c58b27a9b01bee07446dd0d5b91b9d0e46db6dfb64a842f65dcde71eaaa813a",
+      "size": 33486,
       "sources": [
         {
           "id": "edson",
@@ -1263,16 +1266,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.studysto.eduiraq",
       "name": "EduIraq",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "app": "studysto",
-      "file": "extensions/storm.studysto.eduiraq-1.0.15.js",
-      "sha256": "64baa11cf0ac4f3b51b01e80a4242666a8bf4c76424272c27e408e8f0c21aa32",
-      "size": 103116,
+      "file": "extensions/storm.studysto.eduiraq-1.0.16.js",
+      "sha256": "95a8f8641f10a76df0d0ddb4d2aee639921ab51ac4cd7d0ec354e772326bc310",
+      "size": 103477,
       "sources": [
         {
           "id": "eduiraq",
@@ -1280,16 +1283,16 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.studysto.manarast",
       "name": "منارة ST",
-      "version": "1.0.15",
+      "version": "1.0.16",
       "app": "studysto",
-      "file": "extensions/storm.studysto.manarast-1.0.15.js",
-      "sha256": "7e8acbc6939606961a4480e0261568974f4a867b509306b7aa5639a1b107f7c9",
-      "size": 34295,
+      "file": "extensions/storm.studysto.manarast-1.0.16.js",
+      "sha256": "159fd76c839dad483484f373aa66d3f34fc0c4afd47b63b3bd89be7acc25ef44",
+      "size": 34656,
       "sources": [
         {
           "id": "manara-st",
@@ -1297,7 +1300,7 @@
           "lang": "ar"
         }
       ],
-      "changelog": "- More video hosts play in storm's own player: Dailymotion, Lulu, Megamax on its new domains, Dood where it allows it, and most small hosts."
+      "changelog": "- More hosts play in storm's own player: SoraPlay, VidYard, CDA, Rumble, Blogger, Google Drive, Kwik and Sibnet, with more Streamwish and Filemoon domains."
     },
     {
       "pkg": "storm.tvsto.arabic",
